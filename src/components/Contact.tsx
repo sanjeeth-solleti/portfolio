@@ -2,7 +2,7 @@ import React from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import sanjeethPhoto from "../assets/sanjeeth.jpg";
-import resume from '../assets/sanjeeth Solleti Resume.pdf'; // replace with the actual path of your resume
+import resume from '../assets/sanjeeth-Solleti-Resume.pdf'; // replace with the actual path of your resume
 
 const Contact = () => {
   const contactInfo = [
