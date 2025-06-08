@@ -1,8 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import sanjeethPhoto from "../assets/sanjeeth.jpg";
-import resume from '../assets/sanjeeth-Solleti-Resume.pdf'; // replace with the actual path of your resume
 
 const Contact = () => {
   const contactInfo = [
@@ -93,7 +91,7 @@ const Contact = () => {
             {/* Resume Download Button */}
             <div className="pt-6">
               <a
-                href={resume}  // Link to the resume file in the assets folder
+                href="/Sanjeeth-Solleti-Resume.pdf"  // Link to the resume file in the public folder
                 download="Sanjeeth_Solleti_Resume"  // Optional: Name of the downloaded file
                 className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-100 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
               >
@@ -125,7 +123,7 @@ const Contact = () => {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-25"></div>
               <img
-                src={sanjeethPhoto}
+                src="/sanjeeth.jpg"  // Link to the image file in the public folder
                 alt="Sanjeeth"
                 className="relative rounded-full w-64 h-65 object-cover border-4 border-slate-700 shadow-lg"
               />
