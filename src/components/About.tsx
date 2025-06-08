@@ -1,6 +1,5 @@
 import React from 'react';
 import { Shield, Search, AlertTriangle, Lock } from 'lucide-react';
-import sanjeethPhoto from '../assets/sanjeeth.jpg'; // Make sure the path and filename match
 
 const About = () => {
   const highlights = [
@@ -46,7 +45,7 @@ const About = () => {
               <div className="relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-75"></div>
                 <img
-                  src={sanjeethPhoto}
+                  src="/sanjeeth.jpg"  // Corrected path to the public folder
                   alt="Sanjeeth Solleti"
                   className="relative w-64 h-65 object-cover rounded-full border-4 border-slate-700 shadow-lg"
                 />
