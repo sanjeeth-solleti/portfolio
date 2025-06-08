@@ -1,8 +1,8 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import sanjeethPhoto from 'portfolio/src/assets/sanjeeth.jpg'; // make sure to place your photo in /src/assets/
-import resume from 'portfolio/src/assets/sanjeeth Solleti Resume.pdf'; // replace with the actual path of your resume
+import sanjeethPhoto from "../assets/sanjeeth.jpg";
+import resume from '../assets/sanjeeth Solleti Resume.pdf'; // replace with the actual path of your resume
 
 const Contact = () => {
   const contactInfo = [
