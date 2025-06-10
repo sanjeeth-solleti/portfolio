@@ -31,7 +31,7 @@ const Experience = () => {
         "Insider Threat Detection & Behavioral Analysis",
         "Incident Response & Cyber Risk Mitigation"
       ]
-    }.
+    },
     {
       title: "Virtual Intern - Networking & Security",
       company: "Zscaler",
