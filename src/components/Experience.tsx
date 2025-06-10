@@ -31,13 +31,19 @@ const Experience = () => {
     },
     {
       title: "Virtual Intern - Cyber",
-      company: "Deloitee",
+      company: "Deloitte",
       location: "Remote", 
       period: "Jun 2025 – Jun 2025",
       description: [
         "Completed an intensive virtual internship simulating a real-world security consulting engagement with Deloitte. Investigated a suspected insider breach involving a manufacturing status dashboard on a corporate intranet. Conducted in-depth analysis of internal web server logs to identify irregular access patterns, automated API queries, and potential credential misuse. Evaluated network architecture, access controls, and VPN policies to determine breach feasibility and attack vectors. Delivered strategic recommendations for incident response, including system isolation, access audits, and stakeholder communication. Developed practical expertise in log forensics, threat modeling, behavioral analysis, and cyber risk mitigation in a consulting context."
       ],
-      technologies: ["Log File Analysis (Web Server & API Traffic)", "VPN & Network Access Control Evaluation", "HTTP Protocol & RESTful API Understanding", "Insider Threat Detection & Behavioral Analysis", "Incident Response & Cyber Risk Mitigation"]
+      technologies: [
+        "Log File Analysis (Web Server & API Traffic)",
+        "VPN & Network Access Control Evaluation",
+        "HTTP Protocol & RESTful API Understanding",
+        "Insider Threat Detection & Behavioral Analysis",
+        "Incident Response & Cyber Risk Mitigation"
+      ]
     }
   ];
 
@@ -54,7 +60,6 @@ const Experience = () => {
         </div>
 
         <div className="relative">
-          {/* Timeline line */}
           <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-cyan-400 to-blue-500"></div>
 
           <div className="space-y-12">
@@ -65,10 +70,8 @@ const Experience = () => {
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
               >
-                {/* Timeline dot */}
                 <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-cyan-400 rounded-full border-4 border-slate-900 z-10"></div>
 
-                {/* Content */}
                 <div className={`ml-12 md:ml-0 md:w-1/2 ${
                   index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
                 }`}>
