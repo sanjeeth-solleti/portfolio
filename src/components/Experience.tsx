@@ -31,7 +31,7 @@ const Experience = () => {
     },
     {
       title: "Virtual Intern - Cyber",
-      company: "Deloitte",
+      company: "Deloitee",
       location: "Remote", 
       period: "Jun 2025 – Jun 2025",
       description: [
