@@ -28,7 +28,7 @@ const Experience = () => {
         "Enhanced understanding of scalable risk mitigation strategies and cloud security best practices for distributed workforce environments"
       ],
       technologies: ["Zero Trust Architecture", "Cloud Security", "SASE", "Network Optimization", "Remote Access Security"]
-    }
+    },
     {
       title: "Virtual Intern - Cyber",
       company: "Deloitee",
