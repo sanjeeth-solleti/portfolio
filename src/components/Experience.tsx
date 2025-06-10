@@ -17,6 +17,19 @@ const Experience = () => {
       technologies: ["Palo Alto NGFW", "Threat Prevention", "Log Analysis", "Incident Response", "Network Security"]
     },
     {
+      title: "Virtual Intern - Networking & Security",
+      company: "Zscaler",
+      location: "Remote", 
+      period: "Oct 2024 – Dec 2024",
+      description: [
+        "Mastered Zero Trust security principles through 10+ comprehensive lab-based scenarios, focusing on securing cloud-first environments and remote endpoints",
+        "Demonstrated measurable impact of cloud-native security solutions by optimizing hypothetical enterprise traffic flow, showcasing improved performance through Zscaler's innovative architecture",
+        "Successfully completed real-world use cases simulating enterprise transition from legacy network security models to modern cloud-delivered security frameworks",
+        "Enhanced understanding of scalable risk mitigation strategies and cloud security best practices for distributed workforce environments"
+      ],
+      technologies: ["Zero Trust Architecture", "Cloud Security", "SASE", "Network Optimization", "Remote Access Security"]
+    },
+    {
       title: "Virtual Intern - Cyber",
       company: "Deloitte",
       location: "Remote", 
@@ -31,19 +44,6 @@ const Experience = () => {
         "Insider Threat Detection & Behavioral Analysis",
         "Incident Response & Cyber Risk Mitigation"
       ]
-    },
-    {
-      title: "Virtual Intern - Networking & Security",
-      company: "Zscaler",
-      location: "Remote", 
-      period: "Oct 2024 – Dec 2024",
-      description: [
-        "Mastered Zero Trust security principles through 10+ comprehensive lab-based scenarios, focusing on securing cloud-first environments and remote endpoints",
-        "Demonstrated measurable impact of cloud-native security solutions by optimizing hypothetical enterprise traffic flow, showcasing improved performance through Zscaler's innovative architecture",
-        "Successfully completed real-world use cases simulating enterprise transition from legacy network security models to modern cloud-delivered security frameworks",
-        "Enhanced understanding of scalable risk mitigation strategies and cloud security best practices for distributed workforce environments"
-      ],
-      technologies: ["Zero Trust Architecture", "Cloud Security", "SASE", "Network Optimization", "Remote Access Security"]
     }
   ];
 
