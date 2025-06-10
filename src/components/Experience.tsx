@@ -44,7 +44,7 @@ const Experience = () => {
         "Insider Threat Detection & Behavioral Analysis",
         "Incident Response & Cyber Risk Mitigation"
       ]
-    },
+    }
   ];
 
   return (
