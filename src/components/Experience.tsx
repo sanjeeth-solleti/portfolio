@@ -29,7 +29,7 @@ const Experience = () => {
       ],
       technologies: ["Zero Trust Architecture", "Cloud Security", "SASE", "Network Optimization", "Remote Access Security"]
     },
-    {
+    ]
       title: "Virtual Intern - Cyber",
       company: "Deloitte",
       location: "Remote", 
