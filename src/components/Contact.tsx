@@ -91,7 +91,7 @@ const Contact = () => {
             {/* Resume Download Button */}
             <div className="pt-6">
               <a
-                href="/Sanjeeth-Solleti-Resume.pdf"  // Link to the resume file in the public folder
+                href="/Sanjeeth_Solleti-Resume.pdf"  // Link to the resume file in the public folder
                 download="Sanjeeth_Solleti_Resume"  // Optional: Name of the downloaded file
                 className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-100 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25"
               >
