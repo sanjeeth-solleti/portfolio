@@ -4,36 +4,10 @@ import { Calendar, MapPin, ExternalLink } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
-      title: "Virtual Intern - Cybersecurity",
-      company: "Palo Alto Networks",
-      location: "Remote",
-      period: "Jan 2024 – Mar 2024",
-      description: [
-        "Completed comprehensive hands-on internship covering threat prevention, network security, and incident response using Palo Alto's enterprise-grade security tools",
-        "Successfully simulated and resolved over 20+ traffic log analysis scenarios and 15+ firewall configuration exercises to strengthen network defense protocols",
-        "Actively participated in incident response scenarios, significantly reducing mock threat response times through efficient log review and security rule tuning",
-        "Gained practical experience with next-generation firewall technologies and advanced threat detection mechanisms"
-      ],
-      technologies: ["Palo Alto NGFW", "Threat Prevention", "Log Analysis", "Incident Response", "Network Security"]
-    },
-    {
-      title: "Virtual Intern - Networking & Security",
-      company: "Zscaler",
-      location: "Remote", 
-      period: "Oct 2024 – Dec 2024",
-      description: [
-        "Mastered Zero Trust security principles through 10+ comprehensive lab-based scenarios, focusing on securing cloud-first environments and remote endpoints",
-        "Demonstrated measurable impact of cloud-native security solutions by optimizing hypothetical enterprise traffic flow, showcasing improved performance through Zscaler's innovative architecture",
-        "Successfully completed real-world use cases simulating enterprise transition from legacy network security models to modern cloud-delivered security frameworks",
-        "Enhanced understanding of scalable risk mitigation strategies and cloud security best practices for distributed workforce environments"
-      ],
-      technologies: ["Zero Trust Architecture", "Cloud Security", "SASE", "Network Optimization", "Remote Access Security"]
-    },
-    {
-      title: "Virtual Intern - Cyber",
+      title: "Deloitte Australia Cyber Job Simulation on Forage",
       company: "Deloitte",
       location: "Remote", 
-      period: "Jun 2025 – Jun 2025",
+      period: "Jun 2025",
       description: [
         "Completed an intensive virtual internship simulating a real-world security consulting engagement with Deloitte. Investigated a suspected insider breach involving a manufacturing status dashboard on a corporate intranet. Conducted in-depth analysis of internal web server logs to identify irregular access patterns, automated API queries, and potential credential misuse. Evaluated network architecture, access controls, and VPN policies to determine breach feasibility and attack vectors. Delivered strategic recommendations for incident response, including system isolation, access audits, and stakeholder communication. Developed practical expertise in log forensics, threat modeling, behavioral analysis, and cyber risk mitigation in a consulting context."
       ],
@@ -43,6 +17,24 @@ const Experience = () => {
         "HTTP Protocol & RESTful API Understanding",
         "Insider Threat Detection & Behavioral Analysis",
         "Incident Response & Cyber Risk Mitigation"
+      ]
+    }
+    {
+      title: "Tata Cybersecurity Security Analyst Job Simulation on Forage",
+      company: "Tata Group",
+      location: "Remote", 
+      period: "Jun 2025",
+      description: [
+        "Completed a job simulation involving identity and access management (IAM) for Tata Consultancy Services, collaborating with a Cybersecurity Consulting team."
+        "Acquired expertise in IAM principles, cybersecurity best practices, and strategic alignment with business objectives."
+        "Delivered comprehensive documentation and presentations, showcasing the ability to communicate complex technical concepts effectively."
+      ],
+      technologies: [
+        "Identity & Access Management (IAM) Platforms",
+        "Multi-Factor Authentication (MFA)",
+        "Role-Based Access Control (RBAC) / Attribute-Based Access Control (ABAC)",
+        "Single Sign-On (SSO) & Federation Protocols",
+        "Cloud Integration & IAM in Hybrid Environments"
       ]
     }
   ];
