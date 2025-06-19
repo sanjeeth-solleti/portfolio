@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
-const Hero = () => {
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Hero: React.FC = () => {
+  const [displayText, setDisplayText] = useState<string>('');
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const fullText = "CyberSecurity Engineer";
 
   useEffect(() => {
     if (currentIndex < fullText.length) {
       const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + fullText[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
+        setDisplayText((prev: string) => prev + fullText[currentIndex]);
+        setCurrentIndex((prev: number) => prev + 1);
       }, 100);
       return () => clearTimeout(timeout);
     }
@@ -42,18 +42,6 @@ const Hero = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
         ease: "easeOut"
       }
     }
@@ -107,7 +95,7 @@ const Hero = () => {
                 VASAVA SANJEETH SOLLETI
               </motion.span>
             </motion.h1>
-            
+
             <motion.div 
               variants={itemVariants}
               className="text-2xl md:text-3xl text-slate-300 min-h-[40px] mb-4"
@@ -126,55 +114,6 @@ const Hero = () => {
             Specialized in SOC operations, incident response, and vulnerability assessment 
             with hands-on experience in enterprise security tools.
           </motion.p>
-
-          <motion.div 
-            variants={containerVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <motion.button
-              variants={buttonVariants}
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(6, 182, 212, 0.3)" }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('projects')}
-              className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
-            >
-              View My Work
-            </motion.button>
-            
-            <motion.button
-              variants={buttonVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('contact')}
-              className="px-8 py-3 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300"
-            >
-              Get In Touch
-            </motion.button>
-          </motion.div>
-
-          <motion.div 
-            variants={containerVariants}
-            className="flex justify-center space-x-6 pt-8"
-          >
-            {[
-              { icon: Github, url: "https://github.com/sanjeeth-solleti" },
-              { icon: Linkedin, url: "https://www.linkedin.com/in/vasava-sanjeeth-solleti-9aa790268" },
-              { icon: Mail, url: "mailto:vasavasanjeeth@gmail.com" }
-            ].map((social, index) => (
-              <motion.a
-                key={index}
-                variants={buttonVariants}
-                whileHover={{ scale: 1.2, y: -5 }}
-                whileTap={{ scale: 0.9 }}
-                href={social.url}
-                target={social.icon === Mail ? undefined : "_blank"}
-                rel={social.icon === Mail ? undefined : "noopener noreferrer"}
-                className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-              >
-                <social.icon size={24} />
-              </motion.a>
-            ))}
-          </motion.div>
         </motion.div>
 
         <motion.div 
