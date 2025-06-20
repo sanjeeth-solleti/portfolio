@@ -180,15 +180,10 @@ const Skills = () => {
                       whileHover={{ scale: 1.02, x: 5 }}
                       className="relative"
                     >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-3">
-                          {skill.icon}
-                          <span className="text-gray-300 font-medium text-sm">
-                            {skill.name}
-                          </span>
-                        </div>
-                        <span className="text-xs text-gray-400 font-mono">
-                          {skill.level}%
+                      <div className="flex items-center space-x-3 mb-2">
+                        {skill.icon}
+                        <span className="text-gray-300 font-medium text-sm">
+                          {skill.name}
                         </span>
                       </div>
                       
