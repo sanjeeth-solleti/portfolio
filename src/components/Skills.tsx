@@ -24,11 +24,11 @@ const Skills = () => {
       color: "from-matrix-500/20 to-matrix-600/20",
       borderColor: "border-matrix-400/30",
       skills: [
-        { name: "Python", icon: <SiPython className="text-yellow-400" size={20} />, level: 90 },
-        { name: "Java", icon: <FaJava className="text-red-500" size={20} />, level: 85 },
-        { name: "C", icon: <SiC className="text-blue-400" size={20} />, level: 80 },
-        { name: "HTML", icon: <SiHtml5 className="text-orange-500" size={20} />, level: 95 },
-        { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} />, level: 90 }
+        { name: "Python", icon: <SiPython className="text-yellow-400" size={20} /> },
+        { name: "Java", icon: <FaJava className="text-red-500" size={20} /> },
+        { name: "C", icon: <SiC className="text-blue-400" size={20} /> },
+        { name: "HTML", icon: <SiHtml5 className="text-orange-500" size={20} /> },
+        { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> }
       ]
     },
     {
@@ -37,11 +37,11 @@ const Skills = () => {
       color: "from-neon-500/20 to-neon-600/20",
       borderColor: "border-neon-400/30",
       skills: [
-        { name: "Vulnerability Assessment", icon: <Bug className="text-red-400" size={20} />, level: 88 },
-        { name: "SIEM", icon: <Activity className="text-green-400" size={20} />, level: 85 },
-        { name: "Incident Response", icon: <AlertTriangle className="text-warning-400" size={20} />, level: 82 },
-        { name: "Log Analysis", icon: <Search className="text-neon-400" size={20} />, level: 90 },
-        { name: "Malware Analysis", icon: <Eye className="text-electric-400" size={20} />, level: 78 }
+        { name: "Vulnerability Assessment", icon: <Bug className="text-red-400" size={20} /> },
+        { name: "SIEM", icon: <Activity className="text-green-400" size={20} /> },
+        { name: "Incident Response", icon: <AlertTriangle className="text-warning-400" size={20} /> },
+        { name: "Log Analysis", icon: <Search className="text-neon-400" size={20} /> },
+        { name: "Malware Analysis", icon: <Eye className="text-electric-400" size={20} /> }
       ]
     },
     {
@@ -50,11 +50,11 @@ const Skills = () => {
       color: "from-electric-500/20 to-electric-600/20",
       borderColor: "border-electric-400/30",
       skills: [
-        { name: "Wireshark", icon: <SiWireshark className="text-blue-400" size={20} />, level: 92 },
-        { name: "Metasploit", icon: <SiMetasploit className="text-red-400" size={20} />, level: 85 },
-        { name: "Nmap", icon: <SiPinetwork className="text-matrix-400" size={20} />, level: 88 },
-        { name: "Burp Suite", icon: <SiBurpsuite className="text-warning-400" size={20} />, level: 80 },
-        { name: "Splunk", icon: <SiSplunk className="text-electric-400" size={20} />, level: 75 }
+        { name: "Wireshark", icon: <SiWireshark className="text-blue-400" size={20} /> },
+        { name: "Metasploit", icon: <SiMetasploit className="text-red-400" size={20} /> },
+        { name: "Nmap", icon: <SiPinetwork className="text-matrix-400" size={20} /> },
+        { name: "Burp Suite", icon: <SiBurpsuite className="text-warning-400" size={20} /> },
+        { name: "Splunk", icon: <SiSplunk className="text-electric-400" size={20} /> }
       ]
     },
     {
@@ -63,11 +63,11 @@ const Skills = () => {
       color: "from-warning-500/20 to-warning-600/20",
       borderColor: "border-warning-400/30",
       skills: [
-        { name: "Manual Testing", icon: <Bug className="text-warning-400" size={20} />, level: 85 },
-        { name: "Network Security", icon: <Lock className="text-neon-400" size={20} />, level: 87 },
-        { name: "SQLMap", icon: <Bug className="text-red-400" size={20} />, level: 80 },
-        { name: "Invicti Netsparker", icon: <Shield className="text-blue-400" size={20} />, level: 75 },
-        { name: "AI-Assisted Development", icon: <Zap className="text-electric-400" size={20} />, level: 90 }
+        { name: "Manual Testing", icon: <Bug className="text-warning-400" size={20} /> },
+        { name: "Network Security", icon: <Lock className="text-neon-400" size={20} /> },
+        { name: "SQLMap", icon: <Bug className="text-red-400" size={20} /> },
+        { name: "Invicti Netsparker", icon: <Shield className="text-blue-400" size={20} /> },
+        { name: "AI-Assisted Development", icon: <Zap className="text-electric-400" size={20} /> }
       ]
     }
   ];
@@ -180,24 +180,11 @@ const Skills = () => {
                       whileHover={{ scale: 1.02, x: 5 }}
                       className="relative"
                     >
-                      <div className="flex items-center space-x-3 mb-2">
+                      <div className="flex items-center space-x-3">
                         {skill.icon}
                         <span className="text-gray-300 font-medium text-sm">
                           {skill.name}
                         </span>
-                      </div>
-                      
-                      {/* Skill progress bar */}
-                      <div className="w-full bg-gray-700/50 rounded-full h-1.5 overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.5, delay: skillIndex * 0.1 }}
-                          className={`h-full bg-gradient-to-r ${category.color.replace('/20', '')} rounded-full relative`}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20 animate-pulse"></div>
-                        </motion.div>
                       </div>
                     </motion.div>
                   ))}
