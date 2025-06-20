@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Calendar, Award } from 'lucide-react';
+import { GraduationCap, Calendar, Award, BookOpen } from 'lucide-react';
 
 const Education = () => {
   const containerVariants = {
@@ -40,7 +40,7 @@ const Education = () => {
   };
 
   return (
-    <section id="education" className="py-20">
+    <section id="education" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -53,13 +53,13 @@ const Education = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Education
+            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
+              &lt;Education/&gt;
             </span>
           </motion.h2>
           <motion.div 
             variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto"
+            className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
           ></motion.div>
         </motion.div>
 
@@ -72,8 +72,8 @@ const Education = () => {
             whileHover={{ scale: 1.02, y: -5 }}
             className="group relative"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg blur opacity-0 group-hover:opacity-25 transition duration-300"></div>
-            <div className="relative bg-slate-800/50 backdrop-blur-sm rounded-lg p-8 border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300">
+            <div className="absolute -inset-1 bg-gradient-to-r from-matrix-400/30 via-neon-400/30 to-electric-400/30 rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-300"></div>
+            <div className="relative bg-gray-800/60 backdrop-blur-sm rounded-lg p-8 border border-matrix-400/30 hover:border-matrix-400/50 transition-all duration-300">
               <div className="flex items-start space-x-6">
                 <motion.div 
                   initial={{ scale: 0, rotate: -180 }}
@@ -82,8 +82,9 @@ const Education = () => {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="flex-shrink-0"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-matrix-500 to-neon-600 rounded-lg flex items-center justify-center relative">
                     <GraduationCap className="text-white" size={32} />
+                    <div className="absolute inset-0 bg-gradient-to-r from-matrix-400/20 to-neon-400/20 rounded-lg animate-pulse"></div>
                   </div>
                 </motion.div>
                 
@@ -95,13 +96,13 @@ const Education = () => {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.3 }}
                     >
-                      <h3 className="text-2xl font-bold text-white mb-2">
+                      <h3 className="text-2xl font-bold text-white mb-2 font-mono">
                         Bachelor of Technology (B.Tech)
                       </h3>
-                      <h4 className="text-xl text-cyan-400 font-semibold mb-1">
+                      <h4 className="text-xl text-matrix-400 font-semibold mb-1 font-mono">
                         Computer Science and Engineering (Cyber Security)
                       </h4>
-                      <p className="text-lg text-slate-300 font-medium">
+                      <p className="text-lg text-gray-300 font-medium">
                         Chalapathi Institute of Engineering and Technology
                       </p>
                     </motion.div>
@@ -113,13 +114,13 @@ const Education = () => {
                       transition={{ duration: 0.6, delay: 0.4 }}
                       className="mt-4 lg:mt-0 lg:text-right"
                     >
-                      <div className="flex items-center text-slate-400 mb-2 lg:justify-end">
+                      <div className="flex items-center text-gray-400 mb-2 lg:justify-end font-mono">
                         <Calendar size={16} className="mr-2" />
                         <span>Oct 2022 – Mar 2026</span>
                       </div>
-                      <div className="flex items-center text-green-400 lg:justify-end">
+                      <div className="flex items-center text-matrix-400 lg:justify-end">
                         <Award size={16} className="mr-2" />
-                        <span className="font-semibold">GPA: 8.22/10</span>
+                        <span className="font-semibold font-mono">GPA: 8.22/10</span>
                       </div>
                     </motion.div>
                   </div>
@@ -129,9 +130,13 @@ const Education = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 }}
-                    className="border-t border-slate-700/50 pt-4"
+                    className="border-t border-gray-700/50 pt-4"
                   >
-                    <p className="text-slate-300 leading-relaxed">
+                    <div className="flex items-center mb-3">
+                      <BookOpen className="text-neon-400 mr-2" size={16} />
+                      <span className="text-neon-400 font-mono text-sm">[PROGRAM_OVERVIEW]</span>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed mb-4">
                       Pursuing a specialized degree in Cybersecurity with focus on advanced security concepts, 
                       threat analysis, network security, and digital forensics. Coursework includes hands-on 
                       experience with industry-standard security tools and methodologies.
@@ -143,29 +148,46 @@ const Education = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.6 }}
-                    className="mt-4 flex flex-wrap gap-2"
+                    className="mt-4"
                   >
-                    {[
-                      'Network Security',
-                      'Cryptography',
-                      'Ethical Hacking',
-                      'Security Analytics',
-                      'Incident Response'
-                    ].map((subject, index) => (
-                      <motion.span
-                        key={index}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                        whileHover={{ scale: 1.05 }}
-                        className="px-3 py-1 text-xs font-medium bg-blue-500/10 text-blue-400 rounded-full border border-blue-400/20"
-                      >
-                        {subject}
-                      </motion.span>
-                    ))}
+                    <div className="flex items-center mb-3">
+                      <div className="w-2 h-2 bg-electric-400 rounded-full mr-2 animate-pulse"></div>
+                      <span className="text-electric-400 font-mono text-sm">[CORE_SUBJECTS]</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        'Network Security',
+                        'Cryptography',
+                        'Ethical Hacking',
+                        'Security Analytics',
+                        'Incident Response'
+                      ].map((subject, index) => (
+                        <motion.span
+                          key={index}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
+                          whileHover={{ scale: 1.05 }}
+                          className="px-3 py-1 text-xs font-medium bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50 hover:border-matrix-400/50 transition-colors duration-200 font-mono"
+                        >
+                          {subject}
+                        </motion.span>
+                      ))}
+                    </div>
                   </motion.div>
                 </div>
+              </div>
+
+              {/* Decorative corner elements */}
+              <div className="absolute top-4 right-4 w-3 h-3 border-r-2 border-t-2 border-matrix-400/30"></div>
+              <div className="absolute bottom-4 left-4 w-3 h-3 border-l-2 border-b-2 border-neon-400/30"></div>
+              
+              {/* Status indicators */}
+              <div className="absolute top-2 right-2 flex space-x-1">
+                <div className="w-1 h-1 bg-matrix-400 rounded-full animate-pulse"></div>
+                <div className="w-1 h-1 bg-neon-400 rounded-full animate-cyber-pulse"></div>
+                <div className="w-1 h-1 bg-electric-400 rounded-full animate-glow"></div>
               </div>
             </div>
           </motion.div>

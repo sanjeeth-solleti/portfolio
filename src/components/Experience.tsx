@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { Calendar, MapPin, ExternalLink, Terminal, Zap } from 'lucide-react';
 
 const Experience = () => {
   const experiences = [
@@ -9,6 +9,8 @@ const Experience = () => {
       company: "Deloitte",
       location: "Remote", 
       period: "Jun 2025",
+      color: "from-matrix-500/20 to-matrix-600/20",
+      borderColor: "border-matrix-400/30",
       description: [
         "Completed an intensive virtual internship simulating a real-world security consulting engagement with Deloitte. Investigated a suspected insider breach involving a manufacturing status dashboard on a corporate intranet. Conducted in-depth analysis of internal web server logs to identify irregular access patterns, automated API queries, and potential credential misuse. Evaluated network architecture, access controls, and VPN policies to determine breach feasibility and attack vectors. Delivered strategic recommendations for incident response, including system isolation, access audits, and stakeholder communication. Developed practical expertise in log forensics, threat modeling, behavioral analysis, and cyber risk mitigation in a consulting context."
       ],
@@ -25,6 +27,8 @@ const Experience = () => {
       company: "Tata Group",
       location: "Remote", 
       period: "Jun 2025",
+      color: "from-neon-500/20 to-neon-600/20",
+      borderColor: "border-neon-400/30",
       description: [
         "Completed a job simulation involving identity and access management (IAM) for Tata Consultancy Services, collaborating with a Cybersecurity Consulting team.Acquired expertise in IAM principles, cybersecurity best practices, and strategic alignment with business objectives.Delivered comprehensive documentation and presentations, showcasing the ability to communicate complex technical concepts effectively."
       ],
@@ -41,6 +45,8 @@ const Experience = () => {
       company: "Mastercard",
       location: "Remote", 
       period: "Jun 2025",
+      color: "from-electric-500/20 to-electric-600/20",
+      borderColor: "border-electric-400/30",
       description: [
         "Completed a job simulation where I served as an analyst on Mastercard's Security Awareness Team Helped identify and report security threats such as phishing Analyzed and identified which areas of the business needed more robust security training and implemented training courses and procedures for those teams."
       ],
@@ -99,7 +105,7 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="py-20">
+    <section id="experience" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -112,18 +118,18 @@ const Experience = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Experience
+            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
+              &lt;Experience/&gt;
             </span>
           </motion.h2>
           <motion.div 
             variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto"
+            className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
           ></motion.div>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-cyan-400 to-blue-500"></div>
+          <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-matrix-400 via-neon-400 to-electric-400"></div>
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
@@ -142,8 +148,10 @@ const Experience = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-cyan-400 rounded-full border-4 border-slate-900 z-10"
-                ></motion.div>
+                  className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-gradient-to-r from-matrix-400 to-neon-400 rounded-full border-4 border-gray-900 z-10 flex items-center justify-center"
+                >
+                  <Terminal size={12} className="text-gray-900" />
+                </motion.div>
 
                 <div className={`ml-12 md:ml-0 md:w-1/2 ${
                   index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
@@ -152,32 +160,35 @@ const Experience = () => {
                     whileHover={{ scale: 1.02, y: -5 }}
                     className="group relative"
                   >
-                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg blur opacity-0 group-hover:opacity-25 transition duration-300"></div>
-                    <div className="relative bg-slate-800/50 backdrop-blur-sm rounded-lg p-6 border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300">
+                    <div className={`absolute -inset-1 bg-gradient-to-r ${exp.color} rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-300`}></div>
+                    <div className={`relative bg-gray-800/60 backdrop-blur-sm rounded-lg p-6 border ${exp.borderColor} hover:border-opacity-60 transition-all duration-300`}>
                       <div className="mb-4">
-                        <h3 className="text-xl font-bold text-white mb-1">
-                          {exp.title}
-                        </h3>
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-slate-400">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-xl font-bold text-white font-mono">
+                            {exp.title}
+                          </h3>
+                          <Zap className="text-matrix-400 animate-pulse" size={16} />
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-gray-400 mb-3">
                           <div className="flex items-center mb-1 sm:mb-0">
-                            <ExternalLink size={16} className="mr-2 text-cyan-400" />
-                            <span className="font-medium text-cyan-400">{exp.company}</span>
+                            <ExternalLink size={16} className="mr-2 text-neon-400" />
+                            <span className="font-medium text-neon-400 font-mono">{exp.company}</span>
                           </div>
                           <div className="flex items-center mb-1 sm:mb-0">
                             <MapPin size={16} className="mr-2" />
-                            <span>{exp.location}</span>
+                            <span className="font-mono">{exp.location}</span>
                           </div>
                           <div className="flex items-center">
                             <Calendar size={16} className="mr-2" />
-                            <span>{exp.period}</span>
+                            <span className="font-mono">{exp.period}</span>
                           </div>
                         </div>
                       </div>
 
-                      <ul className="space-y-2 mb-4">
+                      <ul className="space-y-3 mb-4">
                         {exp.description.map((item, idx) => (
-                          <li key={idx} className="text-slate-300 flex items-start">
-                            <span className="text-cyan-400 mr-2 mt-2 w-1 h-1 bg-cyan-400 rounded-full flex-shrink-0"></span>
+                          <li key={idx} className="text-gray-300 flex items-start leading-relaxed">
+                            <span className="text-matrix-400 mr-3 mt-2 w-1 h-1 bg-matrix-400 rounded-full flex-shrink-0 animate-pulse"></span>
                             {item}
                           </li>
                         ))}
@@ -187,12 +198,16 @@ const Experience = () => {
                         {exp.technologies.map((tech, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1 text-xs font-medium bg-cyan-400/10 text-cyan-400 rounded-full border border-cyan-400/20"
+                            className="px-3 py-1 text-xs font-medium bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50 hover:border-matrix-400/50 transition-colors duration-200 font-mono"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
+
+                      {/* Decorative elements */}
+                      <div className="absolute top-2 right-2 w-2 h-2 bg-matrix-400 rounded-full animate-pulse opacity-60"></div>
+                      <div className="absolute bottom-2 left-2 w-1 h-1 bg-neon-400 rounded-full animate-cyber-pulse opacity-40"></div>
                     </div>
                   </motion.div>
                 </div>

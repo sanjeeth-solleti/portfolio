@@ -1,27 +1,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Download, Terminal } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const Contact = () => {
   const contactInfo = [
     {
-      icon: <Mail className="text-cyan-400" size={24} />,
+      icon: <Mail className="text-matrix-400" size={24} />,
       title: "Email",
       content: "vasavasanjeeth@gmail.com",
-      link: "mailto:vasavasanjeeth@gmail.com"
+      link: "mailto:vasavasanjeeth@gmail.com",
+      color: "from-matrix-500/20 to-matrix-600/20",
+      borderColor: "border-matrix-400/30"
     },
     {
-      icon: <Phone className="text-green-400" size={24} />,
+      icon: <Phone className="text-neon-400" size={24} />,
       title: "Phone",
       content: "+91 94911 60802",
-      link: "tel:+919491160802"
+      link: "tel:+919491160802",
+      color: "from-neon-500/20 to-neon-600/20",
+      borderColor: "border-neon-400/30"
     },
     {
-      icon: <MapPin className="text-purple-400" size={24} />,
+      icon: <MapPin className="text-electric-400" size={24} />,
       title: "Location",
       content: "Tuni, Andhra Pradesh",
-      link: "https://maps.google.com"
+      link: "https://maps.google.com",
+      color: "from-electric-500/20 to-electric-600/20",
+      borderColor: "border-electric-400/30"
     }
   ];
 
@@ -30,19 +36,22 @@ const Contact = () => {
       icon: <Github size={24} />,
       label: "GitHub",
       url: "https://github.com/sanjeeth-solleti",
-      color: "hover:text-gray-400"
+      color: "hover:text-gray-300",
+      bgColor: "hover:bg-gray-700/20"
     },
     {
       icon: <Linkedin size={24} />,
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/vasava-sanjeeth-solleti-9aa790268",
-      color: "hover:text-blue-400"
+      color: "hover:text-neon-400",
+      bgColor: "hover:bg-neon-400/10"
     },
     {
       icon: <FaWhatsapp size={24} />,
       label: "WhatsApp",
       url: "https://wa.me/9491160802",
-      color: "hover:text-green-400"
+      color: "hover:text-matrix-400",
+      bgColor: "hover:bg-matrix-400/10"
     }
   ];
 
@@ -94,7 +103,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -107,19 +116,19 @@ const Contact = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Get In Touch
+            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
+              &lt;Get_In_Touch/&gt;
             </span>
           </motion.h2>
           <motion.div 
             variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-4"
+            className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto mb-4"
           ></motion.div>
           <motion.p 
             variants={itemVariants}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            I'm actively seeking opportunities to contribute, learn, and grow through internships or entry-level roles. If you're hiring or open to collaboration, I'd love to connect and discuss how I can add value to your team.
+            <span className="text-matrix-400 font-mono">[STATUS]</span> I'm actively seeking opportunities to contribute, learn, and grow through internships or entry-level roles. If you're hiring or open to collaboration, I'd love to connect and discuss how I can add value to your team.
           </motion.p>
         </motion.div>
 
@@ -132,12 +141,16 @@ const Contact = () => {
             variants={containerVariants}
             className="space-y-8"
           >
-            <motion.h3 
+            <motion.div 
               variants={itemVariants}
-              className="text-2xl font-bold text-white mb-6"
+              className="flex items-center space-x-3 mb-6"
             >
-              Let's Start a Conversation
-            </motion.h3>
+              <Terminal className="text-matrix-400" size={20} />
+              <h3 className="text-2xl font-bold text-white font-mono">
+                [INITIATE_CONNECTION]
+              </h3>
+            </motion.div>
+            
             <div className="space-y-6">
               {contactInfo.map((info, index) => (
                 <motion.a
@@ -147,19 +160,23 @@ const Contact = () => {
                   href={info.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center group cursor-pointer"
+                  className="flex items-center group cursor-pointer relative"
                 >
-                  <div className="flex items-center justify-center w-12 h-12 bg-slate-800/50 backdrop-blur-sm rounded-lg border border-slate-700/50 group-hover:border-cyan-400/50 transition-all duration-300 mr-4">
+                  <div className={`absolute -inset-1 bg-gradient-to-r ${info.color} rounded-lg blur opacity-0 group-hover:opacity-40 transition duration-300`}></div>
+                  <div className={`relative flex items-center justify-center w-12 h-12 bg-gray-800/60 backdrop-blur-sm rounded-lg border ${info.borderColor} group-hover:border-opacity-60 transition-all duration-300 mr-4`}>
                     {info.icon}
                   </div>
                   <div>
-                    <h4 className="text-white font-medium group-hover:text-cyan-400 transition-colors duration-200">
-                      {info.title}
+                    <h4 className="text-white font-medium group-hover:text-matrix-400 transition-colors duration-200 font-mono">
+                      [{info.title.toUpperCase()}]
                     </h4>
-                    <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-200">
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-200 font-mono text-sm">
                       {info.content}
                     </p>
                   </div>
+                  
+                  {/* Status indicator */}
+                  <div className="absolute top-1 right-1 w-2 h-2 bg-matrix-400 rounded-full animate-pulse opacity-60"></div>
                 </motion.a>
               ))}
             </div>
@@ -174,9 +191,10 @@ const Contact = () => {
                 whileTap={{ scale: 0.95 }}
                 href="/Sanjeeth_Solleti_Resume.pdf"
                 download="Sanjeeth_Solleti_Resume"
-                className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-100 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
+                className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-matrix-500 to-neon-600 text-white rounded-lg hover:from-matrix-400 hover:to-neon-500 transition-all duration-300 shadow-lg shadow-matrix-500/25 font-mono"
               >
-                Resume
+                <Download size={20} className="mr-2" />
+                [DOWNLOAD_RESUME]
               </motion.a>
             </motion.div>
 
@@ -184,7 +202,7 @@ const Contact = () => {
               variants={itemVariants}
               className="pt-6"
             >
-              <h4 className="text-white font-medium mb-4">Follow Me</h4>
+              <h4 className="text-white font-medium mb-4 font-mono">[SOCIAL_NETWORKS]</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -194,7 +212,7 @@ const Contact = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-slate-400 ${social.color} transition-colors duration-300`}
+                    className={`p-3 text-gray-400 ${social.color} ${social.bgColor} rounded-lg border border-gray-700/50 hover:border-matrix-400/50 transition-all duration-300`}
                     aria-label={social.label}
                   >
                     {social.icon}
@@ -212,15 +230,22 @@ const Contact = () => {
             variants={imageVariants}
             className="flex justify-center relative"
           >
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-25"></div>
+            <div className="relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 rounded-full blur-lg opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-matrix-500 to-neon-500 rounded-full blur opacity-50 animate-glow"></div>
               <motion.img
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ duration: 0.3 }}
                 src="/sanjeeth.jpg"
                 alt="Sanjeeth"
-                className="relative rounded-full w-64 h-65 object-cover border-4 border-slate-700 shadow-lg"
+                className="relative rounded-full w-64 h-65 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
               />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-matrix-500/20 to-transparent"></div>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-4 right-4 w-3 h-3 bg-matrix-400 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-4 left-4 w-2 h-2 bg-neon-400 rounded-full animate-cyber-pulse"></div>
+              <div className="absolute top-1/2 right-2 w-1 h-1 bg-electric-400 rounded-full animate-glow"></div>
             </div>
           </motion.div>
         </div>
@@ -230,9 +255,13 @@ const Contact = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={itemVariants}
-          className="text-center mt-16 pt-8 border-t border-slate-700/50"
+          className="text-center mt-16 pt-8 border-t border-gray-700/50"
         >
-          <p className="text-slate-400">
+          <div className="flex items-center justify-center space-x-2 mb-2">
+            <Terminal className="text-matrix-400" size={16} />
+            <span className="text-matrix-400 font-mono text-sm">[SYSTEM_INFO]</span>
+          </div>
+          <p className="text-gray-400 font-mono text-sm">
             © 2024 Sanjeeth Solleti. Built with React, TypeScript, and Tailwind CSS.
           </p>
         </motion.div>

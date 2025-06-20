@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50' 
+        ? 'bg-gray-900/90 backdrop-blur-xl border-b border-matrix-500/30 shadow-lg shadow-matrix-500/10' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,9 +43,9 @@ const Header = () => {
           <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-200"
+              className="text-xl font-bold bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-200 font-mono tracking-wider"
             >
-              VASAVA SANJEETH SOLLETI
+              &lt;SANJEETH_SOLLETI/&gt;
             </button>
           </div>
 
@@ -55,10 +55,11 @@ const Header = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-slate-300 hover:text-cyan-400 transition-colors duration-200 relative group"
+                className="text-gray-300 hover:text-matrix-400 transition-all duration-300 relative group font-medium"
               >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-200 group-hover:w-full"></span>
+                <span className="relative z-10">{item.label}</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-matrix-400 to-neon-400 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute inset-0 bg-matrix-400/10 rounded-md scale-0 group-hover:scale-100 transition-transform duration-200 -z-10"></span>
               </button>
             ))}
           </nav>
@@ -67,7 +68,7 @@ const Header = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-300 hover:text-cyan-400 transition-colors duration-200"
+              className="text-gray-300 hover:text-matrix-400 transition-colors duration-200 p-2 rounded-lg hover:bg-matrix-400/10"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -77,12 +78,12 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-800/95 backdrop-blur-lg rounded-lg mt-2">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-800/95 backdrop-blur-xl rounded-lg mt-2 border border-matrix-500/30">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block px-3 py-2 text-slate-300 hover:text-cyan-400 transition-colors duration-200 w-full text-left"
+                  className="block px-3 py-2 text-gray-300 hover:text-matrix-400 hover:bg-matrix-400/10 transition-all duration-200 w-full text-left rounded-md"
                 >
                   {item.label}
                 </button>

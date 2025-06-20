@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Shield, Smartphone } from 'lucide-react';
+import { Github, ExternalLink, Shield, Smartphone, Terminal, Zap } from 'lucide-react';
 
 const Projects = () => {
   const projects = [
@@ -11,7 +11,9 @@ const Projects = () => {
       technologies: ["Python", "Bash", "Scapy", "UFW", "Network Security"],
       github: "https://github.com",
       featured: true,
-      icon: <Shield className="text-cyan-400" size={24} />,
+      icon: <Shield className="text-matrix-400" size={24} />,
+      color: "from-matrix-500/20 to-matrix-600/20",
+      borderColor: "border-matrix-400/30",
       subProjects: [
         "Packet Sniffer – Advanced network packet capture and analysis using Scapy library",
         "Firewall Rules Setup – Automated secure firewall configuration with UFW for enhanced protection", 
@@ -25,7 +27,9 @@ const Projects = () => {
       technologies: ["Flutter", "Firebase", "Dart", "Firebase Auth", "Realtime Database"],
       github: "https://github.com",
       featured: true,
-      icon: <Smartphone className="text-blue-400" size={24} />,
+      icon: <Smartphone className="text-neon-400" size={24} />,
+      color: "from-neon-500/20 to-neon-600/20",
+      borderColor: "border-neon-400/30",
       highlights: [
         "Designed and implemented clean, responsive UI using Flutter framework ensuring intuitive user experience across different screen sizes and devices",
         "Integrated Firebase Authentication for robust secure login system and comprehensive user data protection",
@@ -72,7 +76,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -85,13 +89,13 @@ const Projects = () => {
             variants={itemVariants}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Featured Projects
+            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
+              &lt;Featured_Projects/&gt;
             </span>
           </motion.h2>
           <motion.div 
             variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto"
+            className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
           ></motion.div>
         </motion.div>
 
@@ -109,8 +113,8 @@ const Projects = () => {
               whileHover={{ scale: 1.02, y: -10 }}
               className="group relative"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg blur opacity-0 group-hover:opacity-25 transition duration-300"></div>
-              <div className="relative bg-slate-800/50 backdrop-blur-sm rounded-lg overflow-hidden border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300">
+              <div className={`absolute -inset-1 bg-gradient-to-r ${project.color} rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-300`}></div>
+              <div className={`relative bg-gray-800/60 backdrop-blur-sm rounded-lg overflow-hidden border ${project.borderColor} hover:border-opacity-60 transition-all duration-300`}>
                 <div className="aspect-video relative overflow-hidden">
                   <motion.img
                     whileHover={{ scale: 1.1 }}
@@ -119,28 +123,39 @@ const Projects = () => {
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
+                  <div className="absolute top-4 left-4 p-2 bg-gray-800/80 rounded-lg backdrop-blur-sm">
                     {project.icon}
+                  </div>
+                  <div className="absolute top-4 right-4 flex space-x-2">
+                    <div className="w-2 h-2 bg-matrix-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-neon-400 rounded-full animate-cyber-pulse"></div>
+                    <div className="w-2 h-2 bg-electric-400 rounded-full animate-glow"></div>
                   </div>
                 </div>
                 
                 <div className="p-6">
-                  <h4 className="text-xl font-bold text-white mb-3 flex items-center">
-                    {project.title}
-                  </h4>
-                  <p className="text-slate-300 mb-4 leading-relaxed">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-xl font-bold text-white font-mono">
+                      {project.title}
+                    </h4>
+                    <Terminal className="text-gray-400" size={16} />
+                  </div>
+                  
+                  <p className="text-gray-300 mb-4 leading-relaxed">
                     {project.description}
                   </p>
                   
                   {/* Sub-projects for cybersecurity project */}
                   {project.subProjects && (
                     <div className="mb-4">
-                      <h5 className="text-cyan-400 font-semibold mb-2">Included Projects:</h5>
-                      <ul className="space-y-1">
+                      <h5 className="text-matrix-400 font-semibold mb-2 font-mono text-sm">
+                        [INCLUDED_PROJECTS]
+                      </h5>
+                      <ul className="space-y-2">
                         {project.subProjects.map((subProject, idx) => (
-                          <li key={idx} className="text-slate-400 text-sm flex items-start">
-                            <span className="text-cyan-400 mr-2 mt-1.5 w-1 h-1 bg-cyan-400 rounded-full flex-shrink-0"></span>
+                          <li key={idx} className="text-gray-400 text-sm flex items-start">
+                            <span className="text-matrix-400 mr-2 mt-1.5 w-1 h-1 bg-matrix-400 rounded-full flex-shrink-0 animate-pulse"></span>
                             {subProject}
                           </li>
                         ))}
@@ -151,11 +166,13 @@ const Projects = () => {
                   {/* Highlights for mobile app project */}
                   {project.highlights && (
                     <div className="mb-4">
-                      <h5 className="text-cyan-400 font-semibold mb-2">Key Achievements:</h5>
-                      <ul className="space-y-1">
+                      <h5 className="text-neon-400 font-semibold mb-2 font-mono text-sm">
+                        [KEY_ACHIEVEMENTS]
+                      </h5>
+                      <ul className="space-y-2">
                         {project.highlights.map((highlight, idx) => (
-                          <li key={idx} className="text-slate-400 text-sm flex items-start">
-                            <span className="text-cyan-400 mr-2 mt-1.5 w-1 h-1 bg-cyan-400 rounded-full flex-shrink-0"></span>
+                          <li key={idx} className="text-gray-400 text-sm flex items-start">
+                            <span className="text-neon-400 mr-2 mt-1.5 w-1 h-1 bg-neon-400 rounded-full flex-shrink-0 animate-pulse"></span>
                             {highlight}
                           </li>
                         ))}
@@ -163,11 +180,11 @@ const Projects = () => {
                     </div>
                   )}
                   
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {project.technologies.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-1 text-xs font-medium bg-cyan-400/10 text-cyan-400 rounded border border-cyan-400/20"
+                        className="px-3 py-1 text-xs font-medium bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50 hover:border-matrix-400/50 transition-colors duration-200 font-mono"
                       >
                         {tech}
                       </span>
@@ -175,17 +192,22 @@ const Projects = () => {
                   </div>
                   
                   <div className="flex space-x-4">
-                    <a
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-slate-400 hover:text-cyan-400 transition-colors duration-200"
+                      className="flex items-center text-gray-400 hover:text-matrix-400 transition-colors duration-200 font-mono text-sm"
                     >
                       <Github size={18} className="mr-2" />
-                      Code
-                    </a>
+                      [VIEW_CODE]
+                    </motion.a>
                   </div>
                 </div>
+
+                {/* Decorative corner elements */}
+                <div className="absolute bottom-4 right-4 w-3 h-3 border-r-2 border-b-2 border-matrix-400/30"></div>
               </div>
             </motion.div>
           ))}
@@ -204,10 +226,10 @@ const Projects = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300"
+            className="inline-flex items-center px-8 py-3 border-2 border-matrix-400/50 text-matrix-400 rounded-lg hover:bg-matrix-400/10 hover:border-matrix-400 transition-all duration-300 font-mono"
           >
             <Github size={20} className="mr-2" />
-            View All Projects on GitHub
+            [VIEW_ALL_PROJECTS]
           </motion.a>
         </motion.div>
       </div>

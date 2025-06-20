@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Terminal } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [displayText, setDisplayText] = useState<string>('');
@@ -49,48 +49,59 @@ const Hero: React.FC = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative">
-      {/* Animated background particles */}
+      {/* Enhanced background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(100)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+            className="absolute rounded-full"
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: [0, 1, 0],
-              scale: [0, 1, 0]
+              scale: [0, 1.5, 0],
+              x: [0, Math.random() * 200 - 100],
+              y: [0, Math.random() * 200 - 100]
             }}
             transition={{
-              duration: 2 + Math.random() * 3,
+              duration: 3 + Math.random() * 4,
               repeat: Infinity,
-              delay: Math.random() * 2
+              delay: Math.random() * 5
             }}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
+              background: `${Math.random() > 0.5 ? '#22c55e' : Math.random() > 0.5 ? '#22d3ee' : '#d946ef'}`
             }}
           />
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Glowing orbs */}
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-matrix-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-500/10 rounded-full blur-3xl animate-cyber-pulse"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-electric-500/30 rounded-full blur-2xl animate-glow"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
           className="space-y-8"
         >
-          <div className="space-y-4">
+          <div className="space-y-6">
+
             <motion.h1 
               variants={itemVariants}
               className="text-5xl md:text-7xl font-bold"
             >
-              <span className="block text-white">Hello, I'm</span>
+              <span className="block text-gray-100 mb-2">Hello, I'm</span>
               <motion.span 
                 initial={{ backgroundPosition: "0% 50%" }}
                 animate={{ backgroundPosition: "100% 50%" }}
-                transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-                className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent bg-300% animate-gradient"
+                transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
+                className="block bg-gradient-to-r from-matrix-400 via-neon-400 via-electric-400 to-matrix-500 bg-clip-text text-transparent bg-300% font-mono tracking-wider"
               >
                 VASAVA SANJEETH SOLLETI
               </motion.span>
@@ -98,35 +109,61 @@ const Hero: React.FC = () => {
 
             <motion.div 
               variants={itemVariants}
-              className="text-2xl md:text-3xl text-slate-300 min-h-[40px] mb-4"
+              className="text-2xl md:text-3xl text-gray-300 min-h-[40px] mb-6"
             >
-              <span className="border-r-2 border-cyan-400 animate-pulse pr-1">
-                {displayText}
-              </span>
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-matrix-400 font-mono">&gt;</span>
+                <span className="border-r-2 border-matrix-400 animate-pulse pr-1 font-mono">
+                  {displayText}
+                </span>
+              </div>
             </motion.div>
           </div>
 
-          <motion.p 
+          <motion.div 
             variants={itemVariants}
-            className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed"
+            className="relative"
           >
-            Passionate about defending digital infrastructure and hunting threats. 
-            Specialized in SOC operations, incident response, and vulnerability assessment 
-            with hands-on experience in enterprise security tools.
-          </motion.p>
+            <div className="absolute -inset-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 rounded-lg blur opacity-30"></div>
+            <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-lg p-8 border border-matrix-500/30">
+              <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                <span className="text-matrix-400 font-mono">[MISSION]</span> Passionate about defending digital infrastructure and hunting threats. 
+                Specialized in SOC operations, incident response, and vulnerability assessment 
+                with hands-on experience in enterprise security tools.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-wrap justify-center gap-4 pt-4"
+          >
+            {['Threat Hunter', 'SOC Analyst', 'Incident Responder', 'Security Engineer'].map((role, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 2 + index * 0.2 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="px-4 py-2 bg-gradient-to-r from-matrix-500/20 to-neon-500/20 border border-matrix-400/30 rounded-full text-matrix-400 font-mono text-sm hover:border-matrix-400/60 transition-all duration-300"
+              >
+                {role}
+              </motion.span>
+            ))}
+          </motion.div>
         </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 1 }}
+          transition={{ delay: 3, duration: 1 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
           <motion.button
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             onClick={() => scrollToSection('about')}
-            className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
+            className="text-gray-400 hover:text-matrix-400 transition-colors duration-300 p-2 rounded-full hover:bg-matrix-400/10"
           >
             <ChevronDown size={32} />
           </motion.button>
