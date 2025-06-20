@@ -104,8 +104,6 @@ const About = () => {
               className="flex justify-center lg:justify-start mb-8"
             >
               <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 rounded-full blur-lg opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                <div className="absolute -inset-1 bg-gradient-to-r from-matrix-500 to-neon-500 rounded-full blur opacity-75 animate-glow"></div>
                 <img
                   src="/sanjeeth.jpg"
                   alt="Sanjeeth Solleti"
