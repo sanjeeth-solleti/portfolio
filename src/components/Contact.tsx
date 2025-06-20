@@ -231,8 +231,6 @@ const Contact = () => {
             className="flex justify-center relative"
           >
             <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 rounded-full blur-lg opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-matrix-500 to-neon-500 rounded-full blur opacity-50 animate-glow"></div>
               <motion.img
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ duration: 0.3 }}
