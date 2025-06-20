@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
               className="text-2xl md:text-3xl text-gray-300 min-h-[40px] mb-6"
             >
               <div className="flex items-center justify-center space-x-2">
-                <span className="text-matrix-400 font-mono">></span>
+                <span className="text-matrix-400 font-mono"></span>
                 <span className="border-r-2 border-matrix-400 animate-pulse pr-1 font-mono">
                   {displayText}
                 </span>
