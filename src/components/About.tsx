@@ -98,20 +98,6 @@ const About = () => {
             variants={containerVariants}
             className="space-y-6 order-2 lg:order-1"
           >
-            {/* Profile Photo */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex justify-center lg:justify-start mb-6 lg:mb-8"
-            >
-              <div className="relative group">
-                <img
-                  src="/sanjeeth.jpg"
-                  alt="Sanjeeth Solleti"
-                  className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-cover rounded-full border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-matrix-500/20 to-transparent"></div>
-              </div>
-            </motion.div>
 
             <motion.div variants={itemVariants} className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-matrix-400/30 via-neon-400/30 to-electric-400/30 rounded-lg blur opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
