@@ -76,18 +76,18 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 relative">
+    <section id="projects" className="py-12 sm:py-16 md:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
           >
             <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
               &lt;Featured_Projects/&gt;
@@ -95,16 +95,16 @@ const Projects = () => {
           </motion.h2>
           <motion.div 
             variants={itemVariants}
-            className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
+            className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
           ></motion.div>
         </motion.div>
 
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="grid md:grid-cols-1 lg:grid-cols-2 gap-8"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
         >
           {projects.map((project, index) => (
             <motion.div 
@@ -134,15 +134,15 @@ const Projects = () => {
                   </div>
                 </div>
                 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-xl font-bold text-white font-mono">
+                    <h4 className="text-lg sm:text-xl font-bold text-white font-mono">
                       {project.title}
                     </h4>
                     <Terminal className="text-gray-400" size={16} />
                   </div>
                   
-                  <p className="text-gray-300 mb-4 leading-relaxed">
+                  <p className="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base">
                     {project.description}
                   </p>
                   
@@ -154,7 +154,7 @@ const Projects = () => {
                       </h5>
                       <ul className="space-y-2">
                         {project.subProjects.map((subProject, idx) => (
-                          <li key={idx} className="text-gray-400 text-sm flex items-start">
+                          <li key={idx} className="text-gray-400 text-xs sm:text-sm flex items-start">
                             <span className="text-matrix-400 mr-2 mt-1.5 w-1 h-1 bg-matrix-400 rounded-full flex-shrink-0 animate-pulse"></span>
                             {subProject}
                           </li>
@@ -171,7 +171,7 @@ const Projects = () => {
                       </h5>
                       <ul className="space-y-2">
                         {project.highlights.map((highlight, idx) => (
-                          <li key={idx} className="text-gray-400 text-sm flex items-start">
+                          <li key={idx} className="text-gray-400 text-xs sm:text-sm flex items-start">
                             <span className="text-neon-400 mr-2 mt-1.5 w-1 h-1 bg-neon-400 rounded-full flex-shrink-0 animate-pulse"></span>
                             {highlight}
                           </li>
@@ -180,11 +180,11 @@ const Projects = () => {
                     </div>
                   )}
                   
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
                     {project.technologies.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 text-xs font-medium bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50 hover:border-matrix-400/50 transition-colors duration-200 font-mono"
+                        className="px-2 sm:px-3 py-1 text-xs font-medium bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50 hover:border-matrix-400/50 transition-colors duration-200 font-mono"
                       >
                         {tech}
                       </span>
@@ -216,9 +216,9 @@ const Projects = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={itemVariants}
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-12"
         >
           <motion.a
             whileHover={{ scale: 1.05 }}
@@ -226,7 +226,7 @@ const Projects = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-3 border-2 border-matrix-400/50 text-matrix-400 rounded-lg hover:bg-matrix-400/10 hover:border-matrix-400 transition-all duration-300 font-mono"
+            className="inline-flex items-center px-6 sm:px-8 py-3 border-2 border-matrix-400/50 text-matrix-400 rounded-lg hover:bg-matrix-400/10 hover:border-matrix-400 transition-all duration-300 font-mono text-sm sm:text-base"
           >
             <Github size={20} className="mr-2" />
             [VIEW_ALL_PROJECTS]

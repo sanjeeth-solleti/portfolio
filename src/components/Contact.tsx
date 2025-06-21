@@ -103,18 +103,18 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-12 sm:py-16 md:py-20 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
           >
             <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
               &lt;Get_In_Touch/&gt;
@@ -122,36 +122,36 @@ const Contact = () => {
           </motion.h2>
           <motion.div 
             variants={itemVariants}
-            className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto mb-4"
+            className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto mb-4"
           ></motion.div>
           <motion.p 
             variants={itemVariants}
-            className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4"
           >
             <span className="text-matrix-400 font-mono">[STATUS]</span> I'm actively seeking opportunities to contribute, learn, and grow through internships or entry-level roles. If you're hiring or open to collaboration, I'd love to connect and discuss how I can add value to your team.
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Contact Info */}
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={containerVariants}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8 order-2 lg:order-1"
           >
             <motion.div 
               variants={itemVariants}
-              className="flex items-center space-x-3 mb-6"
+              className="flex items-center justify-center lg:justify-start space-x-3 mb-6"
             >
               <Terminal className="text-matrix-400" size={20} />
-              <h3 className="text-2xl font-bold text-white font-mono">
+              <h3 className="text-xl sm:text-2xl font-bold text-white font-mono">
                 [INITIATE_CONNECTION]
               </h3>
             </motion.div>
             
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={index}
@@ -163,14 +163,14 @@ const Contact = () => {
                   className="flex items-center group cursor-pointer relative"
                 >
                   <div className={`absolute -inset-1 bg-gradient-to-r ${info.color} rounded-lg blur opacity-0 group-hover:opacity-40 transition duration-300`}></div>
-                  <div className={`relative flex items-center justify-center w-12 h-12 bg-gray-800/60 backdrop-blur-sm rounded-lg border ${info.borderColor} group-hover:border-opacity-60 transition-all duration-300 mr-4`}>
+                  <div className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gray-800/60 backdrop-blur-sm rounded-lg border ${info.borderColor} group-hover:border-opacity-60 transition-all duration-300 mr-4`}>
                     {info.icon}
                   </div>
                   <div>
-                    <h4 className="text-white font-medium group-hover:text-matrix-400 transition-colors duration-200 font-mono">
+                    <h4 className="text-white font-medium group-hover:text-matrix-400 transition-colors duration-200 font-mono text-sm sm:text-base">
                       [{info.title.toUpperCase()}]
                     </h4>
-                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-200 font-mono text-sm">
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-200 font-mono text-xs sm:text-sm">
                       {info.content}
                     </p>
                   </div>
@@ -184,14 +184,14 @@ const Contact = () => {
             {/* Resume Download Button */}
             <motion.div 
               variants={itemVariants}
-              className="pt-6"
+              className="pt-4 sm:pt-6 flex justify-center lg:justify-start"
             >
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/Sanjeeth_Solleti_Resume.pdf"
                 download="Sanjeeth_Solleti_Resume"
-                className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-matrix-500 to-neon-600 text-white rounded-lg hover:from-matrix-400 hover:to-neon-500 transition-all duration-300 shadow-lg shadow-matrix-500/25 font-mono"
+                className="inline-flex items-center px-6 sm:px-8 py-3 bg-gradient-to-r from-matrix-500 to-neon-600 text-white rounded-lg hover:from-matrix-400 hover:to-neon-500 transition-all duration-300 shadow-lg shadow-matrix-500/25 font-mono text-sm sm:text-base"
               >
                 <Download size={20} className="mr-2" />
                 [DOWNLOAD_RESUME]
@@ -200,10 +200,10 @@ const Contact = () => {
 
             <motion.div 
               variants={itemVariants}
-              className="pt-6"
+              className="pt-4 sm:pt-6 text-center lg:text-left"
             >
-              <h4 className="text-white font-medium mb-4 font-mono">[SOCIAL_NETWORKS]</h4>
-              <div className="flex space-x-4">
+              <h4 className="text-white font-medium mb-4 font-mono text-sm sm:text-base">[SOCIAL_NETWORKS]</h4>
+              <div className="flex justify-center lg:justify-start space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
@@ -226,9 +226,9 @@ const Contact = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={imageVariants}
-            className="flex justify-center relative"
+            className="flex justify-center relative order-1 lg:order-2"
           >
             <div className="relative group">
               <motion.img
@@ -236,7 +236,7 @@ const Contact = () => {
                 transition={{ duration: 0.3 }}
                 src="/sanjeeth.jpg"
                 alt="Sanjeeth"
-                className="relative rounded-full w-64 h-65 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
+                className="relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
               />
               <div className="absolute inset-0 rounded-full bg-gradient-to-t from-matrix-500/20 to-transparent"></div>
               
@@ -251,15 +251,15 @@ const Contact = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={itemVariants}
-          className="text-center mt-16 pt-8 border-t border-gray-700/50"
+          className="text-center mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-700/50"
         >
           <div className="flex items-center justify-center space-x-2 mb-2">
             <Terminal className="text-matrix-400" size={16} />
             <span className="text-matrix-400 font-mono text-sm">[SYSTEM_INFO]</span>
           </div>
-          <p className="text-gray-400 font-mono text-sm">
+          <p className="text-gray-400 font-mono text-xs sm:text-sm">
             © 2024 Sanjeeth Solleti. Built with React, TypeScript, and Tailwind CSS.
           </p>
         </motion.div>

@@ -16,9 +16,9 @@ function App() {
       <div className="fixed inset-0 bg-cyber-grid bg-grid opacity-20"></div>
       <div className="fixed inset-0 bg-gradient-to-t from-transparent via-transparent to-matrix-900/10"></div>
       
-      {/* Matrix rain effect */}
+      {/* Matrix rain effect - reduced for mobile performance */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div
             key={i}
             className="absolute w-px bg-gradient-to-b from-transparent via-matrix-400 to-transparent animate-matrix-rain opacity-30"
@@ -32,9 +32,9 @@ function App() {
         ))}
       </div>
       
-      {/* Floating particles */}
+      {/* Floating particles - reduced for mobile performance */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-neon-400 rounded-full animate-cyber-pulse"

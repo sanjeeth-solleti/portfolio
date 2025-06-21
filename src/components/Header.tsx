@@ -39,23 +39,23 @@ const Header = () => {
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-xl font-bold bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-200 font-mono tracking-wider"
+              className="text-lg sm:text-xl font-bold bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-200 font-mono tracking-wider"
             >
               &lt;SANJEETH_SOLLETI/&gt;
             </button>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-4 lg:space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-gray-300 hover:text-matrix-400 transition-all duration-300 relative group font-medium"
+                className="text-gray-300 hover:text-matrix-400 transition-all duration-300 relative group font-medium text-sm lg:text-base"
               >
                 <span className="relative z-10">{item.label}</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-matrix-400 to-neon-400 transition-all duration-300 group-hover:w-full"></span>
@@ -70,7 +70,7 @@ const Header = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-300 hover:text-matrix-400 transition-colors duration-200 p-2 rounded-lg hover:bg-matrix-400/10"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -83,7 +83,7 @@ const Header = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block px-3 py-2 text-gray-300 hover:text-matrix-400 hover:bg-matrix-400/10 transition-all duration-200 w-full text-left rounded-md"
+                  className="block px-3 py-2 text-gray-300 hover:text-matrix-400 hover:bg-matrix-400/10 transition-all duration-200 w-full text-left rounded-md text-sm"
                 >
                   {item.label}
                 </button>
