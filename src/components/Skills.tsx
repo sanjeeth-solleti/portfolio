@@ -1,7 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ShieldCheck, Cpu, Terminal 
+import {
+  Code,
+  Shield,
+  Terminal,
+  Zap,
+  Bug,
+  Lock,
+  Eye,
+  Search,
+  AlertTriangle,
+  Activity,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   SiPython,
@@ -11,52 +21,51 @@ import {
   SiWireshark,
   SiBurpsuite,
   SiSplunk,
-  SiNessus,
   SiAcunetix,
   SiLinux,
   SiSqlite,
-} from 'react-icons/si'; 
-import { FaJava, FaRobot } from 'react-icons/fa6';
+  SiJava,
+} from 'react-icons/si';
 
 const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      icon: <Terminal className="text-matrix-400" size={24} />,
+      icon: <Code className="text-matrix-400" size={24} />,
       color: "from-matrix-500/20 to-matrix-600/20",
       borderColor: "border-matrix-400/30",
       skills: [
         { name: "C", icon: <SiC className="text-blue-400" size={20} /> },
         { name: "Python", icon: <SiPython className="text-yellow-400" size={20} /> },
-        { name: "Java", icon: <FaJava className="text-red-500" size={20} /> },
+        { name: "Java", icon: <SiJava className="text-red-500" size={20} /> },
         { name: "HTML", icon: <SiHtml5 className="text-orange-500" size={20} /> },
-        { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> },
+        { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> }
       ]
     },
     {
       title: "Cybersecurity & Tools",
-      icon: <ShieldCheck className="text-neon-400" size={24} />,
+      icon: <Shield className="text-neon-400" size={24} />,
       color: "from-neon-500/20 to-neon-600/20",
       borderColor: "border-neon-400/30",
       skills: [
-        { name: "Kali Linux", icon: <SiLinux className="text-gray-300" size={20} /> },
+        { name: "Kali Linux", icon: <SiLinux className="text-gray-400" size={20} /> },
         { name: "Wireshark", icon: <SiWireshark className="text-blue-400" size={20} /> },
-        { name: "Burp Suite", icon: <SiBurpsuite className="text-warning-400" size={20} /> },
-        { name: "SQLMap", icon: <SiSqlite className="text-red-400" size={20} /> },
-        { name: "Splunk", icon: <SiSplunk className="text-electric-400" size={20} /> },
+        { name: "Burp Suite", icon: <SiBurpsuite className="text-orange-400" size={20} /> },
+        { name: "SQLMap", icon: <SiSqlite className="text-green-400" size={20} /> },
+        { name: "Splunk", icon: <SiSplunk className="text-electric-400" size={20} /> }
       ]
     },
     {
       title: "Automation Tools & AI Skills",
-      icon: <Cpu className="text-electric-400" size={24} />,
-      color: "from-electric-500/20 to-electric-600/20",
-      borderColor: "border-electric-400/30",
+      icon: <Zap className="text-warning-400" size={24} />,
+      color: "from-warning-500/20 to-warning-600/20",
+      borderColor: "border-warning-400/30",
       skills: [
-        { name: "Invicti Netsparker", icon: <ShieldCheck className="text-blue-400" size={20} /> }, // fallback
-        { name: "Nessus", icon: <SiNessus className="text-purple-400" size={20} /> },
-        { name: "Acunetix", icon: <SiAcunetix className="text-pink-500" size={20} /> },
-        { name: "AI Prompt Engineering", icon: <FaRobot className="text-neon-400" size={20} /> },
-        { name: "AI-Based Task Automation", icon: <Cpu className="text-electric-400" size={20} /> }
+        { name: "Invicti Netsparker", icon: <ShieldCheck className="text-blue-400" size={20} /> },
+        { name: "Nessus", icon: <ShieldCheck className="text-purple-400" size={20} /> },
+        { name: "Acunetix", icon: <SiAcunetix className="text-red-400" size={20} /> },
+        { name: "AI Prompt Engineering", icon: <Zap className="text-electric-400" size={20} /> },
+        { name: "AI-Assisted Development", icon: <Zap className="text-yellow-400" size={20} /> }
       ]
     }
   ];
@@ -119,7 +128,7 @@ const Skills = () => {
           variants={containerVariants}
           className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <motion.h2 
+          <motion.h2
             variants={itemVariants}
             className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
           >
@@ -127,7 +136,7 @@ const Skills = () => {
               &lt;Skills/&gt;
             </span>
           </motion.h2>
-          <motion.div 
+          <motion.div
             variants={itemVariants}
             className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
           ></motion.div>
@@ -140,9 +149,9 @@ const Skills = () => {
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div 
-              key={categoryIndex} 
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
               variants={cardVariants}
               whileHover={{ scale: 1.02, y: -5 }}
               className="group relative"
@@ -181,7 +190,7 @@ const Skills = () => {
                   ))}
                 </motion.div>
 
-                {/* Decorative corner elements */}
+                {/* Decorative dots */}
                 <div className="absolute top-2 right-2 w-2 h-2 bg-matrix-400 rounded-full animate-pulse opacity-40"></div>
                 <div className="absolute bottom-2 left-2 w-1 h-1 bg-neon-400 rounded-full animate-cyber-pulse opacity-30"></div>
               </div>
