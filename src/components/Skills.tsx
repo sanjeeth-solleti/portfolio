@@ -135,7 +135,7 @@ const Skills = () => {
             className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
           >
             <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
-              &lt;Skills_&amp;_Technologies/&gt;
+              &lt;Skills/&gt;
             </span>
           </motion.h2>
           <motion.div 
