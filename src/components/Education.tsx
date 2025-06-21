@@ -156,11 +156,9 @@ const Education = () => {
                     </div>
                     <div className="flex flex-wrap justify-center sm:justify-start gap-2">
                       {[
-                        'Network Security',
-                        'Cryptography',
-                        'Ethical Hacking',
-                        'Security Analytics',
-                        'Incident Response'
+                        'Computer Networks',
+                        'Foundation of CyberSecurity',
+                        'Ethical Hacking'
                       ].map((subject, index) => (
                         <motion.span
                           key={index}
