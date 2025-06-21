@@ -24,8 +24,8 @@ import {
   SiAcunetix,
   SiLinux,
   SiSqlite,
-  SiJava,
 } from 'react-icons/si';
+import { FaJava } from 'react-icons/fa'; // ✅ Correct Java icon
 
 const Skills = () => {
   const skillCategories = [
@@ -37,7 +37,7 @@ const Skills = () => {
       skills: [
         { name: "C", icon: <SiC className="text-blue-400" size={20} /> },
         { name: "Python", icon: <SiPython className="text-yellow-400" size={20} /> },
-        { name: "Java", icon: <SiJava className="text-red-500" size={20} /> },
+        { name: "Java", icon: <FaJava className="text-red-500" size={20} /> },
         { name: "HTML", icon: <SiHtml5 className="text-orange-500" size={20} /> },
         { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> }
       ]
