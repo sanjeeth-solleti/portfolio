@@ -3,14 +3,7 @@ import { motion } from 'framer-motion';
 import {
   Code,
   Shield,
-  Terminal,
   Zap,
-  Bug,
-  Lock,
-  Eye,
-  Search,
-  AlertTriangle,
-  Activity,
   ShieldCheck,
 } from 'lucide-react';
 import {
@@ -21,11 +14,10 @@ import {
   SiWireshark,
   SiBurpsuite,
   SiSplunk,
-  SiAcunetix,
   SiLinux,
   SiSqlite,
+  SiJava,
 } from 'react-icons/si';
-import { FaJava } from 'react-icons/fa'; // ✅ Correct Java icon
 
 const Skills = () => {
   const skillCategories = [
@@ -37,7 +29,7 @@ const Skills = () => {
       skills: [
         { name: "C", icon: <SiC className="text-blue-400" size={20} /> },
         { name: "Python", icon: <SiPython className="text-yellow-400" size={20} /> },
-        { name: "Java", icon: <FaJava className="text-red-500" size={20} /> },
+        { name: "Java", icon: <SiJava className="text-red-500" size={20} /> },
         { name: "HTML", icon: <SiHtml5 className="text-orange-500" size={20} /> },
         { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> }
       ]
@@ -63,7 +55,7 @@ const Skills = () => {
       skills: [
         { name: "Invicti Netsparker", icon: <ShieldCheck className="text-blue-400" size={20} /> },
         { name: "Nessus", icon: <ShieldCheck className="text-purple-400" size={20} /> },
-        { name: "Acunetix", icon: <SiAcunetix className="text-red-400" size={20} /> },
+        { name: "Acunetix", icon: <ShieldCheck className="text-red-400" size={20} /> },
         { name: "AI Prompt Engineering", icon: <Zap className="text-electric-400" size={20} /> },
         { name: "AI-Assisted Development", icon: <Zap className="text-yellow-400" size={20} /> }
       ]
