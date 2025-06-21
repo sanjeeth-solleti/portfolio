@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Code, Shield, Search, AlertTriangle, Terminal, Zap, Bug, Eye, Lock, Activity 
+  ShieldCheck, Cpu, Terminal 
 } from 'lucide-react';
 import {
   SiPython,
@@ -9,65 +9,54 @@ import {
   SiCss3,
   SiC,
   SiWireshark,
-  SiMetasploit,
   SiBurpsuite,
   SiSplunk,
-  SiPinetwork,
+  SiNessus,
+  SiAcunetix,
+  SiLinux,
+  SiSqlite,
 } from 'react-icons/si'; 
-import { FaJava } from 'react-icons/fa';
+import { FaJava, FaRobot } from 'react-icons/fa6';
 
 const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      icon: <Code className="text-matrix-400" size={24} />,
+      icon: <Terminal className="text-matrix-400" size={24} />,
       color: "from-matrix-500/20 to-matrix-600/20",
       borderColor: "border-matrix-400/30",
       skills: [
+        { name: "C", icon: <SiC className="text-blue-400" size={20} /> },
         { name: "Python", icon: <SiPython className="text-yellow-400" size={20} /> },
         { name: "Java", icon: <FaJava className="text-red-500" size={20} /> },
-        { name: "C", icon: <SiC className="text-blue-400" size={20} /> },
         { name: "HTML", icon: <SiHtml5 className="text-orange-500" size={20} /> },
-        { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> }
+        { name: "CSS", icon: <SiCss3 className="text-blue-500" size={20} /> },
       ]
     },
     {
-      title: "Security Skills",
-      icon: <Shield className="text-neon-400" size={24} />,
+      title: "Cybersecurity & Tools",
+      icon: <ShieldCheck className="text-neon-400" size={24} />,
       color: "from-neon-500/20 to-neon-600/20",
       borderColor: "border-neon-400/30",
       skills: [
-        { name: "Vulnerability Assessment", icon: <Bug className="text-red-400" size={20} /> },
-        { name: "SIEM", icon: <Activity className="text-green-400" size={20} /> },
-        { name: "Incident Response", icon: <AlertTriangle className="text-warning-400" size={20} /> },
-        { name: "Log Analysis", icon: <Search className="text-neon-400" size={20} /> },
-        { name: "Malware Analysis", icon: <Eye className="text-electric-400" size={20} /> }
+        { name: "Kali Linux", icon: <SiLinux className="text-gray-300" size={20} /> },
+        { name: "Wireshark", icon: <SiWireshark className="text-blue-400" size={20} /> },
+        { name: "Burp Suite", icon: <SiBurpsuite className="text-warning-400" size={20} /> },
+        { name: "SQLMap", icon: <SiSqlite className="text-red-400" size={20} /> },
+        { name: "Splunk", icon: <SiSplunk className="text-electric-400" size={20} /> },
       ]
     },
     {
-      title: "Security Tools",
-      icon: <Terminal className="text-electric-400" size={24} />,
+      title: "Automation Tools & AI Skills",
+      icon: <Cpu className="text-electric-400" size={24} />,
       color: "from-electric-500/20 to-electric-600/20",
       borderColor: "border-electric-400/30",
       skills: [
-        { name: "Wireshark", icon: <SiWireshark className="text-blue-400" size={20} /> },
-        { name: "Metasploit", icon: <SiMetasploit className="text-red-400" size={20} /> },
-        { name: "Nmap", icon: <SiPinetwork className="text-matrix-400" size={20} /> },
-        { name: "Burp Suite", icon: <SiBurpsuite className="text-warning-400" size={20} /> },
-        { name: "Splunk", icon: <SiSplunk className="text-electric-400" size={20} /> }
-      ]
-    },
-    {
-      title: "Additional Skills",
-      icon: <Zap className="text-warning-400" size={24} />,
-      color: "from-warning-500/20 to-warning-600/20",
-      borderColor: "border-warning-400/30",
-      skills: [
-        { name: "Manual Testing", icon: <Bug className="text-warning-400" size={20} /> },
-        { name: "Network Security", icon: <Lock className="text-neon-400" size={20} /> },
-        { name: "SQLMap", icon: <Bug className="text-red-400" size={20} /> },
-        { name: "Invicti Netsparker", icon: <Shield className="text-blue-400" size={20} /> },
-        { name: "AI-Assisted Development", icon: <Zap className="text-electric-400" size={20} /> }
+        { name: "Invicti Netsparker", icon: <ShieldCheck className="text-blue-400" size={20} /> }, // fallback
+        { name: "Nessus", icon: <SiNessus className="text-purple-400" size={20} /> },
+        { name: "Acunetix", icon: <SiAcunetix className="text-pink-500" size={20} /> },
+        { name: "AI Prompt Engineering", icon: <FaRobot className="text-neon-400" size={20} /> },
+        { name: "AI-Based Task Automation", icon: <Cpu className="text-electric-400" size={20} /> }
       ]
     }
   ];
@@ -149,7 +138,7 @@ const Skills = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
           {skillCategories.map((category, categoryIndex) => (
             <motion.div 
