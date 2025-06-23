@@ -2,8 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ExternalLink, Terminal, Zap } from 'lucide-react';
 
-const Experience = () => {
-  const experiences = [
+const experiences = [
   {
     title: "Cybersecurity Job Simulations – Forage",
     company: "Forage",
@@ -12,10 +11,18 @@ const Experience = () => {
     color: "from-matrix-500/20 to-neon-600/20",
     borderColor: "border-matrix-400/30",
     description: [
-      "• Deloitte Australia – Security Analyst: Investigated internal server logs, detected scraping activity, and recommended risk mitigation strategies.",
-      "• Tata Consultancy Services – IAM Developer: Worked on identity and access management, documented security practices, and aligned strategies with business objectives.",
-      "• Mastercard – Security Awareness Analyst: Assisted in identifying phishing threats and analyzing organizational risk areas. Contributed to the design of targeted security training programs to strengthen employee awareness.",
-      "• Commonwealth Bank – Security Analyst: Utilized Splunk to create data visualization dashboards for fraud detection. Participated in simulated incident response, including threat containment, reporting, and recovery support."
+      <span key="deloitte">
+        <strong>Deloitte Australia – Security Analyst:</strong> Investigated internal server logs, detected scraping activity, and recommended risk mitigation strategies.
+      </span>,
+      <span key="tcs">
+        <strong>Tata Consultancy Services – IAM Developer:</strong> Worked on identity and access management, documented security practices, and aligned strategies with business objectives.
+      </span>,
+      <span key="mastercard">
+        <strong>Mastercard – Security Awareness Analyst:</strong> Assisted in identifying phishing threats and analyzing organizational risk areas. Contributed to the design of targeted security training programs to strengthen employee awareness.
+      </span>,
+      <span key="cba">
+        <strong>Commonwealth Bank – Security Analyst:</strong> Utilized Splunk to create data visualization dashboards for fraud detection. Participated in simulated incident response, including threat containment, reporting, and recovery support.
+      </span>
     ],
     technologies: [
       "Log File Analysis", "IAM & RBAC", "Multi-Factor Authentication", "Phishing Detection",
