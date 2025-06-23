@@ -4,74 +4,25 @@ import { Calendar, MapPin, ExternalLink, Terminal, Zap } from 'lucide-react';
 
 const Experience = () => {
   const experiences = [
-    {
-      title: "Deloitte Australia Cyber Job Simulation on Forage",
-      company: "Deloitte",
-      location: "Remote", 
-      period: "Jun 2025",
-      color: "from-matrix-500/20 to-matrix-600/20",
-      borderColor: "border-matrix-400/30",
-      description: [
-        "Completed an intensive virtual internship simulating a real-world security consulting engagement with Deloitte. Investigated a suspected insider breach involving a manufacturing status dashboard on a corporate intranet. Conducted in-depth analysis of internal web server logs to identify irregular access patterns, automated API queries, and potential credential misuse. Evaluated network architecture, access controls, and VPN policies to determine breach feasibility and attack vectors. Delivered strategic recommendations for incident response, including system isolation, access audits, and stakeholder communication. Developed practical expertise in log forensics, threat modeling, behavioral analysis, and cyber risk mitigation in a consulting context."
-      ],
-      technologies: [
-        "Log File Analysis (Web Server & API Traffic)",
-        "VPN & Network Access Control Evaluation",
-        "HTTP Protocol & RESTful API Understanding",
-        "Insider Threat Detection & Behavioral Analysis",
-        "Incident Response & Cyber Risk Mitigation"
-      ]
-    },
-    {
-      title: "Tata Cybersecurity Security Analyst Job Simulation on Forage",
-      company: "Tata Group",
-      location: "Remote", 
-      period: "Jun 2025",
-      color: "from-neon-500/20 to-neon-600/20",
-      borderColor: "border-neon-400/30",
-      description: [
-        "Completed a job simulation involving identity and access management (IAM) for Tata Consultancy Services, collaborating with a Cybersecurity Consulting team.Acquired expertise in IAM principles, cybersecurity best practices, and strategic alignment with business objectives.Delivered comprehensive documentation and presentations, showcasing the ability to communicate complex technical concepts effectively."
-      ],
-      technologies: [
-        "Identity & Access Management (IAM) Platforms",
-        "Multi-Factor Authentication (MFA)",
-        "Role-Based Access Control (RBAC) / Attribute-Based Access Control (ABAC)",
-        "Single Sign-On (SSO) & Federation Protocols",
-        "Cloud Integration & IAM in Hybrid Environments"
-      ]
-    },
-    {
-      title: "Mastercard Cybersecurity virtual experience program on Forage ",
-      company: "Mastercard",
-      location: "Remote", 
-      period: "Jun 2025",
-      color: "from-electric-500/20 to-electric-600/20",
-      borderColor: "border-electric-400/30",
-      description: [
-        "Completed a job simulation where I served as an analyst on Mastercard's Security Awareness Team Helped identify and report security threats such as phishing Analyzed and identified which areas of the business needed more robust security training and implemented training courses and procedures for those teams."
-      ],
-      technologies: [
-        "Phishing Mail Analysis",
-        "Social Engineering Tatics"
-      ]
-    },
-    {
-      title: "Commonwealth Bank Introduction to Cybersecurity Job Simulation on Forage ",
-      company: "Commonwealth Bank",
-      location: "Remote", 
-      period: "Jun 2025",
-      color: "from-electric-500/20 to-electric-600/20",
-      borderColor: "border-electric-400/30",
-      description: [
-        "Completed a job simulation involving the role of a cybersecurity generalist, specializing in fraud detection and prevention for Commonwealth Bank’s Cybersecurity team.Developed skills in building data visualization dashboards using Splunk to uncover patterns and insights in historical customer data, aiding in fraud detection. Demonstrated the ability to respond effectively to cybersecurity incidents, including notifying relevant teams, collecting information, containing and stopping attacks, and aiding in recovery efforts."
-      ],
-      technologies: [
-        "Splunk",
-        "Log Analysis",
-        "Incident Response",
-      ]
-    }
-  ];
+  {
+    title: "Cybersecurity Job Simulations – Forage",
+    company: "Forage",
+    location: "Remote",
+    period: "June 2025",
+    color: "from-matrix-500/20 to-neon-600/20",
+    borderColor: "border-matrix-400/30",
+    description: [
+      "• Deloitte Australia – Security Analyst: Investigated internal server logs, detected scraping activity, and recommended risk mitigation strategies.",
+      "• Tata Consultancy Services – IAM Developer: Worked on identity and access management, documented security practices, and aligned strategies with business objectives.",
+      "• Mastercard – Security Awareness Analyst: Assisted in identifying phishing threats and analyzing organizational risk areas. Contributed to the design of targeted security training programs to strengthen employee awareness.",
+      "• Commonwealth Bank – Security Analyst: Utilized Splunk to create data visualization dashboards for fraud detection. Participated in simulated incident response, including threat containment, reporting, and recovery support."
+    ],
+    technologies: [
+      "Log File Analysis", "IAM & RBAC", "Multi-Factor Authentication", "Phishing Detection",
+      "Security Awareness", "Splunk", "Incident Response", "Data Visualization", "Access Control"
+    ]
+  }
+];
 
   const containerVariants = {
     hidden: { opacity: 0 },
