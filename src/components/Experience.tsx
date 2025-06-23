@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ExternalLink, Terminal, Zap } from 'lucide-react';
 
-const experiences = [
+const Experience = () => {
+  const experiences = [
   {
     title: "Cybersecurity Job Simulations – Forage",
     company: "Forage",
@@ -30,7 +31,6 @@ const experiences = [
     ]
   }
 ];
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
