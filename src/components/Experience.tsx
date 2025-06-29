@@ -29,6 +29,23 @@ const Experience = () => {
       "Log File Analysis", "IAM & RBAC", "Multi-Factor Authentication", "Phishing Detection",
       "Security Awareness", "Splunk", "Incident Response", "Data Visualization", "Access Control"
     ]
+  },
+  {
+    title: "Cybersecurity Internship",
+    company: "Future Interns",
+    location: "Remote",
+    period: "June 2025 - July 2025",
+    color: "from-matrix-500/20 to-neon-600/20",
+    borderColor: "border-matrix-400/30",
+    description: [
+      "Conducted vulnerability assessment of web applications using OWASP ZAP, Burp Suite, and SQLMap; identified and reported critical issues such as XSS and SQL injection with detailed mitigation strategies."
+      "Monitored simulated SIEM alerts using ELK Stack and Splunk; performed incident classification, log analysis, and prepared incident response documentation to simulate SOC operations."
+      "Developed a secure file sharing system with AES encryption in Python Flask; ensured confidentiality and integrity of file transmission and storage, documented implementation on GitHub."
+    ],
+    technologies: [
+      "DVWM", "BurpSuite", "Splunk", "Log Analysis",
+      "Vulnerability Assessment", "Encryption", "cryptography"
+    ]
   }
 ];
   const containerVariants = {
