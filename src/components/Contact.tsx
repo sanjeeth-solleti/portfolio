@@ -238,7 +238,6 @@ const Contact = () => {
                 alt="Sanjeeth"
                 className="relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
               />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-matrix-500/20 to-transparent"></div>
               
               {/* Decorative elements */}
               <div className="absolute top-4 right-4 w-3 h-3 bg-matrix-400 rounded-full animate-pulse"></div>
