@@ -236,7 +236,7 @@ const Contact = () => {
                 transition={{ duration: 0.3 }}
                 src="/sanjeeth.jpg"
                 alt="Sanjeeth"
-                className="relative rounded-full w-100 h-100 sm:w-56 sm:h-56 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
+                className="relative rounded-full w-100 h-100 sm:w-56 sm:h-65 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
               />
               
               {/* Decorative elements */}
