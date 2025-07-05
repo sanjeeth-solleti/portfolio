@@ -74,8 +74,11 @@ export default {
         'cyber-pulse': 'cyber-pulse 3s ease-in-out infinite',
         'neon-flicker': 'neon-flicker 1.5s ease-in-out infinite alternate',
         'grid-move': 'gridMove 20s linear infinite',
+        'grid-pulse': 'gridPulse 8s ease-in-out infinite',
         'data-flow': 'dataFlow 15s linear infinite',
         'glitch': 'glitch 0.3s ease-in-out infinite',
+        'radar-sweep': 'radarSweep 4s linear infinite',
+        'security-scan': 'securityScan 6s ease-in-out infinite',
       },
       keyframes: {
         glow: {
@@ -96,7 +99,11 @@ export default {
         },
         gridMove: {
           '0%': { transform: 'translate(0, 0)' },
-          '100%': { transform: 'translate(50px, 50px)' }
+          '100%': { transform: 'translate(40px, 40px)' }
+        },
+        gridPulse: {
+          '0%, 100%': { opacity: 0.15 },
+          '50%': { opacity: 0.25 }
         },
         dataFlow: {
           '0%': { transform: 'translateX(-100%)' },
@@ -108,6 +115,14 @@ export default {
           '40%': { transform: 'translateX(2px)' },
           '60%': { transform: 'translateX(-1px)' },
           '80%': { transform: 'translateX(1px)' }
+        },
+        radarSweep: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        },
+        securityScan: {
+          '0%, 100%': { opacity: 0.3 },
+          '50%': { opacity: 0.8 }
         }
       },
       backdropBlur: {
