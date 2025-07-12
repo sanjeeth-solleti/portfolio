@@ -199,7 +199,7 @@ const Certifications = () => {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Decorative corner elements */}
                 <div className="absolute top-4 right-4 w-3 h-3 border-r-2 border-t-2 border-matrix-400/30"></div>
