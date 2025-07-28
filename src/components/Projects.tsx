@@ -178,19 +178,16 @@ const Projects = () => {
         <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradientFrom} ${project.gradientTo} rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-300`}></div>
         <div className={`relative bg-gray-800/60 backdrop-blur-sm rounded-lg overflow-hidden border ${project.borderColor} hover:border-opacity-60 transition-all duration-300`}>
           
-          {/* Removed image and replaced with neutral section */}
-          <div className="aspect-video relative overflow-hidden bg-gray-900/50">
-            <div className="absolute top-4 left-4 p-2 bg-gray-800/80 rounded-lg backdrop-blur-sm">
-              <IconComponent className={project.iconColor} size={24} />
-            </div>
-            <StatusIndicators />
-          </div>
-
           <div className="p-4 sm:p-6">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="text-lg sm:text-xl font-bold text-white font-mono">
-                {project.title}
-              </h4>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-gray-700/50 rounded-lg">
+                  <IconComponent className={project.iconColor} size={24} />
+                </div>
+                <h4 className="text-lg sm:text-xl font-bold text-white font-mono">
+                  {project.title}
+                </h4>
+              </div>
               <div className="flex items-center space-x-2">
                 <span className={`px-2 py-1 text-xs font-mono ${project.iconColor} bg-gray-700/50 rounded-full`}>
                   {project.category}
@@ -215,6 +212,8 @@ const Projects = () => {
             <TechnologyTags technologies={project.technologies} />
             <ProjectLinks github={project.github} liveDemo={project.liveDemo} />
           </div>
+          
+          <StatusIndicators />
           <DecorativeElements />
         </div>
       </motion.div>
