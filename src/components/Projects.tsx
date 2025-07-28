@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Shield, Smartphone, Terminal, Zap, Globe, Database } from 'lucide-react';
+import { Github, ExternalLink, Shield, Smartphone, Terminal } from 'lucide-react';
 
 const Projects = () => {
-  // Project data structure - easy to add new projects
   const featuredProjects = [
     {
       id: 1,
@@ -57,47 +56,26 @@ const Projects = () => {
         "Utilized AI prompting skills with ChatGPT to generate optimized UI code, debug complex backend logic, and significantly accelerate development timeline"
       ]
     }
-    // Add more projects here easily by following the same structure
   ];
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
-      }
+      transition: { staggerChildren: 0.3, delayChildren: 0.2 }
     }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.9, y: 30 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  // Component for rendering project features
   const ProjectFeatures = ({ features, colorClass }) => (
     <div className="mb-4">
       <h5 className={`${colorClass} font-semibold mb-3 font-mono text-sm`}>
@@ -117,7 +95,6 @@ const Projects = () => {
     </div>
   );
 
-  // Component for rendering project achievements
   const ProjectAchievements = ({ achievements, colorClass }) => (
     <div className="mb-4">
       <h5 className={`${colorClass} font-semibold mb-3 font-mono text-sm`}>
@@ -134,7 +111,6 @@ const Projects = () => {
     </div>
   );
 
-  // Component for rendering technology tags
   const TechnologyTags = ({ technologies }) => (
     <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
       {technologies.map((tech, idx) => (
@@ -148,7 +124,6 @@ const Projects = () => {
     </div>
   );
 
-  // Component for rendering project links
   const ProjectLinks = ({ github, liveDemo }) => (
     <div className="flex space-x-4">
       {github && (
@@ -180,7 +155,6 @@ const Projects = () => {
     </div>
   );
 
-  // Component for rendering status indicators
   const StatusIndicators = () => (
     <div className="absolute top-4 right-4 flex space-x-2">
       <div className="w-2 h-2 bg-matrix-400 rounded-full animate-pulse"></div>
@@ -189,7 +163,6 @@ const Projects = () => {
     </div>
   );
 
-  // Component for rendering decorative elements
   const DecorativeElements = () => (
     <>
       <div className="absolute bottom-4 right-4 w-3 h-3 border-r-2 border-b-2 border-matrix-400/30"></div>
@@ -197,35 +170,23 @@ const Projects = () => {
     </>
   );
 
-  // Main project card component
-  const ProjectCard = ({ project, index }) => {
+  const ProjectCard = ({ project }) => {
     const IconComponent = project.icon;
-    
+
     return (
-      <motion.div 
-        variants={cardVariants}
-        whileHover={{ scale: 1.02, y: -10 }}
-        className="group relative"
-      >
-        {/* Hover glow effect */}
+      <motion.div variants={cardVariants} whileHover={{ scale: 1.02, y: -10 }} className="group relative">
         <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradientFrom} ${project.gradientTo} rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-300`}></div>
-        
-        {/* Main card container */}
         <div className={`relative bg-gray-800/60 backdrop-blur-sm rounded-lg overflow-hidden border ${project.borderColor} hover:border-opacity-60 transition-all duration-300`}>
           
-            
-            {/* Project icon */}
+          {/* Removed image and replaced with neutral section */}
+          <div className="aspect-video relative overflow-hidden bg-gray-900/50">
             <div className="absolute top-4 left-4 p-2 bg-gray-800/80 rounded-lg backdrop-blur-sm">
               <IconComponent className={project.iconColor} size={24} />
             </div>
-            
-            {/* Status indicators */}
             <StatusIndicators />
           </div>
-          
-          {/* Project content section */}
+
           <div className="p-4 sm:p-6">
-            {/* Project header */}
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-lg sm:text-xl font-bold text-white font-mono">
                 {project.title}
@@ -237,40 +198,23 @@ const Projects = () => {
                 <Terminal className="text-gray-400" size={16} />
               </div>
             </div>
-            
-            {/* Project description */}
+
             <div className="mb-4">
-              <p className="text-gray-300 mb-2 leading-relaxed text-sm sm:text-base">
-                {project.shortDescription}
-              </p>
-              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">
-                {project.fullDescription}
-              </p>
+              <p className="text-gray-300 mb-2 leading-relaxed text-sm sm:text-base">{project.shortDescription}</p>
+              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">{project.fullDescription}</p>
             </div>
-            
-            {/* Project-specific content */}
+
             {project.features && (
-              <ProjectFeatures 
-                features={project.features} 
-                colorClass={project.iconColor} 
-              />
+              <ProjectFeatures features={project.features} colorClass={project.iconColor} />
             )}
-            
+
             {project.achievements && (
-              <ProjectAchievements 
-                achievements={project.achievements} 
-                colorClass={project.iconColor} 
-              />
+              <ProjectAchievements achievements={project.achievements} colorClass={project.iconColor} />
             )}
-            
-            {/* Technology tags */}
+
             <TechnologyTags technologies={project.technologies} />
-            
-            {/* Project links */}
             <ProjectLinks github={project.github} liveDemo={project.liveDemo} />
           </div>
-
-          {/* Decorative elements */}
           <DecorativeElements />
         </div>
       </motion.div>
@@ -280,7 +224,6 @@ const Projects = () => {
   return (
     <section id="projects" className="py-12 sm:py-16 md:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -288,21 +231,14 @@ const Projects = () => {
           variants={containerVariants}
           className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
-          >
+          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
               &lt;Featured_Projects/&gt;
             </span>
           </motion.h2>
-          <motion.div 
-            variants={itemVariants}
-            className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
-          ></motion.div>
+          <motion.div variants={itemVariants} className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto" />
         </motion.div>
 
-        {/* Projects grid */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -310,12 +246,11 @@ const Projects = () => {
           variants={containerVariants}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
         >
-          {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </motion.div>
 
-        {/* View all projects button */}
         <motion.div
           initial="hidden"
           whileInView="visible"
