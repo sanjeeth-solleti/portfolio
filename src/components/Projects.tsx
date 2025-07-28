@@ -213,16 +213,6 @@ const Projects = () => {
         {/* Main card container */}
         <div className={`relative bg-gray-800/60 backdrop-blur-sm rounded-lg overflow-hidden border ${project.borderColor} hover:border-opacity-60 transition-all duration-300`}>
           
-          {/* Project image section */}
-          <div className="aspect-video relative overflow-hidden">
-            <motion.img
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
             
             {/* Project icon */}
             <div className="absolute top-4 left-4 p-2 bg-gray-800/80 rounded-lg backdrop-blur-sm">
