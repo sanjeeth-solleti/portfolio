@@ -1,109 +1,119 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { motion, AnimationControls } from 'framer-motion';
+"use client";
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence, useAnimation, AnimationControls } from 'framer-motion';
 
 interface IntroAnimationProps {
   onAnimationComplete: () => void;
 }
 
-// Helper function to calculate the horizontal position of each letter
 function getLetterX(i: number, total: number, spacing: number = 56): number {
   return (i - (total - 1) / 2) * spacing;
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
-  const [showName, setShowName] = useState(false);
+  const [lettersVisible, setLettersVisible] = useState(true);
+  const [showFullName, setShowFullName] = useState(false);
   const [final, setFinal] = useState(false);
 
   const letters = Array.from('SANJEETH');
-
-  // --- FIX APPLIED HERE ---
-  // We use `useMemo` to create a stable array of AnimationControls.
-  // This prevents the controls from being recreated on every render,
-  // which was the cause of the unpredictable animation behavior in production.
-  // `useAnimation()` hook should not be called in a loop or callback.
-  const controls = useMemo(() => letters.map(() => new AnimationControls()), [letters.length]);
+  const controlsRef = useRef<AnimationControls[]>(letters.map(() => useAnimation())).current;
 
   useEffect(() => {
-    let timer1: ReturnType<typeof setTimeout>;
-    let timer2: ReturnType<typeof setTimeout>;
+    let timeout1: ReturnType<typeof setTimeout>;
+    let timeout2: ReturnType<typeof setTimeout>;
+    let timeout3: ReturnType<typeof setTimeout>;
 
-    const runSequence = async () => {
-      // Set the initial state for all letters before starting the animation
+    // Bounce/flip/blur in (springy, bouncy) animation
+    (async () => {
       await Promise.all(
-        // Use the stable `controls` array
-        controls.map((ctrl) =>
+        controlsRef.map(ctrl =>
           ctrl.set({
-            x: 0,
-            y: 40,
-            z: 0,
-            opacity: 0,
-            scale: 0.6,
-            rotateX: 20,
-            filter: 'blur(8px)',
-            color: '#666',
+            x: 0, y: 60, z: 0,
+            opacity: 0, scale: 0.6,
+            rotateX: 45,
+            filter: 'blur(16px)', color: '#666'
           })
         )
       );
-
-      // Animate each letter into place sequentially
       for (let i = 0; i < letters.length; i++) {
-        // Use the stable `controls` array to start the animation for each letter
-        await controls[i].start({
+        controlsRef[i].start({
           x: getLetterX(i, letters.length),
           y: 0,
-          z: 30,
+          z: 10,
           opacity: 1,
-          scale: [0.6, 1.2, 1],
-          rotateX: [20, -10, 0],
-          color: ['#6ee7b7', '#a78bfa', '#e0e7ff'],
-          filter: ['blur(8px)', 'blur(0px)', 'blur(0px)'],
-          textShadow: [
+          scale: [0.6, 1.45, 1],
+          rotateX: [45, -8, 0],
+          color: [
+            '#6ee7b7',
+            '#a78bfa',
+            '#e0e7ff'
+          ],
+          filter: ['blur(16px)', 'blur(2px)', 'blur(0px)'],
+          boxShadow: [
             '0 0 0 rgba(0,0,0,0)',
-            '0 0 14px #a78bfa, 0 0 32px #6ee7b7, 0 0 54px #d8b4fe',
+            '0 3px 24px #13e4b0, 0 0 24px #a78bfa, 0 0 12px #d8b4fe',
             '0 0 0 rgba(0,0,0,0)',
           ],
-          transition: { duration: 1.2, ease: [0.6, 0.05, -0.01, 0.9] },
+          transition: {
+            type: "spring",
+            bounce: 0.5,
+            damping: 9,
+            mass: 0.6,
+            duration: 1.1,
+            delay: i * 0.11 // faster, more energetic stagger
+          }
         });
-        // A short delay between each letter's animation
-        await new Promise((r) => setTimeout(r, 170));
       }
+    })();
 
-      // After the initial name animation, trigger the full name reveal
-      timer1 = setTimeout(() => {
-        setShowName(true);
-        // After the full name is shown, trigger the final exit animation
-        timer2 = setTimeout(() => {
-          setFinal(true);
-          onAnimationComplete();
-        }, 3200);
-      }, 1100);
-    };
+    // Letters animate in, then after a pause, bounce/blur out as a group
+    const entranceDelay = 0.11 * (letters.length - 1);
+    const bounceInDuration = 1.1;
+    const extraPause = 1.2;
+    const timeUntilHideLetters = (entranceDelay + bounceInDuration + extraPause) * 1000;
 
-    runSequence();
+    timeout1 = setTimeout(() => {
+      controlsRef.forEach(ctrl =>
+        ctrl.start({
+          opacity: 0,
+          y: -40,
+          scale: 0.7,
+          rotateX: -50,
+          filter: 'blur(18px)',
+          transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
+        })
+      );
+      setTimeout(() => setLettersVisible(false), 700);
+    }, timeUntilHideLetters);
 
-    // Cleanup function to stop animations and clear timers when the component unmounts
+    timeout2 = setTimeout(() => {
+      setShowFullName(true);
+      timeout3 = setTimeout(() => {
+        setFinal(true);
+        onAnimationComplete();
+      }, 3200);
+    }, timeUntilHideLetters + 700);
+
     return () => {
-      // Use the stable `controls` array for cleanup
-      controls.forEach((c) => c.stop());
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      controlsRef.forEach(c => c.stop());
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+      clearTimeout(timeout3);
     };
-    // Dependency array includes the stable `controls` array
-  }, [onAnimationComplete, controls, letters.length]);
+  }, [onAnimationComplete, controlsRef, letters.length]);
 
-  // When the animation is completely finished, render nothing.
   if (final) return null;
 
   return (
     <motion.div
       key="intro-animation"
-      className="fixed inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-50 flex items-center justify-center overflow-hidden perspective-1000"
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 1 } }}
       style={{ perspective: 1200 }}
     >
-      {/* Background cinematic neon particles and floating orbs with glow */}
+      {/* Cinematic neon particles and floating orbs with glow */}
       <div className="absolute inset-0 overflow-visible pointer-events-none">
         {[...Array(60)].map((_, i) => (
           <motion.div
@@ -115,14 +125,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
               scale: [0, 1.8, 0],
               x: [0, (Math.random() * 300) - 150],
               y: [0, (Math.random() * 300) - 150],
-              filter: ['brightness(80%)', 'brightness(180%)', 'brightness(80%)'],
+              filter: ['brightness(80%)', 'brightness(180%)', 'brightness(80%)']
             }}
             transition={{
               duration: 4 + Math.random() * 3,
               repeat: Infinity,
               repeatType: 'reverse',
               delay: Math.random() * 5,
-              ease: 'easeInOut',
+              ease: 'easeInOut'
             }}
             style={{
               left: `${Math.random() * 100}%`,
@@ -134,48 +144,58 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
                   ? 'rgba(110, 231, 183, 0.7)'
                   : Math.random() > 0.5
                   ? 'rgba(167, 139, 250, 0.7)'
-                  : 'rgba(224, 231, 255, 0.7)',
+                  : 'rgba(224, 231, 255, 0.7)'
             }}
           />
         ))}
-        {/* Decorative layered glowing orbs */}
-        <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-gradient-to-tr from-green-400/30 via-purple-500/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-br from-blue-400/15 via-purple-600/10 to-pink-500/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-2xl animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-gradient-to-tr from-green-400/30 via-purple-500/20 to-blue-400/20 rounded-full blur-4xl animate-cyber-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-br from-blue-400/15 via-purple-600/10 to-pink-500/15 rounded-full blur-5xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
-      {/* Cinematic animated letters */}
-      {!showName && (
-        <motion.h1
-          className="relative flex z-10"
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {letters.map((letter, i) => (
-            <motion.span
-              key={i}
-              // --- FIX APPLIED HERE ---
-              // Each letter is animated by its corresponding stable control
-              animate={controls[i]}
-              className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-tight select-none"
-              style={{ minWidth: '1ch', whiteSpace: 'pre', textShadow: '0 0 8px rgba(255,255,255,0.3)' }}
-            >
-              {letter === ' ' ? '\u00A0' : letter}
-            </motion.span>
-          ))}
-        </motion.h1>
-      )}
+      {/* Cinematic animated letters with new animation */}
+      <AnimatePresence mode="wait">
+        {lettersVisible && (
+          <motion.h1
+            className="relative flex space-x-4 z-10"
+            initial={{ rotateY: -15, scale: 0.8, opacity: 0 }}
+            animate={{ rotateY: 0, scale: 1, opacity: 1, transition: { duration: 1.3, ease: 'easeOut' } }}
+            exit={{ opacity: 0 }}
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            {letters.map((letter, i) => (
+              <motion.span
+                key={`letter-${i}`}
+                animate={controlsRef[i]}
+                className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-tight select-none"
+                style={{
+                  minWidth: '1ch',
+                  whiteSpace: 'pre',
+                  textShadow: '0 0 16px rgba(255,255,255,0.3)'
+                }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+          </motion.h1>
+        )}
+      </AnimatePresence>
 
       {/* Full name cinematic reveal */}
-      {showName && (
+      {showFullName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, ease: [0.47, 0, 0.745, 0.715] }}
           className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          style={{ perspective: 1200 }}
         >
           <div className="w-full flex justify-center items-center">
             <motion.span
               className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-normal select-none"
+              initial={{ rotateX: 10 }}
+              animate={{ rotateX: 0 }}
+              transition={{ duration: 1.3 }}
               style={{
                 textAlign: 'center',
                 whiteSpace: 'normal',
@@ -193,5 +213,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     </motion.div>
   );
 };
+
 
 export default IntroAnimation;
