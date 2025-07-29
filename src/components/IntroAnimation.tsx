@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useAnimation, AnimationControls } from 'framer-motion';
 
@@ -10,12 +11,12 @@ function getLetterX(i: number, total: number, spacing: number = 56): number {
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
-  // Hydration flag for SSR environments (like Vercel)
+  // Hydration guard for SSR/Next.js/Vercel
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => { setHydrated(true); }, []);
   if (!hydrated) return null;
 
-  // Animation states
+  // Animation state
   const [lettersVisible, setLettersVisible] = useState(true);
   const [showFullName, setShowFullName] = useState(false);
   const [final, setFinal] = useState(false);
@@ -36,15 +37,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
             x: 0, y: 40, z: 0,
             opacity: 0, scale: 0.6,
             rotateX: 20,
-            filter: 'blur(8px)', color: '#666',
+            filter: 'blur(8px)', color: '#666'
           })
         )
       );
       for (let i = 0; i < letters.length; i++) {
         await controlsRef[i].start({
           x: getLetterX(i, letters.length),
-          y: 0,
-          z: 30,
+          y: 0, z: 30,
           opacity: 1,
           scale: [0.6, 1.2, 1],
           rotateX: [20, -10, 0],
@@ -67,9 +67,8 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     const extraPause = 1;
     const timeUntilHideLetters = (entranceDelay + animateInDuration + extraPause) * 1000;
 
-    // Hide letters after all have animated in and pause is over
+    // Animate out and remove letters after delay
     timeout1 = setTimeout(() => {
-      // Animate all letters out together
       controlsRef.forEach(ctrl => {
         ctrl.start({
           opacity: 0,
@@ -79,17 +78,16 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
         });
       });
-      // After out animation, remove from DOM
       setTimeout(() => setLettersVisible(false), 700);
     }, timeUntilHideLetters);
 
-    // Show the full name after all out animations complete
+    // Show full name after out animations complete
     timeout2 = setTimeout(() => {
       setShowFullName(true);
       timeout3 = setTimeout(() => {
         setFinal(true);
         onAnimationComplete();
-      }, 3200); // Show full name for 3.2s then end
+      }, 3200);
     }, timeUntilHideLetters + 700);
 
     return () => {
@@ -111,7 +109,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 1 } }}
       style={{ perspective: 1200 }}
     >
-      {/* Cinematic neon particles and floating orbs with glow */}
+      {/* Visual FX background */}
       <div className="absolute inset-0 overflow-visible pointer-events-none">
         {[...Array(60)].map((_, i) => (
           <motion.div
@@ -123,14 +121,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
               scale: [0, 1.8, 0],
               x: [0, (Math.random() * 300) - 150],
               y: [0, (Math.random() * 300) - 150],
-              filter: ['brightness(80%)', 'brightness(180%)', 'brightness(80%)'],
+              filter: ['brightness(80%)', 'brightness(180%)', 'brightness(80%)']
             }}
             transition={{
               duration: 4 + Math.random() * 3,
               repeat: Infinity,
               repeatType: 'reverse',
               delay: Math.random() * 5,
-              ease: 'easeInOut',
+              ease: 'easeInOut'
             }}
             style={{
               left: `${Math.random() * 100}%`,
@@ -142,17 +140,16 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
                   ? 'rgba(110, 231, 183, 0.7)'
                   : Math.random() > 0.5
                   ? 'rgba(167, 139, 250, 0.7)'
-                  : 'rgba(224, 231, 255, 0.7)',
+                  : 'rgba(224, 231, 255, 0.7)'
             }}
           />
         ))}
-        {/* Layered glowing orbs */}
         <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-gradient-to-tr from-green-400/30 via-purple-500/20 to-blue-400/20 rounded-full blur-4xl animate-cyber-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-br from-blue-400/15 via-purple-600/10 to-pink-500/15 rounded-full blur-5xl animate-pulse"></div>
         <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
-      {/* Letters: animated "SANJEETH" */}
+      {/* Animated "SANJEETH" letters */}
       <AnimatePresence mode="wait">
         {lettersVisible && (
           <motion.h1
@@ -176,7 +173,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         )}
       </AnimatePresence>
 
-      {/* Full name cinematic reveal, in mint green and always centered */}
+      {/* Reveal full name, in mint green, perfectly centered */}
       {showFullName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
