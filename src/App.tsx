@@ -8,7 +8,7 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import CyberBackground from './components/CyberBackground';
 import IntroAnimation from './components/IntroAnimation';
-import certifications from './components/certifications';// Import the new component
+import Certifications from './components/Certifications';// Import the new component
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
         <Skills />
         <Experience />
         <Projects />
-        <certifications />
+        <Certifications />
         <Education />
         <Contact />
       </div>
