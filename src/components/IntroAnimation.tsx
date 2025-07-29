@@ -11,11 +11,6 @@ function getLetterX(i: number, total: number, spacing: number = 56): number {
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
-  // Hydration guard for SSR/Next.js/Vercel
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => { setHydrated(true); }, []);
-  if (!hydrated) return null;
-
   // Animation state
   const [lettersVisible, setLettersVisible] = useState(true);
   const [showFullName, setShowFullName] = useState(false);
@@ -61,7 +56,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       }
     })();
 
-    // Calculate timing based on animation sequence
+    // Calculate timing based on total animation
     const entranceDelay = 0.17 * (letters.length - 1);
     const animateInDuration = 1.2;
     const extraPause = 1;
@@ -81,7 +76,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       setTimeout(() => setLettersVisible(false), 700);
     }, timeUntilHideLetters);
 
-    // Show full name after out animations complete
+    // Show full name after all out animations complete
     timeout2 = setTimeout(() => {
       setShowFullName(true);
       timeout3 = setTimeout(() => {
@@ -109,7 +104,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 1 } }}
       style={{ perspective: 1200 }}
     >
-      {/* Visual FX background */}
+      {/* Cinematic neon particles and floating orbs */}
       <div className="absolute inset-0 overflow-visible pointer-events-none">
         {[...Array(60)].map((_, i) => (
           <motion.div
@@ -173,7 +168,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         )}
       </AnimatePresence>
 
-      {/* Reveal full name, in mint green, perfectly centered */}
+      {/* Reveal the full name, centered and mint green */}
       {showFullName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
