@@ -17,12 +17,17 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 }
 };
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
+
 const certifications = [
   {
-    id: 1,
-    title: 'Certified Ethical Hacker',
+    id: ,
+    title: 'Certified Ethical Hacker V13',
     authority: 'EC-Council',
-    date: '2024',
+    date: '2025',
     description: 'Demonstrated proficiency in cybersecurity techniques and ethical hacking methodologies.',
     icon: Award,
     iconColor: 'text-matrix-400',
@@ -30,18 +35,6 @@ const certifications = [
     gradientTo: 'to-matrix-600/20',
     borderColor: 'border-matrix-400/30'
   },
-  {
-    id: 2,
-    title: 'Google Associate Android Developer',
-    authority: 'Google',
-    date: '2023',
-    description: 'Validated mobile development skills with practical knowledge in developing modern Android applications.',
-    icon: Award,
-    iconColor: 'text-neon-400',
-    gradientFrom: 'from-neon-500/20',
-    gradientTo: 'to-neon-600/20',
-    borderColor: 'border-neon-400/30'
-  }
 ];
 
 const CertificationCard = ({ cert }) => (
@@ -60,9 +53,24 @@ const CertificationCard = ({ cert }) => (
 
 const Certifications = () => (
   <section className="py-12" id="certifications">
-    <h2 className="text-3xl font-bold mb-8 text-center text-matrix-400 tracking-tight">
-      Certifications
-    </h2>
+    <div className="mb-8 text-center">
+      <motion.h2
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+      >
+        <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
+          &lt;Certifications/&gt;
+        </span>
+      </motion.h2>
+      <motion.div
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+        className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto"
+      />
+    </div>
     <motion.div
       className="grid gap-6 grid-cols-1 md:grid-cols-2"
       variants={containerVariants}
