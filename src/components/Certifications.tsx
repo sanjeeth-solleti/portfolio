@@ -1,4 +1,21 @@
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Award } from 'lucide-react';
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { staggerChildren: 0.12 }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 }
+};
 
 const certifications = [
   {
@@ -7,7 +24,7 @@ const certifications = [
     authority: 'EC-Council',
     date: '2024',
     description: 'Demonstrated proficiency in cybersecurity techniques and ethical hacking methodologies.',
-    icon: Award, // or other relevant icon
+    icon: Award,
     iconColor: 'text-matrix-400',
     gradientFrom: 'from-matrix-500/20',
     gradientTo: 'to-matrix-600/20',
@@ -41,14 +58,22 @@ const CertificationCard = ({ cert }) => (
   </motion.div>
 );
 
-// In your main Certifications section
-<motion.div
-  className="grid gap-6 grid-cols-1 md:grid-cols-2"
-  variants={containerVariants}
-  initial="hidden"
-  animate="visible"
->
-  {certifications.map(cert => (
-    <CertificationCard key={cert.id} cert={cert} />
-  ))}
-</motion.div>
+const Certifications = () => (
+  <section className="py-12" id="certifications">
+    <h2 className="text-3xl font-bold mb-8 text-center text-matrix-400 tracking-tight">
+      Certifications
+    </h2>
+    <motion.div
+      className="grid gap-6 grid-cols-1 md:grid-cols-2"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {certifications.map(cert => (
+        <CertificationCard key={cert.id} cert={cert} />
+      ))}
+    </motion.div>
+  </section>
+);
+
+export default Certifications;
