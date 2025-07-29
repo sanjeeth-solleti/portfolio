@@ -23,7 +23,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     let timeout2: ReturnType<typeof setTimeout>;
     let timeout3: ReturnType<typeof setTimeout>;
 
-    // Bounce/flip/blur in (springy, bouncy) animation
+    // Entrance animation: Springy bounce-in, with blur only during animation
     (async () => {
       await Promise.all(
         controlsRef.map(ctrl =>
@@ -41,35 +41,30 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           y: 0,
           z: 10,
           opacity: 1,
-          scale: [0.6, 1.45, 1],
+          scale: [0.6, 1.1, 1],
           rotateX: [45, -8, 0],
           color: [
-            '#6ee7b7',
-            '#a78bfa',
-            '#e0e7ff'
+            '#6ee7b7', // mint green
+            '#22d3ee', // light blue (for visual variation)
+            '#60a5fa'  // blue (for visual variation)
           ],
           filter: ['blur(16px)', 'blur(2px)', 'blur(0px)'],
-          boxShadow: [
-            '0 0 0 rgba(0,0,0,0)',
-            '0 3px 24px #13e4b0, 0 0 24px #a78bfa, 0 0 12px #d8b4fe',
-            '0 0 0 rgba(0,0,0,0)',
-          ],
           transition: {
             type: "spring",
-            bounce: 0.5,
-            damping: 9,
+            bounce: 0.45,
+            damping: 10,
             mass: 0.6,
-            duration: 1.1,
-            delay: i * 0.11 // faster, more energetic stagger
+            duration: 1.05,
+            delay: i * 0.11
           }
         });
       }
     })();
 
-    // Letters animate in, then after a pause, bounce/blur out as a group
+    // Timing based on letter animation
     const entranceDelay = 0.11 * (letters.length - 1);
-    const bounceInDuration = 1.1;
-    const extraPause = 1.2;
+    const bounceInDuration = 1.05;
+    const extraPause = 1.1;
     const timeUntilHideLetters = (entranceDelay + bounceInDuration + extraPause) * 1000;
 
     timeout1 = setTimeout(() => {
@@ -153,7 +148,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
-      {/* Cinematic animated letters with new animation */}
+      {/* Cinematic animated letters: sharp, vibrant, no blur when visible */}
       <AnimatePresence mode="wait">
         {lettersVisible && (
           <motion.h1
@@ -167,11 +162,11 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
               <motion.span
                 key={`letter-${i}`}
                 animate={controlsRef[i]}
-                className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-tight select-none"
+                className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-blue-400 to-green-400 bg-clip-text text-transparent font-mono select-none"
                 style={{
                   minWidth: '1ch',
                   whiteSpace: 'pre',
-                  textShadow: '0 0 16px rgba(255,255,255,0.3)'
+                  textShadow: '0 0 12px rgba(105,220,240,0.17)'
                 }}
               >
                 {letter}
@@ -181,7 +176,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         )}
       </AnimatePresence>
 
-      {/* Full name cinematic reveal */}
+      {/* Full name cinematic reveal: green/blue gradient */}
       {showFullName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
@@ -192,7 +187,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         >
           <div className="w-full flex justify-center items-center">
             <motion.span
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-normal select-none"
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-to-r from-green-400 via-blue-400 to-green-300 bg-clip-text text-transparent font-mono tracking-normal select-none"
               initial={{ rotateX: 10 }}
               animate={{ rotateX: 0 }}
               transition={{ duration: 1.3 }}
@@ -213,6 +208,5 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     </motion.div>
   );
 };
-
 
 export default IntroAnimation;
