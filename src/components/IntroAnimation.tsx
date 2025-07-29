@@ -12,6 +12,7 @@ function getLetterX(i: number, total: number, spacing: number = 56): number {
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
   const [showName, setShowName] = useState(false);
   const [final, setFinal] = useState(false);
+  const [lettersExiting, setLettersExiting] = useState(false);
 
   const letters = Array.from('SANJEETH');
   const controlsRef = useRef<AnimationControls[]>(letters.map(() => useAnimation())).current;
@@ -21,6 +22,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     let timer2: ReturnType<typeof setTimeout>;
 
     const runSequence = async () => {
+      // 1. Animate letters IN
       await Promise.all(
         controlsRef.map((ctrl) =>
           ctrl.set({
@@ -56,13 +58,29 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         await new Promise((r) => setTimeout(r, 170));
       }
 
-      timer1 = setTimeout(() => {
-        setShowName(true);
-        timer2 = setTimeout(() => {
-          setFinal(true);
-          onAnimationComplete();
-        }, 3200);
-      }, 1100);
+      // 2. Wait before exit
+      await new Promise((r) => setTimeout(r, 1000));
+      setLettersExiting(true);
+
+      // 3. Animate letters OUT
+      await Promise.all(
+        controlsRef.map((ctrl) =>
+          ctrl.start({
+            opacity: 0,
+            y: 40,
+            scale: 0.6,
+            filter: 'blur(12px)',
+            transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
+          })
+        )
+      );
+
+      // 4. Show full name after exit
+      setShowName(true);
+      timer2 = setTimeout(() => {
+        setFinal(true);
+        onAnimationComplete();
+      }, 3200);
     };
     runSequence();
 
@@ -138,8 +156,12 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
             <motion.span
               key={i}
               animate={controlsRef[i]}
-              className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-tight select-none"
-              style={{ minWidth: '1ch', whiteSpace: 'pre', textShadow: '0 0 8px rgba(255,255,255,0.3)' }}
+              className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black font-mono tracking-tight select-none"
+              style={{
+                minWidth: '1ch',
+                whiteSpace: 'pre',
+                textShadow: '0 0 8px rgba(255,255,255,0.3)'
+              }}
             >
               {letter === ' ' ? '\u00A0' : letter}
             </motion.span>
@@ -147,7 +169,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         </motion.h1>
       )}
 
-      {/* Full name cinematic reveal */}
+      {/* Full name cinematic reveal in #6ee7b7 */}
       {showName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
@@ -156,14 +178,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
           style={{ perspective: 1200 }}
         >
-          {/* <<<< New: Responsive container for ultimate centering >>>> */}
           <div className="w-full flex justify-center items-center">
             <motion.span
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-normal select-none"
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold font-mono tracking-normal select-none"
               initial={{ rotateX: 10 }}
               animate={{ rotateX: 0 }}
               transition={{ duration: 1.3 }}
               style={{
+                color: '#6ee7b7',
                 textAlign: 'center',
                 whiteSpace: 'normal',
                 maxWidth: '90vw',
