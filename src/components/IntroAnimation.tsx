@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useAnimation, AnimationControls } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation, AnimationControls } from 'framer-motion';
 
 interface IntroAnimationProps {
   onAnimationComplete: () => void;
@@ -10,32 +10,36 @@ function getLetterX(i: number, total: number, spacing: number = 56): number {
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
-  const [showName, setShowName] = useState(false);
+  // Hydration flag for SSR environments (like Vercel)
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
+  if (!hydrated) return null;
+
+  // Animation states
+  const [lettersVisible, setLettersVisible] = useState(true);
+  const [showFullName, setShowFullName] = useState(false);
   const [final, setFinal] = useState(false);
 
   const letters = Array.from('SANJEETH');
   const controlsRef = useRef<AnimationControls[]>(letters.map(() => useAnimation())).current;
 
   useEffect(() => {
-    let timer1: ReturnType<typeof setTimeout>;
-    let timer2: ReturnType<typeof setTimeout>;
+    let timeout1: ReturnType<typeof setTimeout>;
+    let timeout2: ReturnType<typeof setTimeout>;
+    let timeout3: ReturnType<typeof setTimeout>;
 
-    const runSequence = async () => {
+    // Animate each letter in, staggered
+    (async () => {
       await Promise.all(
-        controlsRef.map((ctrl) =>
+        controlsRef.map(ctrl =>
           ctrl.set({
-            x: 0,
-            y: 40,
-            z: 0,
-            opacity: 0,
-            scale: 0.6,
+            x: 0, y: 40, z: 0,
+            opacity: 0, scale: 0.6,
             rotateX: 20,
-            filter: 'blur(8px)',
-            color: '#666',
+            filter: 'blur(8px)', color: '#666',
           })
         )
       );
-
       for (let i = 0; i < letters.length; i++) {
         await controlsRef[i].start({
           x: getLetterX(i, letters.length),
@@ -49,27 +53,50 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           textShadow: [
             '0 0 0 rgba(0,0,0,0)',
             '0 0 14px #a78bfa, 0 0 32px #6ee7b7, 0 0 54px #d8b4fe',
-            '0 0 0 rgba(0,0,0,0)',
+            '0 0 0 rgba(0,0,0,0)'
           ],
-          transition: { duration: 1.2, ease: [0.6, 0.05, -0.01, 0.9] },
+          transition: { duration: 1.2, ease: [0.6, 0.05, -0.01, 0.9] }
         });
-        await new Promise((r) => setTimeout(r, 170));
+        await new Promise(r => setTimeout(r, 170));
       }
+    })();
 
-      timer1 = setTimeout(() => {
-        setShowName(true);
-        timer2 = setTimeout(() => {
-          setFinal(true);
-          onAnimationComplete();
-        }, 3200);
-      }, 1100);
-    };
-    runSequence();
+    // Calculate timing based on animation sequence
+    const entranceDelay = 0.17 * (letters.length - 1);
+    const animateInDuration = 1.2;
+    const extraPause = 1;
+    const timeUntilHideLetters = (entranceDelay + animateInDuration + extraPause) * 1000;
+
+    // Hide letters after all have animated in and pause is over
+    timeout1 = setTimeout(() => {
+      // Animate all letters out together
+      controlsRef.forEach(ctrl => {
+        ctrl.start({
+          opacity: 0,
+          y: 40,
+          scale: 0.6,
+          filter: 'blur(12px)',
+          transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
+        });
+      });
+      // After out animation, remove from DOM
+      setTimeout(() => setLettersVisible(false), 700);
+    }, timeUntilHideLetters);
+
+    // Show the full name after all out animations complete
+    timeout2 = setTimeout(() => {
+      setShowFullName(true);
+      timeout3 = setTimeout(() => {
+        setFinal(true);
+        onAnimationComplete();
+      }, 3200); // Show full name for 3.2s then end
+    }, timeUntilHideLetters + 700);
 
     return () => {
-      controlsRef.forEach((c) => c.stop());
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      controlsRef.forEach(c => c.stop());
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+      clearTimeout(timeout3);
     };
   }, [onAnimationComplete, controlsRef, letters.length]);
 
@@ -80,7 +107,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       key="intro-animation"
       className="fixed inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-50 flex items-center justify-center overflow-hidden perspective-1000"
       initial={{ opacity: 1 }}
-      animate={{ opacity: showName ? 1 : 1 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 1 } }}
       style={{ perspective: 1200 }}
     >
@@ -125,30 +152,32 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
-      {/* Cinematic animated letters */}
-      {!showName && (
-        <motion.h1
-          className="relative flex space-x-4 z-10"
-          initial={{ rotateY: -15, scale: 0.8 }}
-          animate={{ rotateY: 0, scale: 1 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {letters.map((letter, i) => (
-            <motion.span
-              key={i}
-              animate={controlsRef[i]}
-              className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-tight select-none"
-              style={{ minWidth: '1ch', whiteSpace: 'pre', textShadow: '0 0 8px rgba(255,255,255,0.3)' }}
-            >
-              {letter === ' ' ? '\u00A0' : letter}
-            </motion.span>
-          ))}
-        </motion.h1>
-      )}
+      {/* Letters: animated "SANJEETH" */}
+      <AnimatePresence mode="wait">
+        {lettersVisible && (
+          <motion.h1
+            className="relative flex space-x-4 z-10"
+            initial={{ rotateY: -15, scale: 0.8, opacity: 0 }}
+            animate={{ rotateY: 0, scale: 1, opacity: 1, transition: { duration: 1.5, ease: 'easeOut' } }}
+            exit={{ opacity: 0, filter: "blur(12px)", y: 40, scale: 0.6, transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } }}
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            {letters.map((letter, i) => (
+              <motion.span
+                key={`letter-${i}`}
+                animate={controlsRef[i]}
+                className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black font-mono tracking-tight select-none"
+                style={{ minWidth: '1ch', whiteSpace: 'pre', textShadow: '0 0 8px rgba(255,255,255,0.3)' }}
+              >
+                {letter === ' ' ? '\u00A0' : letter}
+              </motion.span>
+            ))}
+          </motion.h1>
+        )}
+      </AnimatePresence>
 
-      {/* Full name cinematic reveal */}
-      {showName && (
+      {/* Full name cinematic reveal, in mint green and always centered */}
+      {showFullName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
@@ -156,14 +185,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
           style={{ perspective: 1200 }}
         >
-          {/* <<<< New: Responsive container for ultimate centering >>>> */}
           <div className="w-full flex justify-center items-center">
             <motion.span
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-to-r from-green-400 via-purple-500 to-blue-400 bg-clip-text text-transparent font-mono tracking-normal select-none"
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold font-mono tracking-normal select-none"
               initial={{ rotateX: 10 }}
               animate={{ rotateX: 0 }}
               transition={{ duration: 1.3 }}
               style={{
+                color: '#6ee7b7',
                 textAlign: 'center',
                 whiteSpace: 'normal',
                 maxWidth: '90vw',
