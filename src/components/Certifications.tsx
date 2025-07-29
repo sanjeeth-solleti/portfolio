@@ -24,7 +24,6 @@ const itemVariants = {
 
 const certifications = [
   {
-    id: ,
     title: 'Certified Ethical Hacker V13',
     authority: 'EC-Council',
     date: '2025',
