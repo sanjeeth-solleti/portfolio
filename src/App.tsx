@@ -7,7 +7,8 @@ import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import CyberBackground from './components/CyberBackground';
-import IntroAnimation from './components/IntroAnimation'; // Import the new component
+import IntroAnimation from './components/IntroAnimation';
+import certifications from './components/certifications';// Import the new component
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
 
 function App() {
