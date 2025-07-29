@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useAnimation, AnimationControls } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface IntroAnimationProps {
   onAnimationComplete: () => void;
@@ -10,93 +10,38 @@ function getLetterX(i: number, total: number, spacing: number = 56): number {
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
-  // Three states: letters visible, letters are exiting, full name shown
   const [lettersVisible, setLettersVisible] = useState(true);
-  const [lettersExiting, setLettersExiting] = useState(false);
-  const [showName, setShowName] = useState(false);
+  const [showFullName, setShowFullName] = useState(false);
   const [final, setFinal] = useState(false);
-
   const letters = Array.from('SANJEETH');
-  const controlsRef = useRef<AnimationControls[]>(letters.map(() => useAnimation())).current;
 
+  // Animation sequence control
   useEffect(() => {
-    let timer1: ReturnType<typeof setTimeout>;
-    let timer2: ReturnType<typeof setTimeout>;
+    let timeout1: ReturnType<typeof setTimeout>;
+    let timeout2: ReturnType<typeof setTimeout>;
+    let timeout3: ReturnType<typeof setTimeout>;
 
-    const runSequence = async () => {
-      // Animate letters IN
-      await Promise.all(
-        controlsRef.map(ctrl =>
-          ctrl.set({
-            x: 0,
-            y: 40,
-            z: 0,
-            opacity: 0,
-            scale: 0.6,
-            rotateX: 20,
-            filter: 'blur(8px)',
-            color: '#666',
-          })
-        )
-      );
-      for (let i = 0; i < letters.length; i++) {
-        await controlsRef[i].start({
-          x: getLetterX(i, letters.length),
-          y: 0,
-          z: 30,
-          opacity: 1,
-          scale: [0.6, 1.2, 1],
-          rotateX: [20, -10, 0],
-          color: ['#6ee7b7', '#a78bfa', '#e0e7ff'],
-          filter: ['blur(8px)', 'blur(0px)', 'blur(0px)'],
-          textShadow: [
-            '0 0 0 rgba(0,0,0,0)',
-            '0 0 14px #a78bfa, 0 0 32px #6ee7b7, 0 0 54px #d8b4fe',
-            '0 0 0 rgba(0,0,0,0)',
-          ],
-          transition: { duration: 1.2, ease: [0.6, 0.05, -0.01, 0.9] },
-        });
-        await new Promise(r => setTimeout(r, 170));
-      }
+    // 1. Wait until all letters animate in: ~170*8 ms + 1s pause
+    timeout1 = setTimeout(() => {
+      setLettersVisible(false); // triggers AnimatePresence exit on SANJEETH
+    }, 170 * letters.length + 1000);
 
-      // Hold the animated letters on-screen for 1s
-      timer1 = setTimeout(async () => {
-        setLettersExiting(true); // start their exit transition
-
-        // Animate OUT
-        await Promise.all(
-          controlsRef.map(ctrl =>
-            ctrl.start({
-              opacity: 0,
-              y: 40,
-              scale: 0.6,
-              filter: 'blur(12px)',
-              transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
-            })
-          )
-        );
-
-        // Remove the letters from the DOM,
-        setLettersVisible(false);
-        // ..then fade in the full name
-        setShowName(true);
-
-        // Hold the full name for 3.2s, then finish
-        timer2 = setTimeout(() => {
-          setFinal(true);
-          onAnimationComplete();
-        }, 3200);
-
-      }, 1000); // 1s after last letter animates in
-    };
-    runSequence();
+    // 2. Wait for exit animation to finish (0.7s), then show full name
+    timeout2 = setTimeout(() => {
+      setShowFullName(true);
+      // 3. Then wait for display, then callback and remove everything
+      timeout3 = setTimeout(() => {
+        setFinal(true);
+        onAnimationComplete();
+      }, 3200); // full name stays for 3.2s
+    }, 170 * letters.length + 1000 + 700);
 
     return () => {
-      controlsRef.forEach(c => c.stop());
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+      clearTimeout(timeout3);
     };
-  }, [onAnimationComplete, controlsRef, letters.length]);
+  }, [onAnimationComplete, letters.length]);
 
   if (final) return null;
 
@@ -109,7 +54,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 1 } }}
       style={{ perspective: 1200 }}
     >
-      {/* Neon particles, floating orbs */}
+      {/* Background: Neon particles and orbs (unchanged) */}
       <div className="absolute inset-0 overflow-visible pointer-events-none">
         {[...Array(60)].map((_, i) => (
           <motion.div
@@ -149,34 +94,65 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
-      {/* Animated letter-by-letter "SANJEETH", only visible while !showName */}
-      {lettersVisible && (
-        <motion.h1
-          className="relative flex space-x-4 z-10"
-          initial={{ rotateY: -15, scale: 0.8 }}
-          animate={{ rotateY: 0, scale: 1 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {letters.map((letter, i) => (
-            <motion.span
-              key={i}
-              animate={controlsRef[i]}
-              className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black font-mono tracking-tight select-none"
-              style={{
-                minWidth: '1ch',
-                whiteSpace: 'pre',
-                textShadow: '0 0 8px rgba(255,255,255,0.3)',
-              }}
-            >
-              {letter === ' ' ? '\u00A0' : letter}
-            </motion.span>
-          ))}
-        </motion.h1>
-      )}
+      {/* AnimatePresence ensures smooth exit animation */}
+      <AnimatePresence>
+        {lettersVisible && (
+          <motion.h1
+            key="sanjeeth"
+            className="relative flex space-x-4 z-10"
+            initial={{ rotateY: -15, scale: 0.8, opacity: 0 }}
+            animate={{ rotateY: 0, scale: 1, opacity: 1, transition: { duration: 1.5, ease: 'easeOut' } }}
+            exit={{
+              opacity: 0,
+              filter: "blur(12px)",
+              y: 40,
+              scale: 0.6,
+              transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
+            }}
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            {letters.map((letter, i) => (
+              <motion.span
+                key={i}
+                initial={{
+                  x: 0, y: 40, z: 0,
+                  opacity: 0, scale: 0.6, rotateX: 20,
+                  filter: 'blur(8px)', color: '#666'
+                }}
+                animate={{
+                  x: getLetterX(i, letters.length),
+                  y: 0, z: 30,
+                  opacity: 1, scale: [0.6, 1.2, 1],
+                  rotateX: [20, -10, 0],
+                  color: ['#6ee7b7', '#a78bfa', '#e0e7ff'],
+                  filter: ['blur(8px)', 'blur(0px)', 'blur(0px)'],
+                  textShadow: [
+                    '0 0 0 rgba(0,0,0,0)',
+                    '0 0 14px #a78bfa, 0 0 32px #6ee7b7, 0 0 54px #d8b4fe',
+                    '0 0 0 rgba(0,0,0,0)',
+                  ]
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.6, 0.05, -0.01, 0.9],
+                  delay: i * 0.17
+                }}
+                className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black font-mono tracking-tight select-none"
+                style={{
+                  minWidth: '1ch',
+                  whiteSpace: 'pre',
+                  textShadow: '0 0 8px rgba(255,255,255,0.3)'
+                }}
+              >
+                {letter === ' ' ? '\u00A0' : letter}
+              </motion.span>
+            ))}
+          </motion.h1>
+        )}
+      </AnimatePresence>
 
-      {/* Full name reveal in mint green, only after letters gone */}
-      {showName && (
+      {/* Full name cinematic reveal, flawlessly timed */}
+      {showFullName && (
         <motion.div
           initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
