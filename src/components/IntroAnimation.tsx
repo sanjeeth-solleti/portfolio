@@ -12,7 +12,6 @@ function getLetterX(i: number, total: number, spacing: number = 56): number {
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
   const [lettersVisible, setLettersVisible] = useState(true);
-  const [showFullName, setShowFullName] = useState(false);
   const [final, setFinal] = useState(false);
 
   const letters = Array.from('SANJEETH');
@@ -21,9 +20,8 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
   useEffect(() => {
     let timeout1: ReturnType<typeof setTimeout>;
     let timeout2: ReturnType<typeof setTimeout>;
-    let timeout3: ReturnType<typeof setTimeout>;
 
-    // Entrance animation: Springy bounce-in, with blur only during animation
+    // Animate in
     (async () => {
       await Promise.all(
         controlsRef.map(ctrl =>
@@ -44,9 +42,9 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           scale: [0.6, 1.1, 1],
           rotateX: [45, -8, 0],
           color: [
-            '#6ee7b7', // mint green
-            '#22d3ee', // light blue (for visual variation)
-            '#60a5fa'  // blue (for visual variation)
+            '#6ee7b7',
+            '#22d3ee',
+            '#60a5fa'
           ],
           filter: ['blur(16px)', 'blur(2px)', 'blur(0px)'],
           transition: {
@@ -61,12 +59,13 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       }
     })();
 
-    // Timing based on letter animation
+    // Timing for exit
     const entranceDelay = 0.11 * (letters.length - 1);
     const bounceInDuration = 1.05;
     const extraPause = 1.1;
     const timeUntilHideLetters = (entranceDelay + bounceInDuration + extraPause) * 1000;
 
+    // Animate out and remove after show
     timeout1 = setTimeout(() => {
       controlsRef.forEach(ctrl =>
         ctrl.start({
@@ -81,19 +80,16 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       setTimeout(() => setLettersVisible(false), 700);
     }, timeUntilHideLetters);
 
+    // Call onAnimationComplete after whole sequence
     timeout2 = setTimeout(() => {
-      setShowFullName(true);
-      timeout3 = setTimeout(() => {
-        setFinal(true);
-        onAnimationComplete();
-      }, 3200);
-    }, timeUntilHideLetters + 700);
+      setFinal(true);
+      onAnimationComplete();
+    }, timeUntilHideLetters + 1000); // 1s buffer after out
 
     return () => {
       controlsRef.forEach(c => c.stop());
       clearTimeout(timeout1);
       clearTimeout(timeout2);
-      clearTimeout(timeout3);
     };
   }, [onAnimationComplete, controlsRef, letters.length]);
 
@@ -148,7 +144,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
-      {/* Cinematic animated letters: sharp, vibrant, no blur when visible */}
+      {/* Cinematic animated letters: bounce-in, gradient, no blur when visible, no black bg */}
       <AnimatePresence mode="wait">
         {lettersVisible && (
           <motion.h1
@@ -175,36 +171,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           </motion.h1>
         )}
       </AnimatePresence>
-
-      {/* Full name cinematic reveal: green/blue gradient */}
-      {showFullName && (
-        <motion.div
-          initial={{ opacity: 0, scale: 1.05, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 1.5, ease: [0.47, 0, 0.745, 0.715] }}
-          className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
-          style={{ perspective: 1200 }}
-        >
-          <div className="w-full flex justify-center items-center">
-            <motion.span
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-to-r from-green-400 via-blue-400 to-green-300 bg-clip-text text-transparent font-mono tracking-normal select-none"
-              initial={{ rotateX: 10 }}
-              animate={{ rotateX: 0 }}
-              transition={{ duration: 1.3 }}
-              style={{
-                textAlign: 'center',
-                whiteSpace: 'normal',
-                maxWidth: '90vw',
-                wordBreak: 'break-word',
-                margin: '0 auto',
-                display: 'block',
-              }}
-            >
-              VASAVA SANJEETH SOLLETI
-            </motion.span>
-          </div>
-        </motion.div>
-      )}
     </motion.div>
   );
 };
