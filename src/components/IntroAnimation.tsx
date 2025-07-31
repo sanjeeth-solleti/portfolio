@@ -26,7 +26,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       await Promise.all(
         controlsRef.map((ctrl) =>
           ctrl.set({
-            x: 0,
+            x: 0, // start from center
             y: 0,
             z: 0,
             opacity: 0,
@@ -65,12 +65,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       }
     })();
 
+    // Timing for exit
     const entranceDelay = 0.11 * (letters.length - 1);
     const bounceInDuration = 0.93;
     const extraPause = 1.2;
-    const timeUntilHideLetters = (entranceDelay + bounceInDuration + extraPause) * 1000;
+    const timeUntilHideLetters =
+      (entranceDelay + bounceInDuration + extraPause) * 1000;
 
-    // Animate out
+    // Animate out (vanish to center, blur & light)
     timeout1 = setTimeout(() => {
       controlsRef.forEach((ctrl, i) => {
         ctrl.start({
@@ -79,7 +81,10 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           opacity: 0,
           scale: 0.5,
           rotateX: -45,
-          filter: ["blur(0px)", "blur(18px) brightness(2.5)"],
+          filter: [
+            "blur(0px)",
+            "blur(18px) brightness(2.5)", // glow out
+          ],
           transition: {
             duration: 0.75,
             delay: i * 0.06,
@@ -108,16 +113,19 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
   return (
     <motion.div
       key="intro-animation"
-      className="fixed inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-50 flex items-center justify-center overflow-hidden perspective-1000"
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: "blur(10px)", transition: { duration: 1 } }}
+      exit={{
+        opacity: 0,
+        filter: "blur(10px)",
+        transition: { duration: 1 },
+      }}
       style={{ perspective: 1200 }}
     >
-      {/* Background VFX Particles */}
+      {/* Cinematic Neon Particles and Floating Orbs */}
       <div className="absolute inset-0 overflow-visible pointer-events-none">
-         {/* ... (background particle code is unchanged) ... */}
-         {[...Array(60)].map((_, i) => (
+        {[...Array(60)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full"
@@ -127,6 +135,11 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
               scale: [0, 1.8, 0],
               x: [0, Math.random() * 300 - 150],
               y: [0, Math.random() * 300 - 150],
+              filter: [
+                "brightness(80%)",
+                "brightness(180%)",
+                "brightness(80%)",
+              ],
             }}
             transition={{
               duration: 4 + Math.random() * 3,
@@ -140,20 +153,31 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
               top: `${Math.random() * 100}%`,
               width: `${3 + Math.random() * 6}px`,
               height: `${3 + Math.random() * 6}px`,
-              background: Math.random() > 0.5 ? "rgba(110,231,183,0.7)" : "rgba(167,139,250,0.7)",
+              background:
+                Math.random() > 0.5
+                  ? "rgba(110,231,183,0.7)"
+                  : Math.random() > 0.5
+                  ? "rgba(167,139,250,0.7)"
+                  : "rgba(224,231,255,0.7)",
             }}
           />
         ))}
-        <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-gradient-to-tr from-green-400/30 via-purple-500/20 to-blue-400/20 rounded-full blur-4xl animate-pulse"></div>
+        <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-gradient-to-tr from-green-400/30 via-purple-500/20 to-blue-400/20 rounded-full blur-4xl animate-cyber-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-56 h-56 bg-gradient-to-br from-blue-400/15 via-purple-600/10 to-pink-500/15 rounded-full blur-5xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-purple-400/40 to-blue-300/40 rounded-full filter blur-3xl animate-glow" />
       </div>
 
+      {/* Movie Title Cinematic Letters */}
       <AnimatePresence mode="wait">
         {lettersVisible && (
           <motion.h1
-            className="relative flex space-x-4 z-10 overflow-hidden" // Key Change: Added 'overflow-hidden'
+            className="relative flex space-x-4 z-10"
             initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1, transition: { duration: 1.3, ease: "easeOut" } }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              transition: { duration: 1.3, ease: "easeOut" },
+            }}
             exit={{ opacity: 0 }}
             style={{ transformStyle: "preserve-3d" }}
           >
@@ -164,37 +188,44 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
                 className="inline-block text-6xl sm:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-400 via-blue-400 to-green-400 bg-clip-text text-transparent font-mono select-none"
                 style={{
                   minWidth: "1ch",
+                  whiteSpace: "pre",
                   position: "relative",
-                  textShadow: "0 0 48px #a1f4ff, 0 0 16px #54ffe0, 0 0 110px #fff, 0 1px 8px #3dfedc",
+                  textShadow: `
+                    0 0 48px #a1f4ff,
+                    0 0 16px #54ffe0,
+                    0 0 110px #fff,
+                    0 1px 8px #3dfedc
+                  `,
                   willChange: "filter, transform, color",
                 }}
               >
                 {letter}
-                {/* Individual shine span has been REMOVED from here */}
+                {/* Cinematic SHINE RANGE effect */}
+                <motion.span
+                  initial={{ left: "-120%", opacity: 0 }}
+                  animate={{
+                    left: ["-120%", "160%"],
+                    opacity: [0, 0.9, 0],
+                  }}
+                  transition={{
+                    delay: i * 0.11 + 0.47,
+                    duration: 0.38,
+                    ease: "linear",
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    width: "70%",
+                    pointerEvents: "none",
+                    background:
+                      "linear-gradient(120deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.79) 44%, rgba(255,255,255,0.18) 100%)",
+                    filter: "blur(0.7px) brightness(1.5)",
+                    mixBlendMode: "screen",
+                  }}
+                />
               </motion.span>
             ))}
-
-            {/* Key Change: A SINGLE GLOBAL SHINE ELEMENT is placed here */}
-            <motion.div
-              initial={{ x: "-150%" }}
-              animate={{ x: "150%" }}
-              transition={{
-                delay: 1.4, // Starts after letters have animated in
-                duration: 1.2,
-                ease: "linear",
-                repeat: Infinity,
-                repeatType: "loop",
-                repeatDelay: 4, // Pauses for 4s between shines
-              }}
-              className="absolute inset-0 w-full h-full"
-              style={{
-                background: "linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.8) 50%, transparent 80%)",
-                transform: "skewX(-25deg)",
-                filter: "brightness(1.8) blur(6px)",
-                mixBlendMode: "color-dodge", // 'color-dodge' creates a brilliant, high-energy shine
-                pointerEvents: "none",
-              }}
-            />
           </motion.h1>
         )}
       </AnimatePresence>
