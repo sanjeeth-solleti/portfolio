@@ -7,19 +7,9 @@ interface IntroAnimationProps {
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const updateHeight = () => {
-      if (containerRef.current) {
-        containerRef.current.style.height = `${window.innerHeight}px`;
-      }
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-
     const video = videoRef.current;
     if (!video) return;
 
@@ -32,7 +22,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     video.play().catch(console.error);
 
     return () => {
-      window.removeEventListener("resize", updateHeight);
       video.removeEventListener("ended", handleEnded);
     };
   }, [onAnimationComplete]);
@@ -40,22 +29,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
   if (done) return null;
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "black", // fallback background
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 9999,
-        overflow: "hidden",
-      }}
-    >
+    <div style={styles.container}>
       <video
         ref={videoRef}
         src="/intro-animation.mp4"
@@ -63,15 +37,34 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         muted
         playsInline
         preload="auto"
-        style={{
-          width: "100vw",
-          height: "100vh",
-          objectFit: "contain", // Show whole video without cropping
-          objectPosition: "center",
-        }}
+        style={styles.video}
       />
     </div>
   );
+};
+
+const styles = {
+  container: {
+    position: "fixed" as const,
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    zIndex: 9999,
+    overflow: "hidden",
+    backgroundColor: "black",
+  },
+  video: {
+    position: "absolute" as const,
+    top: "50%",
+    left: "50%",
+    minWidth: "100%",
+    minHeight: "100%",
+    width: "auto",
+    height: "auto",
+    transform: "translate(-50%, -50%)",
+    objectFit: "cover",
+  },
 };
 
 export default IntroAnimation;
