@@ -75,8 +75,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
           textShadow: "0 0 20px #2ac1ff, 0 0 40px #00ffea",
           fontFamily: "monospace, Arial, sans-serif",
         }}
-      >
-        SANJEETH
         {/* Replace with your animated text component if needed */}
       </div>
     </div>
