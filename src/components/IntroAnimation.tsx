@@ -1,53 +1,77 @@
-import { useEffect, useState } from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 
-const IntroAnimation = () => {
-  const [showVideo, setShowVideo] = useState(true);
+interface IntroAnimationProps {
+  onAnimationComplete: () => void;
+}
+
+const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowVideo(false);
-    }, 6000); // 6 seconds
+    const updateHeight = () => {
+      if (containerRef.current) {
+        containerRef.current.style.height = `${window.innerHeight}px`;
+      }
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnded = () => {
+      setDone(true);
+      onAnimationComplete();
+    };
+
+    video.addEventListener("ended", handleEnded);
+    video.play().catch(console.error);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      video.removeEventListener("ended", handleEnded);
+    };
+  }, [onAnimationComplete]);
+
+  if (done) return null;
 
   return (
-    <div>
-      {showVideo ? (
-        <div style={styles.container}>
-          <video
-            src="/intro-animation.mp4"
-            autoPlay
-            muted
-            playsInline
-            style={styles.video}
-          />
-        </div>
-      ) : null}
+    <div
+      ref={containerRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "black", // fallback background
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+        overflow: "hidden",
+      }}
+    >
+      <video
+        ref={videoRef}
+        src="/intro-animation.mp4"
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+        style={{
+          width: "100vw",
+          height: "100vh",
+          objectFit: "contain", // Show whole video without cropping
+          objectPosition: "center",
+        }}
+      />
     </div>
   );
-};
-
-const styles = {
-  container: {
-    position: "fixed" as const,
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    zIndex: 9999,
-    overflow: "hidden",
-    backgroundColor: "black",
-  },
-  video: {
-    position: "absolute" as const,
-    top: "50%",
-    left: "50%",
-    width: "100%",
-    height: "100%",
-    transform: "translate(-50%, -50%)",
-    objectFit: "contain", // ensure full visibility on all screens
-  },
 };
 
 export default IntroAnimation;
