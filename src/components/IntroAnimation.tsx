@@ -1,65 +1,46 @@
-import React from "react";
-import { motion } from "framer-motion";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 
-const letters = "SANJEETH".split("");
+interface IntroAnimationProps {
+  onAnimationComplete: () => void;
+}
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
+const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [done, setDone] = useState(false);
 
-const letterVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      damping: 8,
-      stiffness: 80,
-    },
-  },
-};
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-const TitleAnimation = () => {
+    // Auto play and trigger when done
+    const handleEnded = () => {
+      setDone(true);
+      onAnimationComplete();
+    };
+
+    video.addEventListener("ended", handleEnded);
+    video.play().catch(console.error);
+
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+    };
+  }, [onAnimationComplete]);
+
+  if (done) return null;
+
   return (
-    <div
-      className="min-h-screen flex items-center justify-center"
-      style={{
-        background: "radial-gradient(ellipse at center, #0f0f1b 0%, #05050d 100%)",
-        fontFamily: "'Orbitron', sans-serif",
-      }}
-    >
-      <motion.div
-        className="flex gap-2 text-6xl font-bold text-cyan-400"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {letters.map((char, index) => (
-          <motion.span
-            key={index}
-            variants={letterVariants}
-            style={{
-              color: "#00ffe7",
-              textShadow: `
-                0 0 10px #00ffe7,
-                0 0 20px #00ffe7,
-                0 0 40px #00ffe7
-              `,
-            }}
-          >
-            {char}
-          </motion.span>
-        ))}
-      </motion.div>
+    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+      <video
+        ref={videoRef}
+        src="/intro-animation.mp4"
+        className="w-full h-full object-cover"
+        autoPlay
+        muted
+        playsInline
+      />
     </div>
   );
 };
 
-export default TitleAnimation;
+export default IntroAnimation;
