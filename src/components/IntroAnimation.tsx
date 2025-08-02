@@ -40,7 +40,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         overflow: "hidden",
       }}
     >
-      {/* Video fills the whole viewport */}
       <video
         ref={videoRef}
         src="/intro-animation.mp4"
@@ -49,34 +48,17 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         playsInline
         preload="auto"
         style={{
-          position: "absolute", // <-- Key Change
+          position: "absolute",
           top: 0,
           left: 0,
           width: "100vw",
           height: "100vh",
-          objectFit: "cover", // <-- Cover ensures it fills the background
+          objectFit: "cover",
           objectPosition: "center",
-          zIndex: 1, // Lower layer
+          zIndex: 1,
         }}
       />
-
-      {/* Name animation centered */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 2, // Above the video!
-          color: "#44e8ff",
-          fontSize: "clamp(2.5rem, 8vw, 8rem)",
-          fontWeight: "bold",
-          letterSpacing: "0.1em",
-          textShadow: "0 0 20px #2ac1ff, 0 0 40px #00ffea",
-          fontFamily: "monospace, Arial, sans-serif",
-        }}
-        {/* Replace with your animated text component if needed */}
-      </div>
+      {/* No text or overlay here */}
     </div>
   );
 };
