@@ -13,7 +13,6 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     const video = videoRef.current;
     if (!video) return;
 
-    // Auto play and trigger when done
     const handleEnded = () => {
       setDone(true);
       onAnimationComplete();
@@ -30,11 +29,11 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
   if (done) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-black overflow-hidden">
       <video
         ref={videoRef}
         src="/intro-animation.mp4"
-        className="w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted
         playsInline
