@@ -7,9 +7,19 @@ interface IntroAnimationProps {
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    const updateHeight = () => {
+      if (containerRef.current) {
+        containerRef.current.style.height = `${window.innerHeight}px`;
+      }
+    };
+
+    updateHeight(); // Set on load
+    window.addEventListener("resize", updateHeight); // Update on orientation change
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -22,6 +32,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
     video.play().catch(console.error);
 
     return () => {
+      window.removeEventListener("resize", updateHeight);
       video.removeEventListener("ended", handleEnded);
     };
   }, [onAnimationComplete]);
@@ -30,12 +41,13 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
 
   return (
     <div
+      ref={containerRef}
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         width: "100vw",
-        height: "100vh",
+        height: "100vh", // will be overridden by JS
         zIndex: 9999,
         backgroundColor: "black",
         overflow: "hidden",
@@ -50,9 +62,8 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         preload="auto"
         style={{
           width: "100vw",
-          height: "100vh",
+          height: "100%",
           objectFit: "cover",
-          objectPosition: "center",
         }}
       />
     </div>
