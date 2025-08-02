@@ -1,44 +1,29 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-interface IntroAnimationProps {
-  onAnimationComplete: () => void;
-}
-
-const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [done, setDone] = useState(false);
+const IntroAnimation = () => {
+  const [showVideo, setShowVideo] = useState(true);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const timer = setTimeout(() => {
+      setShowVideo(false);
+    }, 6000); // 6 seconds
 
-    const handleEnded = () => {
-      setDone(true);
-      onAnimationComplete();
-    };
-
-    video.addEventListener("ended", handleEnded);
-    video.play().catch(console.error);
-
-    return () => {
-      video.removeEventListener("ended", handleEnded);
-    };
-  }, [onAnimationComplete]);
-
-  if (done) return null;
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div style={styles.container}>
-      <video
-        ref={videoRef}
-        src="/intro-animation.mp4"
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        style={styles.video}
-      />
+    <div>
+      {showVideo ? (
+        <div style={styles.container}>
+          <video
+            src="/intro-animation.mp4"
+            autoPlay
+            muted
+            playsInline
+            style={styles.video}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -58,12 +43,10 @@ const styles = {
     position: "absolute" as const,
     top: "50%",
     left: "50%",
-    minWidth: "100%",
-    minHeight: "100%",
-    width: "auto",
-    height: "auto",
+    width: "100%",
+    height: "100%",
     transform: "translate(-50%, -50%)",
-    objectFit: "cover",
+    objectFit: "contain", // ensure full visibility on all screens
   },
 };
 
