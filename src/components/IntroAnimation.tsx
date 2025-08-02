@@ -29,14 +29,22 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
   if (done) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black overflow-hidden">
+    <div
+      className="fixed top-0 left-0 w-screen h-screen z-[9999] overflow-hidden bg-black"
+      style={{
+        WebkitOverflowScrolling: "touch",
+        overscrollBehavior: "none",
+        touchAction: "none",
+      }}
+    >
       <video
         ref={videoRef}
         src="/intro-animation.mp4"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="w-full h-full object-cover"
         autoPlay
         muted
         playsInline
+        preload="auto"
       />
     </div>
   );
