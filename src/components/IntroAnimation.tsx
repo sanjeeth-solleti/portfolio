@@ -17,8 +17,8 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
       }
     };
 
-    updateHeight(); // Set on load
-    window.addEventListener("resize", updateHeight); // Update on orientation change
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
 
     const video = videoRef.current;
     if (!video) return;
@@ -47,10 +47,10 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         top: 0,
         left: 0,
         width: "100vw",
-        height: "100vh", // will be overridden by JS
+        height: "100vh",
         zIndex: 9999,
-        backgroundColor: "black",
         overflow: "hidden",
+        backgroundColor: "black",
       }}
     >
       <video
@@ -61,9 +61,10 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         playsInline
         preload="auto"
         style={{
-          width: "100vw",
+          width: "100%",
           height: "100%",
           objectFit: "cover",
+          objectPosition: "center",
         }}
       />
     </div>
