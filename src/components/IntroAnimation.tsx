@@ -48,9 +48,12 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         left: 0,
         width: "100vw",
         height: "100vh",
+        backgroundColor: "black", // fallback background
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         zIndex: 9999,
         overflow: "hidden",
-        backgroundColor: "black",
       }}
     >
       <video
@@ -61,9 +64,9 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationComplete }) 
         playsInline
         preload="auto"
         style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
+          width: "100vw",
+          height: "100vh",
+          objectFit: "contain", // Show whole video without cropping
           objectPosition: "center",
         }}
       />
