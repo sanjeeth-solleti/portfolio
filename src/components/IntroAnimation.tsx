@@ -50,7 +50,7 @@ const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) 
   const letters = "SANJEETH".split("");
 
   return (
-    <h1 className="flex text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold tracking-wide text-center px-4">
+    <h1 className="text-[10vw] sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-wide text-center px-4 leading-none">
       
       {/* Subtle Background Grid */}
       <div className="absolute inset-0 opacity-10">
