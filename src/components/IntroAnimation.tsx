@@ -144,7 +144,7 @@ const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) 
 
       {/* Elegant Subtitle */}
       <div 
-        className={``absolute bottom-24 sm:bottom-28 md:bottom-32 text-center transition-all duration-2000 ease-out ${
+        className={`absolute bottom-24 sm:bottom-28 md:bottom-32 text-center transition-all duration-2000 ease-out ${
           phase === 'complete' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
 
         }`}
