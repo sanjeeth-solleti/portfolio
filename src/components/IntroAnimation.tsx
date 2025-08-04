@@ -50,7 +50,7 @@ const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) 
   const letters = "SANJEETH".split("");
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 overflow-hidden flex items-center justify-center">
+    <div className="relative w-full h-screen flex items-center justify-center px-4 text-center">
       
       {/* Subtle Background Grid */}
       <div className="absolute inset-0 opacity-10">
@@ -144,8 +144,9 @@ const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) 
 
       {/* Elegant Subtitle */}
       <div 
-        className={`absolute bottom-30 text-center transition-all duration-2000 ease-out ${
+        className={``absolute bottom-24 sm:bottom-28 md:bottom-32 text-center transition-all duration-2000 ease-out ${
           phase === 'complete' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+
         }`}
       >
         <div className="relative">
