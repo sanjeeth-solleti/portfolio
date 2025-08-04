@@ -8,8 +8,8 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import CyberBackground from './components/CyberBackground';
 import IntroAnimation from './components/IntroAnimation';
-import Certifications from './components/Certifications';// Import the new component
-import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
+import Certifications from './components/Certifications';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -22,26 +22,32 @@ function App() {
     <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden relative">
       {/* Enhanced Cyber Animated Background */}
       <CyberBackground />
-      
+
       {/* Base gradient layers */}
       <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-slate-900 to-black z-0"></div>
       <div className="fixed inset-0 bg-gradient-to-t from-transparent via-transparent to-matrix-900/10 z-0"></div>
-      
+
+      {/* Intro Animation */}
       <AnimatePresence>
         {showIntro && (
           <IntroAnimation onAnimationComplete={handleIntroComplete} />
         )}
       </AnimatePresence>
 
-      <div className={`relative z-10 ${showIntro ? 'invisible' : 'visible'}`}> {/* Hide content while intro is showing */}
-        <Header />
-        <Hero />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Certifications />
-        <Education />
-        <Contact />
+      {/* Content that appears after intro */}
+      <div className="relative z-10">
+        {!showIntro && (
+          <>
+            <Header />
+            <Hero />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Certifications />
+            <Education />
+            <Contact />
+          </>
+        )}
       </div>
     </div>
   );
