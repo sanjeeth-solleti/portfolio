@@ -125,7 +125,7 @@ const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) 
 
         {/* Subtitle */}
         <div
-          className={`transition-all duration-2000 ease-out mt-7 md:mt-9 ${
+          className={`transition-all duration-2000 ease-out mt-6 md:mt-10 ${
             phase === 'complete' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
