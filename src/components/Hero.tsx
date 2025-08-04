@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Terminal } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [displayText, setDisplayText] = useState<string>('');
@@ -16,13 +15,6 @@ const Hero: React.FC = () => {
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, fullText]);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -150,22 +142,6 @@ const Hero: React.FC = () => {
               </motion.span>
             ))}
           </motion.div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3, duration: 1 }}
-          className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.button
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            onClick={() => scrollToSection('about')}
-            className="text-gray-400 hover:text-matrix-400 transition-colors duration-300 p-2 rounded-full hover:bg-matrix-400/10"
-          >
-            <ChevronDown size={24} className="sm:w-8 sm:h-8" />
-          </motion.button>
         </motion.div>
       </div>
     </section>
