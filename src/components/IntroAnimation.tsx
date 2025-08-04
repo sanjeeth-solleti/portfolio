@@ -63,6 +63,7 @@ const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) 
           <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
       </div>
+    </h1>
 
       {/* Elegant Floating Particles */}
       {particles.map((particle) => (
