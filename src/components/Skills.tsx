@@ -57,7 +57,7 @@ const Skills = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent">
-              Technical Arsenal
+              Technical Skills
             </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
