@@ -120,7 +120,7 @@ const Education = () => {
                       </div>
                       <div className="flex items-center justify-center sm:justify-start lg:justify-end text-matrix-400">
                         <Award size={16} className="mr-2" />
-                        <span className="font-semibold font-mono text-sm sm:text-base">GPA: 8.33/10</span>
+                        <span className="font-semibold font-mono text-sm sm:text-base">GPA: 8.45/10</span>
                       </div>
                     </motion.div>
                   </div>
