@@ -40,9 +40,9 @@ function App() {
           <>
             <Header />
             <Hero />
-            <Skills />
             <Experience />
             <Projects />
+            <Skills />
             <Certifications />
             <Education />
             <Contact />
