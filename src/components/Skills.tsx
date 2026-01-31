@@ -1,47 +1,44 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Shield, Zap } from 'lucide-react';
-import {
-  SiPython, SiHtml5, SiCss3, SiC, SiWireshark,
-  SiBurpsuite, SiSplunk, SiLinux, SiSqlite
-} from 'react-icons/si';
-import { FaJava } from 'react-icons/fa';
+import { Code, Shield, Activity } from 'lucide-react';
 
 const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
       icon: Code,
-      skills: [
-        { name: "C", icon: SiC, color: "text-blue-400", level: 85 },
-        { name: "Python", icon: SiPython, color: "text-yellow-400", level: 90 },
-        { name: "Java", icon: FaJava, color: "text-red-500", level: 80 },
-        { name: "HTML", icon: SiHtml5, color: "text-orange-500", level: 85 },
-        { name: "CSS", icon: SiCss3, color: "text-blue-500", level: 80 }
-      ],
+      skills: ["Python"],
       gradient: "from-matrix-500/20 to-matrix-600/20"
     },
     {
-      title: "Cybersecurity Tools",
+      title: "Tools & Platforms",
       icon: Shield,
       skills: [
-        { name: "Kali Linux", icon: SiLinux, color: "text-gray-300", level: 90 },
-        { name: "Wireshark", icon: SiWireshark, color: "text-blue-400", level: 85 },
-        { name: "Burp Suite", icon: SiBurpsuite, color: "text-orange-400", level: 85 },
-        { name: "SQLMap", icon: SiSqlite, color: "text-green-400", level: 80 },
-        { name: "Splunk", icon: SiSplunk, color: "text-neon-400", level: 88 }
+        "Splunk",
+        "Wazuh",
+        "CrowdStrike",
+        "ELK",
+        "Burp Suite",
+        "Nmap",
+        "SQLMap",
+        "Metasploit",
+        "Wireshark",
+        "Nessus",
+        "NetSparker"
       ],
       gradient: "from-neon-500/20 to-neon-600/20"
     },
     {
-      title: "Security & Automation",
-      icon: Zap,
+      title: "SOC & Security",
+      icon: Activity,
       skills: [
-        { name: "Nessus", level: 85 },
-        { name: "Acunetix", level: 82 },
-        { name: "Invicti", level: 80 },
-        { name: "AI Prompting", level: 90 },
-        { name: "SIEM Analysis", level: 88 }
+        "SIEM Monitoring",
+        "Incident Triage",
+        "Threat Detection",
+        "Log Analysis",
+        "Vulnerability Assessment",
+        "Digital Forensics",
+        "OSINT"
       ],
       gradient: "from-electric-500/20 to-electric-600/20"
     }
@@ -69,7 +66,7 @@ const Skills = () => {
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={categoryIndex}
@@ -94,39 +91,19 @@ const Skills = () => {
                 </div>
 
                 {/* Skills List */}
-                <div className="space-y-4">
+                <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill, skillIndex) => (
-                    <motion.div
+                    <motion.span
                       key={skillIndex}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                      className="group/skill"
+                      transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.03 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="px-3 py-1.5 text-sm bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50 hover:border-matrix-400/50 hover:text-white transition-all duration-200"
                     >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          {skill.icon && <skill.icon className={`w-5 h-5 ${skill.color || 'text-gray-400'}`} />}
-                          <span className="text-sm font-medium text-gray-300">{skill.name}</span>
-                        </div>
-                        {skill.level && (
-                          <span className="text-xs text-gray-500 font-mono">{skill.level}%</span>
-                        )}
-                      </div>
-                      
-                      {/* Progress Bar */}
-                      {skill.level && (
-                        <div className="h-1.5 bg-gray-700/50 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.05 + 0.2 }}
-                            className="h-full bg-gradient-to-r from-matrix-400 to-neon-400 rounded-full"
-                          />
-                        </div>
-                      )}
-                    </motion.div>
+                      {skill}
+                    </motion.span>
                   ))}
                 </div>
 
