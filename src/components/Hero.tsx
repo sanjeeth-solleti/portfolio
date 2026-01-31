@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowDown, Sparkles } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [displayText, setDisplayText] = useState<string>('');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const fullText = "CyberSecurity Engineer";
+  const fullText = "Cybersecurity Engineer";
 
   useEffect(() => {
     if (currentIndex < fullText.length) {
@@ -16,134 +17,142 @@ const Hero: React.FC = () => {
     }
   }, [currentIndex, fullText]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
+  const scrollToNext = () => {
+    const element = document.getElementById('skills');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative px-4 sm:px-6 lg:px-8">
-      {/* Enhanced background effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
+      {/* Gradient Orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-matrix-500/30 to-transparent rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-neon-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-electric-500/10 to-transparent rounded-full blur-3xl"></div>
+
+      {/* Floating Particles */}
+      <div className="absolute inset-0">
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0, 1, 0],
-              scale: [0, 1.5, 0],
-              x: [0, Math.random() * 200 - 100],
-              y: [0, Math.random() * 200 - 100]
+            className="absolute w-1 h-1 bg-matrix-400 rounded-full"
+            initial={{ 
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              opacity: 0 
+            }}
+            animate={{
+              y: [null, Math.random() * window.innerHeight],
+              opacity: [0, 0.8, 0]
             }}
             transition={{
-              duration: 3 + Math.random() * 4,
+              duration: 3 + Math.random() * 3,
               repeat: Infinity,
-              delay: Math.random() * 5
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
-              background: `${Math.random() > 0.5 ? '#22c55e' : Math.random() > 0.5 ? '#22d3ee' : '#d946ef'}`
+              delay: Math.random() * 2
             }}
           />
         ))}
       </div>
 
-      {/* Glowing orbs */}
-      <div className="absolute top-1/4 left-1/4 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-matrix-500/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-neon-500/10 rounded-full blur-3xl animate-cyber-pulse"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 bg-electric-500/30 rounded-full blur-2xl animate-glow"></div>
-
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto text-center relative z-10">
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="space-y-6 sm:space-y-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="space-y-8"
         >
-          <div className="space-y-4 sm:space-y-6">
-            <motion.h1 
-              variants={itemVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold"
-            >
-              <span className="block text-gray-100 mb-2">Hello, I'm</span>
-              <motion.span 
-                initial={{ backgroundPosition: "0% 50%" }}
-                animate={{ backgroundPosition: "100% 50%" }}
-                transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
-                className="block bg-gradient-to-r from-matrix-400 via-neon-400 via-electric-400 to-matrix-500 bg-clip-text text-transparent bg-300% font-mono tracking-wider text-xl sm:text-2xl md:text-3xl lg:text-5xl"
-              >
-                VASAVA SANJEETH SOLLETI
-              </motion.span>
-            </motion.h1>
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-matrix-500/10 to-neon-500/10 border border-matrix-400/20 backdrop-blur-sm"
+          >
+            <Sparkles className="w-4 h-4 text-matrix-400" />
+            <span className="text-sm text-gray-300 font-medium">Available for Opportunities</span>
+          </motion.div>
 
-            <motion.div 
-              variants={itemVariants}
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 min-h-[30px] sm:min-h-[40px] mb-4 sm:mb-6"
+          {/* Name */}
+          <div className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
             >
-              <div className="flex items-center justify-center space-x-2">
-                <span className="text-matrix-400 font-mono"></span>
-                <span className="border-r-2 border-matrix-400 animate-pulse pr-1 font-mono">
-                  {displayText}
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
+                <span className="block text-white mb-2">
+                  Vasava Sanjeeth
                 </span>
-              </div>
+                <span className="block bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent">
+                  Solleti
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Typing Effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-2xl sm:text-3xl md:text-4xl text-gray-300 font-light"
+            >
+              <span className="inline-block border-r-2 border-matrix-400 pr-2 animate-pulse">
+                {displayText}
+              </span>
             </motion.div>
           </div>
 
-          <motion.div 
-            variants={itemVariants}
-            className="relative"
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 rounded-lg blur opacity-30"></div>
-            <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-matrix-500/30">
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                <span className="text-matrix-400 font-mono">[MISSION]</span> Passionate about defending digital infrastructure and hunting threats. 
-                Specialized in SOC operations, incident response, and vulnerability assessment 
-                with hands-on experience in enterprise security tools.
-              </p>
-            </div>
-          </motion.div>
+            Specialized in <span className="text-matrix-400 font-semibold">SOC operations</span>, <span className="text-neon-400 font-semibold">threat hunting</span>, and <span className="text-electric-400 font-semibold">incident response</span> with hands-on experience in enterprise security tools.
+          </motion.p>
 
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-wrap justify-center gap-2 sm:gap-4 pt-4"
+          {/* Expertise Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="flex flex-wrap justify-center gap-3 pt-4"
           >
-            {['Threat Hunter', 'SOC Analyst', 'Incident Responder', 'Security Engineer'].map((role, index) => (
+            {['Security Analyst', 'Threat Hunter', 'SOC Engineer', 'Incident Responder'].map((tag, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 2 + index * 0.2 }}
                 whileHover={{ scale: 1.05, y: -2 }}
-                className="px-3 sm:px-4 py-1 sm:py-2 bg-gradient-to-r from-matrix-500/20 to-neon-500/20 border border-matrix-400/30 rounded-full text-matrix-400 font-mono text-xs sm:text-sm hover:border-matrix-400/60 transition-all duration-300"
+                className="px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-full text-sm text-gray-300 hover:border-matrix-400/50 transition-all duration-300"
               >
-                {role}
+                {tag}
               </motion.span>
             ))}
           </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            onClick={scrollToNext}
+            className="mt-12 inline-flex flex-col items-center gap-2 text-gray-400 hover:text-matrix-400 transition-colors cursor-pointer group"
+          >
+            <span className="text-sm font-medium">Explore More</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ArrowDown className="w-5 h-5" />
+            </motion.div>
+          </motion.button>
         </motion.div>
       </div>
+
+      {/* Decorative Grid */}
+      <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-5 pointer-events-none"></div>
     </section>
   );
 };
