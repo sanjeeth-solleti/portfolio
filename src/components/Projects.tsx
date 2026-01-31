@@ -3,60 +3,73 @@ import { motion } from 'framer-motion';
 import { Github, ExternalLink, Shield, Smartphone, Terminal } from 'lucide-react';
 
 const Projects = () => {
+
+  // ✅ UPDATED PROJECTS (ONLY 2 PROJECTS)
   const featuredProjects = [
     {
-      id: 1,
-      title: "Mini Cybersecurity Projects",
-      shortDescription: "A comprehensive collection of beginner-friendly yet effective cybersecurity tools built using Python and Bash.",
-      fullDescription: "These mini applications focus on core security principles including network monitoring, system hardening, and intrusion detection to strengthen overall security posture.",
-      category: "Security",
-      technologies: ["Python", "Bash", "Scapy", "UFW", "Network Security"],
-      github: "https://github.com/sanjeeth-solleti/Mini-Cyber-Security-Projects",
+      id: 2,
+      title: "AI-Powered Security Automation Tool (AutoSOC-L1)",
+      shortDescription: "An intelligent platform that automates Level-1 SOC alert triage and incident handling.",
+      fullDescription: "Designed to reduce alert fatigue by ingesting SIEM alerts, classifying threats using AI, and automatically creating incident tickets.",
+      category: "Security Automation",
+      technologies: ["Python", "Flask", "Wazuh", "Splunk", "Machine Learning", "REST APIs", "Jira"],
+      github: "https://github.com/sanjeeth-solleti/AutoSOC-L1",
       liveDemo: null,
       featured: true,
       icon: Shield,
-      iconColor: "text-matrix-400",
-      gradientFrom: "from-matrix-500/20",
-      gradientTo: "to-matrix-600/20",
-      borderColor: "border-matrix-400/30",
-      features: [
-        {
-          name: "Packet Sniffer",
-          description: "Advanced network packet capture and analysis using Scapy library"
-        },
-        {
-          name: "Firewall Rules Setup",
-          description: "Automated secure firewall configuration with UFW for enhanced protection"
-        },
-        {
-          name: "Honeypot (HoneyMonitor)",
-          description: "Intelligent logging system for unauthorized access attempts on decoy services"
-        }
-      ]
-    },
-    {
-      id: 2,
-      title: "CampusConnect – Student Services App",
-      shortDescription: "A comprehensive all-in-one mobile application that empowers students to seamlessly access their academic information.",
-      fullDescription: "Features include real-time attendance tracking, examination marks, fee status, and personal profile management with secure authentication and data synchronization.",
-      category: "Mobile Development",
-      technologies: ["Flutter", "Firebase", "Dart", "Firebase Auth", "Realtime Database"],
-      github: "https://github.com/sanjeeth-solleti/CampusConnect",
-      liveDemo: null,
-      featured: true,
-      icon: Smartphone,
       iconColor: "text-neon-400",
       gradientFrom: "from-neon-500/20",
       gradientTo: "to-neon-600/20",
       borderColor: "border-neon-400/30",
-      achievements: [
-        "Designed and implemented clean, responsive UI using Flutter framework ensuring intuitive user experience across different screen sizes and devices",
-        "Integrated Firebase Authentication for robust secure login system and comprehensive user data protection",
-        "Established real-time synchronization between frontend and Firebase backend to deliver up-to-date academic data instantly",
-        "Utilized AI prompting skills with ChatGPT to generate optimized UI code, debug complex backend logic, and significantly accelerate development timeline"
+      features: [
+        {
+          name: "Automated Alert Ingestion",
+          description: "Collects and normalizes alerts from Wazuh SIEM"
+        },
+        {
+          name: "AI Alert Classification",
+          description: "Classifies and prioritizes alerts based on severity"
+        },
+        {
+          name: "Jira Ticket Automation",
+          description: "Creates incident tickets automatically for critical threats"
+        }
+      ]
+    },
+
+    {
+      id: 3,
+      title: "Automated Threat Intelligence Engine",
+      shortDescription: "A modular system for automated IOC extraction and threat enrichment.",
+      fullDescription: "Extracts indicators from logs, enriches them using threat intelligence sources, and generates actionable security reports.",
+      category: "Threat Intelligence",
+      technologies: ["Python", "Flask", "React", "Threat Intelligence APIs", "NLP", "Docker"],
+      github: "https://github.com/sanjeeth-solleti/AutoThreatIntel",
+      liveDemo: null,
+      featured: true,
+      icon: Shield,
+      iconColor: "text-electric-400",
+      gradientFrom: "from-electric-500/20",
+      gradientTo: "to-electric-600/20",
+      borderColor: "border-electric-400/30",
+      features: [
+        {
+          name: "IOC Extraction",
+          description: "Extracts IPs, URLs, domains, and hashes from logs"
+        },
+        {
+          name: "Threat Enrichment",
+          description: "Enriches indicators using multiple intelligence sources"
+        },
+        {
+          name: "AI-Assisted Reports",
+          description: "Generates concise threat analysis with recommendations"
+        }
       ]
     }
   ];
+
+  // ================= ANIMATION VARIANTS =================
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,6 +89,8 @@ const Projects = () => {
     visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
+  // ================= SUB COMPONENTS =================
+
   const ProjectFeatures = ({ features, colorClass }) => (
     <div className="mb-4">
       <h5 className={`${colorClass} font-semibold mb-3 font-mono text-sm`}>
@@ -84,27 +99,11 @@ const Projects = () => {
       <ul className="space-y-2">
         {features.map((feature, idx) => (
           <li key={idx} className="text-gray-400 text-xs sm:text-sm flex items-start">
-            <span className={`${colorClass} mr-2 mt-1.5 w-1 h-1 bg-current rounded-full flex-shrink-0 animate-pulse`}></span>
+            <span className={`${colorClass} mr-2 mt-1.5 w-1 h-1 bg-current rounded-full animate-pulse`}></span>
             <div>
               <span className="font-medium text-gray-300">{feature.name}</span>
               <span className="text-gray-500"> – {feature.description}</span>
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
-  const ProjectAchievements = ({ achievements, colorClass }) => (
-    <div className="mb-4">
-      <h5 className={`${colorClass} font-semibold mb-3 font-mono text-sm`}>
-        [KEY_ACHIEVEMENTS]
-      </h5>
-      <ul className="space-y-2">
-        {achievements.map((achievement, idx) => (
-          <li key={idx} className="text-gray-400 text-xs sm:text-sm flex items-start">
-            <span className={`${colorClass} mr-2 mt-1.5 w-1 h-1 bg-current rounded-full flex-shrink-0 animate-pulse`}></span>
-            {achievement}
           </li>
         ))}
       </ul>
@@ -139,6 +138,7 @@ const Projects = () => {
           [VIEW_CODE]
         </motion.a>
       )}
+
       {liveDemo && (
         <motion.a
           whileHover={{ scale: 1.05 }}
@@ -176,6 +176,7 @@ const Projects = () => {
     return (
       <motion.div variants={cardVariants} whileHover={{ scale: 1.02, y: -10 }} className="group relative">
         <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradientFrom} ${project.gradientTo} rounded-lg blur opacity-0 group-hover:opacity-60 transition duration-300`}></div>
+
         <div className={`relative bg-gray-800/60 backdrop-blur-sm rounded-lg overflow-hidden border ${project.borderColor} hover:border-opacity-60 transition-all duration-300`}>
           
           <div className="p-4 sm:p-6">
@@ -188,6 +189,7 @@ const Projects = () => {
                   {project.title}
                 </h4>
               </div>
+
               <div className="flex items-center space-x-2">
                 <span className={`px-2 py-1 text-xs font-mono ${project.iconColor} bg-gray-700/50 rounded-full`}>
                   {project.category}
@@ -197,22 +199,18 @@ const Projects = () => {
             </div>
 
             <div className="mb-4">
-              <p className="text-gray-300 mb-2 leading-relaxed text-sm sm:text-base">{project.shortDescription}</p>
-              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">{project.fullDescription}</p>
+              <p className="text-gray-300 mb-2 text-sm sm:text-base">{project.shortDescription}</p>
+              <p className="text-gray-400 text-xs sm:text-sm">{project.fullDescription}</p>
             </div>
 
             {project.features && (
               <ProjectFeatures features={project.features} colorClass={project.iconColor} />
             )}
 
-            {project.achievements && (
-              <ProjectAchievements achievements={project.achievements} colorClass={project.iconColor} />
-            )}
-
             <TechnologyTags technologies={project.technologies} />
             <ProjectLinks github={project.github} liveDemo={project.liveDemo} />
           </div>
-          
+
           <StatusIndicators />
           <DecorativeElements />
         </div>
@@ -220,22 +218,25 @@ const Projects = () => {
     );
   };
 
+  // ================= MAIN RETURN =================
+
   return (
     <section id="projects" className="py-12 sm:py-16 md:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+          className="text-center mb-12"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          <motion.h2 variants={itemVariants} className="text-4xl font-bold mb-4">
             <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
               &lt;Featured_Projects/&gt;
             </span>
           </motion.h2>
-          <motion.div variants={itemVariants} className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto" />
+          <motion.div variants={itemVariants} className="w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto" />
         </motion.div>
 
         <motion.div
@@ -243,7 +244,7 @@ const Projects = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
         >
           {featuredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
@@ -255,7 +256,7 @@ const Projects = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={itemVariants}
-          className="text-center mt-8 sm:mt-12"
+          className="text-center mt-12"
         >
           <motion.a
             whileHover={{ scale: 1.05 }}
@@ -263,12 +264,13 @@ const Projects = () => {
             href="https://github.com/sanjeeth-solleti"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-6 sm:px-8 py-3 border-2 border-matrix-400/50 text-matrix-400 rounded-lg hover:bg-matrix-400/10 hover:border-matrix-400 transition-all duration-300 font-mono text-sm sm:text-base"
+            className="inline-flex items-center px-8 py-3 border-2 border-matrix-400/50 text-matrix-400 rounded-lg hover:bg-matrix-400/10 hover:border-matrix-400 transition-all duration-300 font-mono"
           >
             <Github size={20} className="mr-2" />
             [VIEW_ALL_PROJECTS]
           </motion.a>
         </motion.div>
+
       </div>
     </section>
   );
