@@ -1,221 +1,160 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Github, Linkedin, Download, Terminal } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Download, Send } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const Contact = () => {
   const contactInfo = [
     {
-      icon: <Mail className="text-matrix-400" size={24} />,
-      title: "Email",
-      content: "vasavasanjeeth@gmail.com",
+      icon: Mail,
+      label: "Email",
+      value: "vasavasanjeeth@gmail.com",
       link: "mailto:vasavasanjeeth@gmail.com",
-      color: "from-matrix-500/20 to-matrix-600/20",
-      borderColor: "border-matrix-400/30"
+      color: "from-matrix-400 to-neon-400"
     },
     {
-      icon: <Phone className="text-neon-400" size={24} />,
-      title: "Phone",
-      content: "+91 94911 60802",
+      icon: Phone,
+      label: "Phone",
+      value: "+91 94911 60802",
       link: "tel:+919491160802",
-      color: "from-neon-500/20 to-neon-600/20",
-      borderColor: "border-neon-400/30"
+      color: "from-neon-400 to-electric-400"
     },
     {
-      icon: <MapPin className="text-electric-400" size={24} />,
-      title: "Location",
-      content: "Tuni, Andhra Pradesh",
-      link: "https://maps.google.com",
-      color: "from-electric-500/20 to-electric-600/20",
-      borderColor: "border-electric-400/30"
+      icon: MapPin,
+      label: "Location",
+      value: "Tuni, Andhra Pradesh",
+      link: "#",
+      color: "from-electric-400 to-matrix-400"
     }
   ];
 
   const socialLinks = [
     {
-      icon: <Github size={24} />,
+      icon: Github,
       label: "GitHub",
       url: "https://github.com/sanjeeth-solleti",
-      color: "hover:text-gray-300",
-      bgColor: "hover:bg-gray-700/20"
+      color: "hover:text-gray-300"
     },
     {
-      icon: <Linkedin size={24} />,
+      icon: Linkedin,
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/vasava-sanjeeth-solleti-9aa790268",
-      color: "hover:text-neon-400",
-      bgColor: "hover:bg-neon-400/10"
+      color: "hover:text-blue-400"
     },
     {
-      icon: <FaWhatsapp size={24} />,
+      icon: FaWhatsapp,
       label: "WhatsApp",
       url: "https://wa.me/9491160802",
-      color: "hover:text-matrix-400",
-      bgColor: "hover:bg-matrix-400/10"
+      color: "hover:text-green-400"
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
-    <section id="contact" className="py-12 sm:py-16 md:py-20 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={containerVariants}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
-          >
-            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent font-mono">
-              &lt;Get_In_Touch/&gt;
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent">
+              Let's Connect
             </span>
-          </motion.h2>
-          <motion.div 
-            variants={itemVariants}
-            className="w-24 sm:w-32 h-1 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 mx-auto mb-4"
-          ></motion.div>
-          <motion.p 
-            variants={itemVariants}
-            className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4"
-          >
-            <span className="text-matrix-400 font-mono">[STATUS]</span> I'm actively seeking opportunities to contribute, learn, and grow through internships or entry-level roles. If you're hiring or open to collaboration, I'd love to connect and discuss how I can add value to your team.
-          </motion.p>
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            I'm actively seeking opportunities in cybersecurity. Let's discuss how I can contribute to your team.
+          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Info */}
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={containerVariants}
-            className="space-y-6 sm:space-y-8 order-2 lg:order-1"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
           >
-            <motion.div 
-              variants={itemVariants}
-              className="flex items-center justify-center lg:justify-start space-x-3 mb-6"
-            >
-              <Terminal className="text-matrix-400" size={20} />
-              <h3 className="text-xl sm:text-2xl font-bold text-white font-mono">
-                [INITIATE_CONNECTION]
-              </h3>
-            </motion.div>
-            
-            <div className="space-y-4 sm:space-y-6">
+            {/* Contact Cards */}
+            <div className="space-y-4">
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={index}
-                  variants={cardVariants}
-                  whileHover={{ scale: 1.02, x: 10 }}
                   href={info.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center group cursor-pointer relative"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ x: 5, scale: 1.02 }}
+                  className="group relative block"
                 >
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${info.color} rounded-lg blur opacity-0 group-hover:opacity-40 transition duration-300`}></div>
-                  <div className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gray-800/60 backdrop-blur-sm rounded-lg border ${info.borderColor} group-hover:border-opacity-60 transition-all duration-300 mr-4`}>
-                    {info.icon}
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium group-hover:text-matrix-400 transition-colors duration-200 font-mono text-sm sm:text-base">
-                      [{info.title.toUpperCase()}]
-                    </h4>
-                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-200 font-mono text-xs sm:text-sm">
-                      {info.content}
-                    </p>
-                  </div>
+                  {/* Glow Effect */}
+                  <div className={`absolute -inset-0.5 bg-gradient-to-r ${info.color} opacity-0 group-hover:opacity-20 blur rounded-xl transition duration-300`}></div>
                   
-                  {/* Status indicator */}
-                  <div className="absolute top-1 right-1 w-2 h-2 bg-matrix-400 rounded-full animate-pulse opacity-60"></div>
+                  {/* Card */}
+                  <div className="relative flex items-center gap-4 p-4 bg-gray-800/50 backdrop-blur-xl rounded-xl border border-gray-700/50 group-hover:border-gray-600 transition-all duration-300">
+                    <div className={`p-3 bg-gradient-to-br ${info.color} rounded-lg`}>
+                      <info.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-400">{info.label}</p>
+                      <p className="text-white font-medium">{info.value}</p>
+                    </div>
+                    <Send className="w-4 h-4 text-gray-400 group-hover:text-matrix-400 transition-colors" />
+                  </div>
                 </motion.a>
               ))}
             </div>
 
-            {/* Resume Download Button */}
-            <motion.div 
-              variants={itemVariants}
-              className="pt-4 sm:pt-6 flex justify-center lg:justify-start"
+            {/* Resume Download */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
             >
               <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="/SanjeethSolleti-SOCAnalyst.pdf"
-                download="SanjeethSolleti-SOCAnalyst"
-                className="inline-flex items-center px-6 sm:px-8 py-3 bg-gradient-to-r from-matrix-500 to-neon-600 text-white rounded-lg hover:from-matrix-400 hover:to-neon-500 transition-all duration-300 shadow-lg shadow-matrix-500/25 font-mono text-sm sm:text-base"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href="/Sanjeeth_Solleti_Resume.pdf"
+                download="Sanjeeth_Solleti_Resume"
+                className="group relative block"
               >
-                <Download size={20} className="mr-2" />
-                [DOWNLOAD_RESUME]
+                {/* Glow Effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-matrix-400 to-neon-400 opacity-50 group-hover:opacity-100 blur rounded-xl transition duration-300"></div>
+                
+                {/* Button */}
+                <div className="relative flex items-center justify-center gap-3 p-4 bg-gradient-to-r from-matrix-500 to-neon-600 rounded-xl text-white font-semibold">
+                  <Download className="w-5 h-5" />
+                  <span>Download Resume</span>
+                </div>
               </motion.a>
             </motion.div>
 
-            <motion.div 
-              variants={itemVariants}
-              className="pt-4 sm:pt-6 text-center lg:text-left"
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
             >
-              <h4 className="text-white font-medium mb-4 font-mono text-sm sm:text-base">[SOCIAL_NETWORKS]</h4>
-              <div className="flex justify-center lg:justify-start space-x-4">
+              <h3 className="text-lg font-semibold text-white mb-4">Connect on Social</h3>
+              <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    whileTap={{ scale: 0.9 }}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 text-gray-400 ${social.color} ${social.bgColor} rounded-lg border border-gray-700/50 hover:border-matrix-400/50 transition-all duration-300`}
-                    aria-label={social.label}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`p-3 bg-gray-800/50 backdrop-blur-xl rounded-xl border border-gray-700/50 ${social.color} transition-all duration-300`}
                   >
-                    {social.icon}
+                    <social.icon className="w-5 h-5" />
                   </motion.a>
                 ))}
               </div>
@@ -224,41 +163,43 @@ const Contact = () => {
 
           {/* Profile Image */}
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={imageVariants}
-            className="flex justify-center relative order-1 lg:order-2"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex justify-center lg:justify-end"
           >
             <div className="relative group">
-              <motion.img
+              {/* Glow Effect */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 opacity-20 group-hover:opacity-40 blur-2xl rounded-full transition duration-500"></div>
+              
+              {/* Image */}
+              <motion.div
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ duration: 0.3 }}
-                src="/sanjeeth.jpg"
-                alt="Sanjeeth"
-                className="relative rounded-full w-100 h-100 sm:w-56 sm:h-100 md:w-64 md:h-100 object-cover border-4 border-gray-700 shadow-2xl shadow-matrix-500/30"
-              />
-              
-              {/* Decorative elements */}
-              <div className="absolute top-4 right-4 w-3 h-3 bg-matrix-400 rounded-full animate-pulse"></div>
-              <div className="absolute bottom-4 left-4 w-2 h-2 bg-neon-400 rounded-full animate-cyber-pulse"></div>
-              <div className="absolute top-1/2 right-2 w-1 h-1 bg-electric-400 rounded-full animate-glow"></div>
+                className="relative"
+              >
+                <img
+                  src="/sanjeeth.jpg"
+                  alt="Sanjeeth"
+                  className="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-2xl border-4 border-gray-700 shadow-2xl"
+                />
+                
+                {/* Decorative Elements */}
+                <div className="absolute top-4 right-4 w-3 h-3 bg-matrix-400 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-4 left-4 w-2 h-2 bg-neon-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
 
+        {/* Footer */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={itemVariants}
-          className="text-center mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-700/50"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-16 pt-8 border-t border-gray-700/50 text-center"
         >
-          <div className="flex items-center justify-center space-x-2 mb-2">
-            <Terminal className="text-matrix-400" size={16} />
-            <span className="text-matrix-400 font-mono text-sm">[SYSTEM_INFO]</span>
-          </div>
-          <p className="text-gray-400 font-mono text-xs sm:text-sm">
+          <p className="text-gray-400 text-sm">
             © 2024 Sanjeeth Solleti. Built with React, TypeScript, and Tailwind CSS.
           </p>
         </motion.div>
