@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Code2, Shield, Zap } from 'lucide-react';
+import { Smartphone, Github, ExternalLink, Cpu } from 'lucide-react';
 
 const Projects = () => {
+  const [activeDevice, setActiveDevice] = useState<number | null>(null);
+
   const projects = [
     {
       title: "AI-Powered Security Automation (AutoSOC-L1)",
@@ -14,8 +16,8 @@ const Projects = () => {
       ],
       technologies: ["Python", "Flask", "Wazuh", "Splunk", "ML", "Jira"],
       github: "https://github.com/sanjeeth-solleti/AutoSOC-L1",
-      gradient: "from-matrix-400 to-neon-400",
-      icon: Shield
+      deviceId: "MOBILE_001",
+      color: "from-cyan-500 to-blue-600"
     },
     {
       title: "Automated Threat Intelligence Engine",
@@ -27,117 +29,212 @@ const Projects = () => {
       ],
       technologies: ["Python", "Flask", "React", "Threat Intel APIs", "NLP", "Docker"],
       github: "https://github.com/sanjeeth-solleti/AutoThreatIntel",
-      gradient: "from-neon-400 to-electric-400",
-      icon: Zap
+      deviceId: "MOBILE_002",
+      color: "from-purple-500 to-pink-600"
     }
   ];
 
   return (
-    <section id="projects" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 relative bg-black overflow-hidden">
+      {/* Digital Rain */}
+      <div className="absolute inset-0 opacity-10">
+        {[...Array(25)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute top-0 font-mono text-cyan-500 text-xs"
+            style={{ left: `${i * 4}%` }}
+            animate={{ y: ['0vh', '100vh'] }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 3,
+            }}
+          >
+            {Array.from({ length: 20 }, () => Math.random() > 0.5 ? '1' : '0').join('')}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-matrix-400 via-neon-400 to-electric-400 bg-clip-text text-transparent">
-              Featured Projects
-            </span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Innovative security solutions built with modern technologies
-          </p>
+          <div className="inline-block px-6 py-3 bg-cyan-500/10 border-2 border-cyan-500 rounded-lg mb-4">
+            <div className="flex items-center gap-3">
+              <Smartphone className="w-6 h-6 text-cyan-400" />
+              <span className="text-cyan-400 font-mono text-sm">MOBILE_DEVICES.SYS</span>
+            </div>
+          </div>
+          <motion.h2
+            className="text-5xl md:text-6xl font-black text-cyan-400 mb-4"
+            style={{ fontFamily: "'Orbitron', monospace" }}
+            animate={{
+              textShadow: [
+                '0 0 20px rgba(6, 182, 212, 0.5)',
+                '0 0 40px rgba(6, 182, 212, 0.8)',
+                '0 0 20px rgba(6, 182, 212, 0.5)',
+              ],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            PROJECT DIRECTORY
+          </motion.h2>
+          <p className="text-gray-400 font-mono">Accessing project repositories...</p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        {/* Mobile Devices Grid */}
+        <div className="grid md:grid-cols-2 gap-12 mb-12">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, rotateY: -30, z: -100 }}
+              whileInView={{ opacity: 1, rotateY: 0, z: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="group relative h-full"
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              onHoverStart={() => setActiveDevice(index)}
+              onHoverEnd={() => setActiveDevice(null)}
+              className="relative"
+              style={{ perspective: '1000px' }}
             >
-              {/* Glow Effect */}
-              <div className={`absolute -inset-0.5 bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-30 blur-xl rounded-2xl transition duration-500`}></div>
-              
-              {/* Card */}
-              <div className="relative h-full bg-gray-800/50 backdrop-blur-xl rounded-2xl p-8 border border-gray-700/50 group-hover:border-gray-600 transition-all duration-300 flex flex-col">
-                {/* Icon & Title */}
-                <div className="flex items-start gap-4 mb-6">
-                  <div className={`p-3 bg-gradient-to-br ${project.gradient} bg-opacity-10 rounded-xl`}>
-                    <project.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-matrix-400 group-hover:to-neon-400 transition-all">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
+              {/* Mobile Device Frame */}
+              <div className="relative">
+                {/* Device Glow */}
+                <motion.div
+                  className={`absolute -inset-4 bg-gradient-to-r ${project.color} rounded-3xl blur-xl opacity-0`}
+                  animate={{
+                    opacity: activeDevice === index ? 0.6 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
 
-                {/* Features */}
-                <div className="mb-6 flex-1">
-                  <h4 className="text-sm font-semibold text-matrix-400 mb-3">Key Features:</h4>
-                  <ul className="space-y-2">
-                    {project.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-gray-300 flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-neon-400 rounded-full mt-1.5 flex-shrink-0"></span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Technologies */}
-                <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 text-xs bg-gray-700/50 text-gray-300 rounded-full border border-gray-600/50"
+                {/* Device Body */}
+                <div className="relative bg-black border-4 border-cyan-500/50 rounded-3xl overflow-hidden"
+                  style={{
+                    boxShadow: '0 0 40px rgba(6, 182, 212, 0.3)',
+                  }}
+                >
+                  {/* Device Header */}
+                  <div className="bg-cyan-500/10 px-6 py-4 border-b-2 border-cyan-500/30">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <motion.div
+                          animate={activeDevice === index ? { rotate: 360 } : {}}
+                          transition={{ duration: 1 }}
+                          className="w-8 h-8 border-2 border-cyan-500 rounded-lg flex items-center justify-center"
+                        >
+                          <Cpu className="w-4 h-4 text-cyan-400" />
+                        </motion.div>
+                        <div>
+                          <div className="text-cyan-400 font-mono text-xs">{project.deviceId}</div>
+                          <div className="text-gray-500 font-mono text-xs">
+                            STATUS: {activeDevice === index ? 'ACCESSING' : 'STANDBY'}
+                          </div>
+                        </div>
+                      </div>
+                      <motion.div
+                        animate={{ opacity: [1, 0.3, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="flex gap-1"
                       >
-                        {tech}
-                      </span>
-                    ))}
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full" />
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full" />
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full" />
+                      </motion.div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Links */}
-                <div className="flex gap-4 pt-4 border-t border-gray-700/50">
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-gray-400 hover:text-matrix-400 transition-colors"
-                  >
-                    <Github className="w-4 h-4" />
-                    View Code
-                  </motion.a>
-                </div>
+                  {/* Device Screen */}
+                  <div className="p-6 relative overflow-hidden bg-gradient-to-br from-gray-900 to-black min-h-[400px]">
+                    {/* Screen Scan Effect */}
+                    {activeDevice === index && (
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-20"
+                        animate={{ y: ['0%', '400%'] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      />
+                    )}
 
-                {/* Decorative Elements */}
-                <div className="absolute top-4 right-4 flex gap-1">
-                  <div className="w-1.5 h-1.5 bg-matrix-400 rounded-full group-hover:animate-pulse"></div>
-                  <div className="w-1.5 h-1.5 bg-neon-400 rounded-full group-hover:animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-1.5 h-1.5 bg-electric-400 rounded-full group-hover:animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <h3 className="text-xl font-bold text-white mb-3" style={{ fontFamily: "'Orbitron', monospace" }}>
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm mb-4 font-mono">{project.description}</p>
+
+                      {/* Features */}
+                      <div className="mb-4">
+                        <div className="text-cyan-400 font-mono text-xs mb-2">FEATURES:</div>
+                        <div className="space-y-2">
+                          {project.features.map((feature, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, x: -10 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: i * 0.1 }}
+                              className="flex items-start gap-2 text-gray-300 text-xs font-mono"
+                            >
+                              <span className="text-cyan-400">▸</span>
+                              <span>{feature}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Technologies */}
+                      <div className="mb-4">
+                        <div className="text-cyan-400 font-mono text-xs mb-2">TECH STACK:</div>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech, i) => (
+                            <span
+                              key={i}
+                              className="px-2 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded text-cyan-400 text-xs font-mono"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Access Button */}
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border-2 border-cyan-500 rounded-lg text-cyan-400 font-mono text-sm hover:bg-cyan-500/30 transition-colors"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>ACCESS REPO</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </motion.a>
+                    </div>
+
+                    {/* Binary Background */}
+                    <div className="absolute bottom-0 right-0 opacity-5 font-mono text-xs text-cyan-400 overflow-hidden">
+                      {Array.from({ length: 10 }, (_, i) => (
+                        <div key={i}>
+                          {Array.from({ length: 50 }, () => Math.random() > 0.5 ? '1' : '0').join('')}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Device Bottom */}
+                  <div className="h-6 bg-cyan-500/5 border-t-2 border-cyan-500/30" />
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* View All Button */}
+        {/* View All Projects */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -145,19 +242,23 @@ const Projects = () => {
           className="text-center"
         >
           <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             href="https://github.com/sanjeeth-solleti"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-matrix-500/10 to-neon-500/10 border border-matrix-400/30 rounded-full text-white hover:border-matrix-400 transition-all duration-300 group"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(6, 182, 212, 0.6)' }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-3 px-8 py-4 bg-cyan-500/10 border-2 border-cyan-500 rounded-lg text-cyan-400 font-mono"
           >
-            <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-            <span>View All Projects</span>
-            <ExternalLink className="w-4 h-4" />
+            <Github className="w-6 h-6" />
+            <span>ACCESS ALL REPOSITORIES</span>
+            <ExternalLink className="w-5 h-5" />
           </motion.a>
         </motion.div>
       </div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&display=swap');
+      `}</style>
     </section>
   );
 };
