@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import Hero from './Hero';
-import Skills from './Skills';
-import Experience from './Experience';
-import Projects from './Projects';
-import Education from './Education';
-import Contact from './Contact';
-import CyberBackground from './CyberBackground';
-import IntroAnimation from './IntroAnimation';
-import Certifications from './Certifications';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Education from './components/Education';
+import Contact from './components/Contact';
+import CyberBackground from './components/CyberBackground';
+import IntroAnimation from './components/IntroAnimation';
+import Certifications from './components/Certifications';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
