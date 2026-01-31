@@ -1,196 +1,420 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  speed: number;
-  opacity: number;
-}
-
-interface CinematicTitleProps {
+interface HackerIntroProps {
   onAnimationComplete?: () => void;
 }
 
-const CinematicTitle: React.FC<CinematicTitleProps> = ({ onAnimationComplete }) => {
-  const [phase, setPhase] = useState('initial'); // initial, scan, reveal, glow, complete
-  const [particles, setParticles] = useState<Particle[]>([]);
+const HackerIntro: React.FC<HackerIntroProps> = ({ onAnimationComplete }) => {
+  const [phase, setPhase] = useState(0);
+  const [hackProgress, setHackProgress] = useState(0);
 
   useEffect(() => {
-    const initialParticles = Array.from({ length: 25 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      speed: Math.random() * 20 + 15,
-      opacity: Math.random() * 0.4 + 0.2,
-    }));
-    setParticles(initialParticles);
-
     const timeline = [
-      { delay: 800, action: () => setPhase('scan') },
-      { delay: 2500, action: () => setPhase('reveal') },
-      { delay: 4000, action: () => setPhase('glow') },
-      { delay: 5500, action: () => setPhase('complete') },
-      { delay: 7000, action: () => onAnimationComplete?.() },
+      { delay: 500, action: () => setPhase(1) },   // Hacker enters
+      { delay: 2000, action: () => setPhase(2) },  // System scan
+      { delay: 3500, action: () => setPhase(3) },  // Hacking sequence
+      { delay: 5500, action: () => setPhase(4) },  // Name reveal
+      { delay: 7000, action: () => setPhase(5) },  // Access granted
+      { delay: 8500, action: () => onAnimationComplete?.() },
     ];
 
     const timers = timeline.map(({ delay, action }) => setTimeout(action, delay));
     return () => timers.forEach(clearTimeout);
   }, [onAnimationComplete]);
 
-  const letters = "SANJEETH".split("");
+  useEffect(() => {
+    if (phase === 3) {
+      const interval = setInterval(() => {
+        setHackProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 30);
+      return () => clearInterval(interval);
+    }
+  }, [phase]);
+
+  const matrixCode = Array.from({ length: 20 }, () => 
+    Array.from({ length: 30 }, () => 
+      Math.random() > 0.5 ? String.fromCharCode(0x30A0 + Math.random() * 96) : Math.random().toString(36)[2]
+    ).join('')
+  );
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
-      {/* Background Grid */}
-      <div className="absolute inset-0 opacity-10 z-0">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(0,255,255,0.3)" strokeWidth="0.5"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
+    <div className="fixed inset-0 z-50 bg-black overflow-hidden">
+      {/* Matrix Rain Background */}
+      <div className="absolute inset-0 opacity-30">
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute top-0 text-green-500 font-mono text-sm"
+            style={{ left: `${i * 2}%` }}
+            animate={{
+              y: ['0vh', '100vh'],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+              ease: "linear",
+            }}
+          >
+            {matrixCode[i % matrixCode.length]}
+          </motion.div>
+        ))}
       </div>
 
-      {/* Floating Particles */}
-      {particles.map(p => (
-        <div
-          key={p.id}
-          className="absolute bg-cyan-400 rounded-full z-0"
+      {/* Grid Floor */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
           style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: `${p.size * 1.5}px`,
-            height: `${p.size * 1.5}px`,
-            opacity: p.opacity,
-            animation: `gentleFloat ${p.speed}s ease-in-out infinite alternate`,
-            boxShadow: '0 0 8px rgba(0,255,255,0.5)',
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 255, 65, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+            transformStyle: 'preserve-3d',
+            transform: 'rotateX(60deg) translateY(50%)',
+          }}
+          animate={{
+            backgroundPositionY: ['0px', '50px'],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "linear",
           }}
         />
-      ))}
+      </div>
 
-      {/* Scanning Line */}
-      {phase === 'scan' && (
-        <div className="absolute inset-0 pointer-events-none z-10">
-          <div 
-            className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80"
-            style={{ top: '50%', animation: 'scanReveal 2s ease-out forwards' }}
-          />
-        </div>
-      )}
-
-      {/* Main Content Container - Centered */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-full">
-        {/* Title */}
-        <div className="mb-8">
-          <h1 className="flex flex-wrap justify-center text-[10vw] sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-wide leading-none">
-            {letters.map((letter, index) => (
-              <span
-                key={index}
-                className={`inline-block transition-all duration-1000 ease-out transform ${
-                  phase === 'reveal' || phase === 'glow' || phase === 'complete'
-                    ? 'translate-y-0 opacity-100 scale-100' 
-                    : phase === 'scan'
-                    ? 'translate-y-8 opacity-30 scale-98'
-                    : 'translate-y-16 opacity-0 scale-95'
-                } ${phase === 'glow' || phase === 'complete'
-                  ? 'text-white'
-                  : phase === 'reveal'
-                  ? 'text-cyan-100'
-                  : 'text-gray-400'
-                }`}
-                style={{
-                  transitionDelay: `${index * 150}ms`,
-                  textShadow: phase === 'glow' || phase === 'complete'
-                    ? '0 0 30px rgba(0,255,255,0.8), 0 0 60px rgba(0,255,255,0.6), 0 0 90px rgba(0,255,255,0.4)'
-                    : phase === 'reveal'
-                    ? '0 0 15px rgba(0,255,255,0.5)'
-                    : 'none',
-                  filter: phase === 'glow' || phase === 'complete' ? 'brightness(1.3)' : 'brightness(1)',
-                  fontFamily: '"Orbitron", "Exo 2", "Rajdhani", monospace',
-                  fontWeight: '800',
-                }}
+      {/* Main Content */}
+      <div className="relative z-10 h-full flex items-center justify-center px-4">
+        <div className="max-w-6xl w-full">
+          
+          {/* Phase 1: Hacker Character Enters */}
+          <AnimatePresence>
+            {phase >= 1 && (
+              <motion.div
+                initial={{ x: -200, opacity: 0, rotateY: -45 }}
+                animate={{ x: 0, opacity: 1, rotateY: 0 }}
+                transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                className="absolute left-8 bottom-24 md:left-16"
               >
-                {letter}
-              </span>
-            ))}
-          </h1>
-        </div>
+                <motion.div
+                  animate={{
+                    y: [0, -10, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="relative"
+                >
+                  {/* Hacker Avatar */}
+                  <div className="relative w-32 h-32 md:w-48 md:h-48">
+                    {/* Glow Effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-green-500 rounded-full blur-2xl opacity-50"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.6, 0.3],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    
+                    {/* Character Circle */}
+                    <div className="relative w-full h-full bg-gradient-to-br from-green-400 to-emerald-600 rounded-full border-4 border-green-500 flex items-center justify-center shadow-2xl overflow-hidden">
+                      <div className="text-6xl md:text-8xl">🥷</div>
+                      
+                      {/* Scanning Line */}
+                      {phase >= 2 && (
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-b from-transparent via-green-400/50 to-transparent"
+                          animate={{ y: ['-100%', '200%'] }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        />
+                      )}
+                    </div>
 
-        {/* Subtitle - Always below the title */}
-        <div className={`transition-all duration-1000 ease-out ${
-          phase === 'complete' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <p className="text-cyan-300 text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-widest mb-4">
-            CYBER SECURITY ENGINEER
-          </p>
-          <div className="w-48 sm:w-64 md:w-80 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto opacity-60" />
+                    {/* Code Particles around character */}
+                    {phase >= 1 && [...Array(12)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute text-green-500 font-mono text-xs"
+                        style={{
+                          left: `${50 + Math.cos((i * Math.PI) / 6) * 120}%`,
+                          top: `${50 + Math.sin((i * Math.PI) / 6) * 120}%`,
+                        }}
+                        animate={{
+                          opacity: [0, 1, 0],
+                          scale: [0.5, 1, 0.5],
+                          rotate: [0, 360],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.2,
+                        }}
+                      >
+                        {['01', '10', 'FF', 'A0', 'C3'][i % 5]}
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Typing Status */}
+                  {phase >= 2 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                    >
+                      <div className="px-4 py-2 bg-black/80 border-2 border-green-500 rounded-lg">
+                        <span className="text-green-400 font-mono text-sm">
+                          <motion.span
+                            animate={{ opacity: [1, 0] }}
+                            transition={{ duration: 0.8, repeat: Infinity }}
+                          >
+                            █
+                          </motion.span>
+                          {' '}INITIALIZING...
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Phase 2 & 3: System Scan & Hacking */}
+          <AnimatePresence>
+            {phase >= 2 && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center space-y-8"
+              >
+                {/* Terminal Window */}
+                <motion.div
+                  initial={{ y: -50, rotateX: -20 }}
+                  animate={{ y: 0, rotateX: 0 }}
+                  className="w-full max-w-3xl bg-black/90 border-4 border-green-500 rounded-lg overflow-hidden shadow-2xl"
+                  style={{
+                    boxShadow: '0 0 50px rgba(34, 197, 94, 0.5)',
+                  }}
+                >
+                  {/* Terminal Header */}
+                  <div className="bg-green-500/20 px-4 py-3 border-b-2 border-green-500 flex items-center gap-2">
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <span className="text-green-400 font-mono text-sm ml-4">
+                      root@sanjeeth-systems:~#
+                    </span>
+                  </div>
+
+                  {/* Terminal Content */}
+                  <div className="p-6 font-mono text-sm space-y-2 h-64 overflow-hidden">
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-green-400"
+                    >
+                      {'>'} Scanning systems...
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.6 }}
+                      className="text-cyan-400"
+                    >
+                      {'>'} Target identified: PORTFOLIO.SYS
+                    </motion.div>
+                    {phase >= 3 && (
+                      <>
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="text-yellow-400"
+                        >
+                          {'>'} Initiating breach protocol...
+                        </motion.div>
+                        
+                        {/* Progress Bar */}
+                        <div className="mt-4">
+                          <div className="flex items-center gap-4">
+                            <span className="text-green-400">HACKING:</span>
+                            <div className="flex-1 h-6 bg-black border-2 border-green-500 rounded overflow-hidden">
+                              <motion.div
+                                className="h-full bg-gradient-to-r from-green-500 to-emerald-400 relative overflow-hidden"
+                                style={{ width: `${hackProgress}%` }}
+                              >
+                                <motion.div
+                                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                  animate={{ x: ['-100%', '200%'] }}
+                                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                />
+                              </motion.div>
+                            </div>
+                            <span className="text-green-400 font-bold w-12">{hackProgress}%</span>
+                          </div>
+                        </div>
+
+                        {/* Scrolling Code */}
+                        <div className="mt-4 space-y-1 opacity-50">
+                          {[...Array(6)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: [0, 1, 0] }}
+                              transition={{ 
+                                duration: 2,
+                                delay: i * 0.2,
+                                repeat: Infinity 
+                              }}
+                              className="text-green-500 text-xs"
+                            >
+                              {`0x${Math.random().toString(16).substr(2, 8)} >> ${['BYPASS', 'DECRYPT', 'INJECT', 'EXPLOIT'][i % 4]}`}
+                            </motion.div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Phase 4: Name Reveal */}
+          <AnimatePresence>
+            {phase >= 4 && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="text-center">
+                  {/* Glitch Effect Name */}
+                  <motion.div
+                    className="relative"
+                    animate={{
+                      textShadow: [
+                        "0 0 10px rgba(34, 197, 94, 0.8)",
+                        "0 0 30px rgba(34, 197, 94, 1)",
+                        "0 0 10px rgba(34, 197, 94, 0.8)",
+                      ],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-green-400 mb-6" style={{ fontFamily: "'Orbitron', monospace" }}>
+                      SANJEETH
+                    </h1>
+                    
+                    {/* Glitch Layers */}
+                    <motion.h1
+                      className="absolute inset-0 text-6xl md:text-8xl lg:text-9xl font-black text-red-500 opacity-70"
+                      animate={{
+                        x: [-2, 2, -2],
+                        opacity: [0, 0.7, 0],
+                      }}
+                      transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 2 }}
+                      style={{ fontFamily: "'Orbitron', monospace" }}
+                    >
+                      SANJEETH
+                    </motion.h1>
+                    <motion.h1
+                      className="absolute inset-0 text-6xl md:text-8xl lg:text-9xl font-black text-cyan-500 opacity-70"
+                      animate={{
+                        x: [2, -2, 2],
+                        opacity: [0, 0.7, 0],
+                      }}
+                      transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 2, delay: 0.1 }}
+                      style={{ fontFamily: "'Orbitron', monospace" }}
+                    >
+                      SANJEETH
+                    </motion.h1>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="inline-block px-8 py-4 bg-black/80 border-2 border-green-500 rounded-lg"
+                  >
+                    <h2 className="text-2xl md:text-3xl text-green-400 font-mono">
+                      CYBERSECURITY OPERATOR
+                    </h2>
+                  </motion.div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Phase 5: Access Granted */}
+          <AnimatePresence>
+            {phase >= 5 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: [0, 1.5, 1] }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center"
+                >
+                  <div className="text-8xl md:text-9xl mb-4">✓</div>
+                  <motion.h2
+                    className="text-4xl md:text-6xl font-black text-green-400"
+                    animate={{
+                      textShadow: [
+                        "0 0 20px rgba(34, 197, 94, 0.8)",
+                        "0 0 40px rgba(34, 197, 94, 1)",
+                        "0 0 20px rgba(34, 197, 94, 0.8)",
+                      ],
+                    }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                    style={{ fontFamily: "'Orbitron', monospace" }}
+                  >
+                    ACCESS GRANTED
+                  </motion.h2>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
         </div>
       </div>
 
-      {/* Center Pulse - Positioned relative to the title */}
-      {(phase === 'glow' || phase === 'complete') && (
-        <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-          <div className="w-2 h-2 bg-cyan-400 rounded-full opacity-80 animate-ping"></div>
-          <div className="absolute inset-0 w-6 h-6 -translate-x-2 -translate-y-2 bg-cyan-400/30 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute inset-0 w-12 h-12 -translate-x-5 -translate-y-5 bg-cyan-400/20 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-        </div>
-      )}
-
-      {/* Corner Accents */}
-      <div className="absolute top-4 left-4 sm:top-6 sm:left-6 opacity-40 z-10 hidden sm:block">
-        <div className="w-12 h-12 sm:w-16 sm:h-16 border border-cyan-400/50 rotate-45 relative">
-          <div className="absolute inset-2 border border-cyan-400/30 animate-pulse"></div>
-        </div>
-      </div>
-
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 opacity-40 z-10 hidden sm:block">
-        <div className="w-10 sm:w-12 h-1 bg-cyan-400/60 mb-1"></div>
-        <div className="w-6 sm:w-8 h-1 bg-cyan-400/40 mb-1 ml-auto"></div>
-        <div className="w-4 sm:w-6 h-1 bg-cyan-400/30 ml-auto"></div>
-      </div>
-
-      <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 opacity-40 z-10 hidden sm:block">
-        <svg width="40" height="40" viewBox="0 0 50 50" className="sm:w-[50px] sm:h-[50px]">
-          <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(0,255,255,0.4)" strokeWidth="1"/>
-          <circle cx="25" cy="25" r="12" fill="none" stroke="rgba(0,255,255,0.6)" strokeWidth="1"/>
-          <circle cx="25" cy="25" r="4" fill="rgba(0,255,255,0.8)" className="animate-pulse"/>
-        </svg>
-      </div>
-
-      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 opacity-40 z-10 hidden sm:block">
-        <div className="relative">
-          <div className="w-1 h-10 sm:h-12 bg-cyan-400/50"></div>
-          <div className="absolute top-0 right-0 w-10 sm:w-12 h-1 bg-cyan-400/50"></div>
-          <div className="absolute top-0 right-0 w-3 h-3 border-2 border-cyan-400/70 animate-pulse"></div>
-        </div>
-      </div>
-
-      {/* Cinematic Bars */}
-      <div className="absolute top-0 left-0 w-full h-8 sm:h-12 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-30"></div>
-      <div className="absolute bottom-0 left-0 w-full h-8 sm:h-12 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-30"></div>
+      {/* Scanlines */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(34, 197, 94, 0.1) 2px, rgba(34, 197, 94, 0.1) 4px)',
+        }}
+      />
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&display=swap');
-
-        @keyframes gentleFloat {
-          0% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
-          100% { transform: translateY(-15px) translateX(5px); opacity: 0.8; }
-        }
-
-        @keyframes scanReveal {
-          0% { transform: translateY(-100vh); opacity: 0; }
-          20% { opacity: 1; }
-          80% { opacity: 1; }
-          100% { transform: translateY(100vh); opacity: 0; }
-        }
       `}</style>
     </div>
   );
 };
 
-export default CinematicTitle;
+export default HackerIntro;
