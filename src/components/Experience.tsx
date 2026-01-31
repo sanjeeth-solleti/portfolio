@@ -31,7 +31,7 @@ const Experience = () => {
     ]
   },
   {
-    title: "Cybersecurity Internship",
+    title: "Cybersecurity Specialist",
     company: "Future Interns",
     location: "Remote",
     period: "June 2025 - July 2025",
@@ -46,7 +46,24 @@ const Experience = () => {
       "DVWM", "BurpSuite", "Splunk", "Log Analysis",
       "Vulnerability Assessment", "Encryption", "cryptography"
     ]
-  }
+  },
+  {
+  title: "Cyber Forensics Specialist & SOCMINT Intern",
+  company: "Cyber Privilege",
+  location: "Remote",
+  period: "Aug 2025 - Nov 2025",
+  color: "from-matrix-500/20 to-neon-600/20",
+  borderColor: "border-matrix-400/30",
+  description: [
+    "Conducted end-to-end digital forensic investigations on compromised Windows and Linux systems, preserving evidence integrity using MD5, SHA-1, SHA-256, and SHA-512 hashing.",
+    "Performed SOCMINT and OSINT investigations to identify threat actors, trace digital footprints, and validate malicious artifacts.",
+    "Created legally defensible forensic reports and maintained ISO 9001:2015-compliant documentation for case handling."
+  ],
+  technologies: [
+    "Autopsy", "FTK Imager", "Volatility", "Wireshark", "Splunk", "OSINT Framework", "Log Analysis", "Memory Forensics", "Disk Forensics", "Cryptography"
+  ]
+}
+
 ];
   const containerVariants = {
     hidden: { opacity: 0 },
