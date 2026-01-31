@@ -189,8 +189,8 @@ const Contact = () => {
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="/Sanjeeth_Solleti_Resume.pdf"
-                download="Sanjeeth_Solleti_Resume"
+                href="/SanjeethSolleti-SOCAnalyst.pdf"
+                download="SanjeethSolleti-SOCAnalyst"
                 className="inline-flex items-center px-6 sm:px-8 py-3 bg-gradient-to-r from-matrix-500 to-neon-600 text-white rounded-lg hover:from-matrix-400 hover:to-neon-500 transition-all duration-300 shadow-lg shadow-matrix-500/25 font-mono text-sm sm:text-base"
               >
                 <Download size={20} className="mr-2" />
