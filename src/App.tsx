@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Education from './components/Education';
-import Contact from './components/Contact';
-import CyberBackground from './components/CyberBackground';
-import IntroAnimation from './components/IntroAnimation';
-import Certifications from './components/Certifications';
+import Header from './Header';
+import Hero from './Hero';
+import Skills from './Skills';
+import Experience from './Experience';
+import Projects from './Projects';
+import Education from './Education';
+import Contact from './Contact';
+import CyberBackground from './CyberBackground';
+import IntroAnimation from './IntroAnimation';
+import Certifications from './Certifications';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -19,22 +19,15 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden relative">
-      {/* Enhanced Cyber Animated Background */}
+    <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
       <CyberBackground />
 
-      {/* Base gradient layers */}
-      <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-slate-900 to-black z-0"></div>
-      <div className="fixed inset-0 bg-gradient-to-t from-transparent via-transparent to-matrix-900/10 z-0"></div>
-
-      {/* Intro Animation */}
       <AnimatePresence>
         {showIntro && (
           <IntroAnimation onAnimationComplete={handleIntroComplete} />
         )}
       </AnimatePresence>
 
-      {/* Content that appears after intro */}
       <div className="relative z-10">
         {!showIntro && (
           <>
